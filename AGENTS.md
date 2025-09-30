@@ -78,6 +78,8 @@ deno task all    # fmt + lint + check + readme + test + coverage
 - Fall back to `Makefile` targets like `make all`, `make test`, `make check`
 - Check `package.json` scripts for `npm run all`, `npm test`, `npm run lint`
 - Look for common patterns: `cargo check && cargo test`, `go test ./...`
+- Quality check command should be documented in `README.md`, `CONTRIBUTING.md`, or `AGENTS.md`
+- If not documented, add it to whichever file exists and is most relevant
 - When in doubt, ask user for the project's quality check command
 
 **Benefits:**
@@ -94,41 +96,29 @@ deno task all    # fmt + lint + check + readme + test + coverage
 - Document the "never commit without running" rule clearly
 - **CRITICAL**: After completing work, run quality checks then commit to provide clean snapshot points for users
 
-### Git Workflow for Research Projects
+### Research Cleanup Workflow
 
-**Tagging for Research Preservation:**
+**Simple Research Management:**
 
 ```bash
-# Tag current state before cleanup
-git tag research-state-$(date +%Y%m%d)
-git push origin research-state-$(date +%Y%m%d)
+# During development - organize research files
+mkdir research/ experiments/
+# ... do experimental work ...
 
-# Research phase - explore freely on separate branch
-git checkout -b research/optimization-experiments
-# ... experimental work ...
-
-# Production phase - preserve research and deliver clean code
-git tag research-optimization-$(date +%Y%m%d)
-git checkout main
-git merge --squash research/optimization-experiments
-git commit -m "Implement performance optimizations"
-
-# Final cleanup
-git reset --hard main
-git clean -fd
+# Before production - clean up research
+git rm -rf research/ experiments/
+git commit -m "Clean up experimental code for production"
 ```
 
-**Use Cases:**
-- Preserving experimental branches before merging
-- Keeping research artifacts while delivering clean production code
-- Creating recovery points during major refactoring
-- Documenting decision points in project evolution
+**Branch Conventions:**
+- Use simple, short kebab-case names: `optimize-parser`, `fix-bug`, `new-feature`
+- No prefixes like `feature/` or `research/` - just descriptive names
+- Git history shows all commits that touched specific paths via `gitk` or `git log --follow`
 
-**Implementation Strategy:**
-- Use separate branches for research vs production
-- Tag research states before cleanup
-- Squash experimental commits for clean history
-- Maintain comprehensive test coverage throughout
+**Use Cases:**
+- Keeping research artifacts separate during development
+- Clean production code without experimental clutter
+- Clear git history showing when research was removed
 
 ### Project Structure and Research Management
 
