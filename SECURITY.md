@@ -1,64 +1,87 @@
 # Security Configuration Guide
 
+**Essential security practices for OpenCode configurations: environment variable management, API key protection, and safe publishing of configuration files with external service credentials.**
+
 ## Overview
 
-This repository contains OpenCode configuration with environment variable references for secure external API key management. The `config.json` file is published safely with environment variable placeholders instead of actual secrets.
+This repository contains OpenCode configuration templates using environment variable references for secure external API key management. Configuration files use placeholder variables instead of actual secrets, enabling safe version control and sharing.
+
+## Configuration Files
+
+| File                         | Description                                                   | Security Level      |
+| ---------------------------- | ------------------------------------------------------------- | ------------------- |
+| [config.json](config.json)   | OpenCode configuration with environment variable placeholders | ✅ Safe to commit   |
+| [.env.example](.env.example) | Environment variable template                                 | ✅ Safe to commit   |
+| `.env`                       | Actual environment variables                                  | ⚠️ **NEVER COMMIT** |
 
 ## Setup Instructions
 
-### 1. Set Environment Variables
+### 1. Environment Variables
 
-Set the required environment variables in your shell or `.env` file:
+Create a `.env` file from the template or set variables directly:
 
 ```bash
-# Required for ollama-vast provider
-export OLLAMA_VAST_BASE_URL="https://your-ollama-vast-instance.com/v1"
+# Copy template (recommended)
+cp .env.example .env
+
+# Edit with your actual values
+# Required for external providers
+export OLLAMA_VAST_BASE_URL="https://your-instance.com/v1"
 export OLLAMA_VAST_API_KEY="your-api-key-here"
 
-# Optional for ollama-local (defaults to localhost)
-export OLLAMA_LOCAL_BASE_URL="http://your-local-instance:11434/v1"
+# Optional for local development
+export OLLAMA_LOCAL_BASE_URL="http://localhost:11434/v1"
 ```
 
-### 2. Environment Variable Configuration
+### 2. Variable Configuration
 
-The configuration supports these environment variables:
+Environment variables supported by [config.json](config.json):
 
-- `OLLAMA_VAST_BASE_URL` - **Required**: Base URL for the vast Ollama instance
-- `OLLAMA_VAST_API_KEY` - **Required**: API key for authentication
-- `OLLAMA_LOCAL_BASE_URL` - **Optional**: Base URL for local Ollama (defaults to http://localhost:11434/v1)
+| Variable                | Required | Default                     | Purpose                      |
+| ----------------------- | -------- | --------------------------- | ---------------------------- |
+| `OLLAMA_VAST_BASE_URL`  | ✅       | -                           | External Ollama instance URL |
+| `OLLAMA_VAST_API_KEY`   | ✅       | -                           | API key for authentication   |
+| `OLLAMA_LOCAL_BASE_URL` | ❌       | `http://localhost:11434/v1` | Local Ollama instance URL    |
 
-## Security Best Practices
+Additional providers may require different variables - check the configuration file for `${VARIABLE_NAME}` patterns.
 
-### ✅ Safe Configuration Publishing
+## Security Principles
 
-- **Safe**: `config.json` contains environment variable references like `${OLLAMA_VAST_API_KEY}`
-- **Safe**: Publishing configuration templates with placeholders
-- **Safe**: Using default values for non-sensitive settings
+### ✅ Safe Practices
 
-### ⚠️ Never Commit Secrets
+- **Configuration Templates**: Use `${VARIABLE}` placeholders in JSON files
+- **Environment Variables**: Store secrets outside version control
+- **Template Sharing**: Commit `.env.example` with placeholder values
+- **Documentation**: Reference security practices in [AGENTS.md](AGENTS.md) and [OpenCode-Tool-System-Documentation.md](OpenCode-Tool-System-Documentation.md)
 
-- **Never** commit `.env` files with actual values
-- **Never** replace environment variable references with real secrets
-- Always use environment variables for sensitive data
+### ⚠️ Critical Restrictions
 
-### 🔐 API Key Security
+- **Never** commit actual API keys or passwords
+- **Never** replace environment variables with literal values in config files
+- **Never** add `.env` files to version control
+- **Always** validate environment variable patterns before committing
 
-- Store API keys in secure password managers
-- Rotate API keys regularly
-- Use different keys for different environments (dev/staging/prod)
-- Monitor API key usage for suspicious activity
+### 🔐 API Key Management
 
-### 🛡️ Network Security
+- Use secure password managers for key storage
+- Rotate keys regularly (monthly/quarterly)
+- Use environment-specific keys (dev/staging/prod)
+- Monitor usage for unusual activity
+- Revoke unused or compromised keys immediately
 
-- Use HTTPS endpoints when possible
-- Avoid exposing internal IP addresses in public repositories
-- Use localhost or 127.0.0.1 for local development defaults
+### 🛡️ Configuration Security
 
-## Environment-Specific Configurations
+- Prefer HTTPS endpoints for external services
+- Use localhost/127.0.0.1 for local development defaults
+- Validate all external URLs before use
+- Document required permissions in [AGENTS.md](AGENTS.md) and [OpenCode-Tool-System-Documentation.md](OpenCode-Tool-System-Documentation.md)
+
+## Environment Examples
 
 ### Development
 
 ```bash
+# Local development with external testing
 export OLLAMA_LOCAL_BASE_URL="http://localhost:11434/v1"
 export OLLAMA_VAST_BASE_URL="https://dev-instance.trycloudflare.com/v1"
 export OLLAMA_VAST_API_KEY="dev-api-key"
@@ -67,6 +90,7 @@ export OLLAMA_VAST_API_KEY="dev-api-key"
 ### Production
 
 ```bash
+# Production deployment
 export OLLAMA_VAST_BASE_URL="https://prod-instance.your-domain.com/v1"
 export OLLAMA_VAST_API_KEY="prod-api-key"
 ```
@@ -75,31 +99,52 @@ export OLLAMA_VAST_API_KEY="prod-api-key"
 
 ### Missing Environment Variables
 
-If you see errors about missing environment variables:
+If you encounter errors about missing variables:
 
-1. Check that all required variables are set
-2. Verify variable names match exactly (case-sensitive)
-3. Restart your application after setting variables
+1. **Check variable names** - They are case-sensitive
+2. **Verify values are set** - Use `echo $VARIABLE_NAME` to test
+3. **Restart applications** after setting new variables
+4. **Check `.env` loading** if using environment files
 
-### Configuration Not Loading
+### Configuration Issues
 
-1. Ensure `config.json` exists in the working directory
-2. Check JSON syntax is valid
-3. Verify environment variables are accessible to the application
+1. **Validate JSON syntax** in [config.json](config.json)
+2. **Check file permissions** for configuration files
+3. **Verify variable expansion** using `envsubst < config.json`
 
-## Recovery from Leaked Secrets
+## Security Incident Response
 
-If secrets are accidentally committed:
+### If Secrets Are Compromised
 
-1. **Immediately rotate all exposed API keys**
-2. Remove secrets from Git history using `git filter-branch` or BFG Repo-Cleaner
-3. Force push cleaned history: `git push --force-with-lease`
-4. Notify team members to re-clone the repository
+**Immediate Actions:**
 
-## Security Contacts
+1. **Rotate all exposed credentials** immediately
+2. **Revoke API keys** at the provider level
+3. **Update environment variables** with new values
+4. **Monitor for unauthorized usage**
 
-For security issues or questions:
+**Git History Cleanup:**
 
-- Review this security guide
-- Check OpenCode documentation
-- Follow responsible disclosure practices
+```bash
+# Remove secrets from Git history (DESTRUCTIVE)
+git filter-branch --env-filter 'unset API_KEY' HEAD
+git push --force-with-lease
+```
+
+⚠️ **Warning**: Force pushing rewrites history - coordinate with your team.
+
+### Prevention
+
+- Use pre-commit hooks to scan for secrets
+- Regular security audits of configuration files
+- Follow practices documented in [AGENTS.md](AGENTS.md) and [OpenCode-Tool-System-Documentation.md](OpenCode-Tool-System-Documentation.md)
+- Reference OpenCode security guidelines at [opencode.ai](https://opencode.ai)
+
+## Related Documentation
+
+- [AGENTS.md](AGENTS.md) - Agent security, permission requirements, and advanced techniques
+- [OpenCode-Tool-System-Documentation.md](OpenCode-Tool-System-Documentation.md) - Tool system architecture and security considerations
+- [README.md](README.md) - Configuration overview and file structure
+- [config.json](config.json) - OpenCode configuration with environment variable placeholders
+
+For advanced security techniques and OpenCode-specific considerations, see the comprehensive documentation in [AGENTS.md](AGENTS.md).

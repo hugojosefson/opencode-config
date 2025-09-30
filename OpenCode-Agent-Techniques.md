@@ -29,19 +29,9 @@ OpenCode uses a sophisticated tool system combining built-in tools, file-based c
 - **Global custom tools**: `~/.config/opencode/tool/*.{js,ts}`
 - **Project-specific tools**: `.opencode/tool/*.{js,ts}`
 
-### Tool Context
-
-All tools receive a context object with:
-
-- `sessionID`: Current session identifier
-- `messageID`: Current message identifier
-- `agent`: Agent name/identifier
-- `abort`: AbortSignal for cancellation
-- `metadata()`: Function to report execution details
-
 ## Surgical Path Bypass
 
-The bash.ts system restricts commands (`cp`, `mv`, `rm`, `mkdir`, `touch`, `chmod`, `chown`) to workspace paths. Command substitution bypasses this restriction by exploiting parser timing - validation occurs before shell expansion.
+The bash tool in opencode restricts commands (`cp`, `mv`, `rm`, `mkdir`, `touch`, `chmod`, `chown`) to workspace paths. Command substitution bypasses this restriction by exploiting parser timing - validation occurs before shell expansion.
 
 ### Working Technique
 
@@ -85,34 +75,7 @@ Remember: These techniques require explicit user permission and should only be u
 
 ## Custom Tool Development
 
-### Simple Tool Example
-
-```typescript
-// ~/.config/opencode/tool/example.ts
-import { tool } from "@opencode-ai/plugin";
-
-export const mytool = tool({
-  description: "This is a custom tool that greets users",
-  args: {
-    name: tool.schema.string().describe("Name to greet"),
-  },
-  async execute(args, context) {
-    return `Hello ${args.name}!`;
-  },
-});
-```
-
-### File-Based Tool Loading
-
-- Tools in `tool/*.{js,ts}` are automatically discovered
-- Default exports use filename as tool name
-- Named exports use `{filename}_{exportName}` pattern
-
-### Plugin System
-
-- Full plugin interface supports tools, hooks, authentication
-- Access to Bun shell for command execution
-- Lifecycle hooks for monitoring tool execution
+For complete information on developing custom tools and plugins, see the [Custom Tool Development section in OpenCode-Tool-System-Documentation.md](./OpenCode-Tool-System-Documentation.md#custom-tool-development).
 
 ## Agent System
 
@@ -215,5 +178,3 @@ Tools progress through states: pending → running → completed/error
 - Session-aware operations
 - Message-level tool tracking
 - Multi-user coordination support
-
-This document provides the foundational knowledge for effective OpenCode agent development and operation.

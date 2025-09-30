@@ -215,68 +215,60 @@ Advanced patterns for organizing complex projects with multiple stakeholders and
 
 ### CLI Script Setup
 
-**Standard CLI Pattern:**
-
-```typescript
-// src/cli.ts - chmod +x and uses deno-shebang
-#!/bin/sh
-// 2>/dev/null;DENO_VERSION_RANGE="^1.42.0";DENO_RUN_ARGS="";set -e;V="$DENO_VERSION_RANGE";A="$DENO_RUN_ARGS";h(){ [ -x "$(command -v "$1" 2>&1)" ];};g(){ u="$([ "$(id -u)" != 0 ]&&echo sudo||:)";if h brew;then echo "brew install $1";elif h apt;then echo "($u apt update && $u DEBIAN_FRONTEND=noninteractive apt install -y $1)";elif h yum;then echo "$u yum install -y $1";elif h pacman;then echo "$u pacman -yS --noconfirm $1";elif h opkg-install;then echo "$u opkg-install $1";fi;};p(){ q="$(g "$1")";if [ -z "$q" ];then echo "Please install '$1' manually, then try again.">&2;exit 1;fi;eval "o=\"\$(set +o)\";set -x;$q;set +x;eval \"\$o\"">&2;};f(){ h "$1"||p "$1";};w(){ [ -n "$1" ] && "$1" -V >/dev/null 2>&1;};U="$(l=$(printf "%s" "$V"|wc -c);for i in $(seq 1 $l);do c=$(printf "%s" "$V"|cut -c $i);printf '%%%02X' "'$c";done)";D="$(w "$(command -v deno||:)"||:)";t(){ i="$(if h findmnt;then findmnt -Ononoexec,noro -ttmpfs -nboAVAIL,TARGET|sort -rn|while IFS=$'\n\t ' read -r a m;do [ "$a" -ge 150000000 ]&&[ -d "$m" ]&&printf %s "$m"&&break||:;done;fi)";printf %s "${i:-"${TMPDIR:-/tmp}"}";};s(){ deno eval "import{satisfies as e}from'https://deno.land/x/semver@v1.4.1/mod.ts';Deno.exit(e(Deno.version.deno,'$V')?0:1);">/dev/null 2>&1;};e(){ R="$(t)/deno-range-$V/bin";mkdir -p "$R";export PATH="$R:$PATH";s&&return;f curl;v="$(curl -sSfL "https://semver-version.deno.dev/api/github/denoland/deno/$U")";i="$(t)/deno-$v";ln -sf "$i/bin/deno" "$R/deno";s && return;f unzip;([ "${A#*-q}" != "$A" ]&&exec 2>/dev/null;curl -fsSL https://deno.land/install.sh|DENO_INSTALL="$i" sh -s $DENO_INSTALL_ARGS "$v"|grep -iv discord>&2);};e;exec deno run $A "$0" "$@"
-
-// Your TypeScript CLI code here...
-console.log("Hello from CLI!");
-```
-
 **Setup:**
 
 - CLI script typically lives at `src/cli.ts`
 - Make executable with `chmod +x src/cli.ts`
 - Use deno-shebang for universal compatibility
-- Get shebang from https://raw.githubusercontent.com/hugojosefson/deno-shebang/refs/heads/main/src/deno-shebang.min.sh
-- Publishes to jsr.io with on-the-fly transpilation support
+- Get the latest shebang from https://github.com/hugojosefson/deno-shebang
+
+**Updating Existing Scripts:**
+
+- Use the same URL (https://github.com/hugojosefson/deno-shebang) for both initial setup and updates
+- When updating the shebang, use the later/newer of any `DENO_VERSION_RANGE` between the old and new versions
+- Preserve any existing `DENO_RUN_ARGS` from the current script when updating the shebang
 
 **Benefits:**
 
 - Auto-installs correct Deno version if needed
 - Works without pre-installed Deno
-- Universal package manager compatibility via jsr.io
 - Self-contained executable TypeScript scripts
 
 ### Permission-Specific Documentation
 
 **🚨 CRITICAL SECURITY REQUIREMENTS:**
 
-**NEVER ADD PERMISSIONS WITHOUT EXPLICIT USER PERMISSION**
+**NEVER ADD DENO PERMISSIONS WITHOUT EXPLICIT USER PERMISSION**
 
-- **Agents must never modify permissions in scripts without user authorization**
-- **This is especially critical for blanket permissions like `--allow-all`, `--allow-net`, `--allow-run`**
-- **External dependencies outside of `jsr:@std/` require extra caution and explicit approval**
-- **Always ask user before adding ANY new permissions to existing scripts**
+- **Agents must never modify deno permissions in scripts without user authorization**
+- **This is especially critical for blanket deno permissions like `--allow-all`, `--allow-net`, `--allow-run`**
+- **If a script has any (even transitive) dependencies outside of `jsr:@std/`, agents must ask the user if it's ok to add any deno permissions to the script**
+- **Always ask user before adding ANY new deno permissions to existing scripts**
 
-**Proper Permission Management:**
+**Proper Deno Permission Management:**
 
 ```typescript
-// CORRECT: Set permissions in DENO_RUN_ARGS of deno-shebang scripts
+// CORRECT: Set deno permissions in DENO_RUN_ARGS of deno-shebang scripts
 // In src/cli.ts: DENO_RUN_ARGS="--allow-read=./config --allow-write=./output"
 
-// Good: Specific permissions with clear purpose
+// Good: Specific deno permissions with clear purpose
 --allow-read=./config --allow-write=./output
 
-// DANGER: Blanket permissions without justification  
+// DANGER: Blanket deno permissions without justification  
 --allow-all
---allow-net  // Unless explicitly required for network operations
---allow-run  // Unless explicitly required for subprocess execution
+--allow-net         // Unless explicitly required for dynamic network operations
+--allow-run         // Unless explicitly required for dynamic subprocess execution
+
+// Good: Static/specific deno permissions
+--allow-net=api.example.com     // Good for static addresses
+--allow-run=git,npm             // Good for specific defined commands
 ```
 
 **Security-First Documentation Approach:**
 
-- **Always request user permission before adding ANY new permissions**
-- **Explain exactly why each permission is needed and what it accesses**
-- **Provide minimal permission examples with security rationale**
+- **Always request user permission before adding ANY new deno permissions**
+- **Explain exactly why each deno permission is needed and what it accesses**
+- **Provide minimal deno permission examples with security rationale**
 - **Document all security implications and potential risks**
-- **Offer different permission levels for different use cases**
-- **Set permissions in `DENO_RUN_ARGS` variable of deno-shebang scripts, not ad-hoc**
+- **Set deno permissions in `DENO_RUN_ARGS` variable of deno-shebang scripts, not ad-hoc**
 - **Extra caution with external dependencies - verify trustworthiness first**
-
-## Development Patterns
-
-Proven patterns for building robust, maintainable software with comprehensive testing and documentation.
