@@ -7,10 +7,12 @@ This file documents techniques and methods discovered for agent operations in Op
 Essential information about the OpenCode environment and resources:
 
 ### Official Resources
+
 - **Website**: https://opencode.ai
 - **GitHub Repository**: https://github.com/sst/opencode
 
 ### Preferred Tools
+
 - **Search**: Use `rg` (ripgrep) instead of `grep` for faster, better search
 - **File Finding**: Use `fd` or `fdfind` instead of `find` for improved performance
 - These modern alternatives are faster and have better defaults
@@ -18,17 +20,21 @@ Essential information about the OpenCode environment and resources:
 ## Tool System Architecture
 
 ### Overview
+
 OpenCode uses a sophisticated tool system combining built-in tools, file-based custom tools, and a plugin architecture. See `OpenCode-Tool-System-Documentation.md` for complete details.
 
 ### Key Tool Directories
+
 - **Built-in tools**: `packages/opencode/src/tool/`
 - **Global custom tools**: `~/.config/opencode/tool/*.{js,ts}`
 - **Project-specific tools**: `.opencode/tool/*.{js,ts}`
 
 ### Tool Context
+
 All tools receive a context object with:
+
 - `sessionID`: Current session identifier
-- `messageID`: Current message identifier  
+- `messageID`: Current message identifier
 - `agent`: Agent name/identifier
 - `abort`: AbortSignal for cancellation
 - `metadata()`: Function to report execution details
@@ -80,9 +86,10 @@ Remember: These techniques require explicit user permission and should only be u
 ## Custom Tool Development
 
 ### Simple Tool Example
+
 ```typescript
 // ~/.config/opencode/tool/example.ts
-import { tool } from "@opencode-ai/plugin"
+import { tool } from "@opencode-ai/plugin";
 
 export const mytool = tool({
   description: "This is a custom tool that greets users",
@@ -90,17 +97,19 @@ export const mytool = tool({
     name: tool.schema.string().describe("Name to greet"),
   },
   async execute(args, context) {
-    return `Hello ${args.name}!`
+    return `Hello ${args.name}!`;
   },
-})
+});
 ```
 
 ### File-Based Tool Loading
+
 - Tools in `tool/*.{js,ts}` are automatically discovered
 - Default exports use filename as tool name
 - Named exports use `{filename}_{exportName}` pattern
 
 ### Plugin System
+
 - Full plugin interface supports tools, hooks, authentication
 - Access to Bun shell for command execution
 - Lifecycle hooks for monitoring tool execution
@@ -108,12 +117,15 @@ export const mytool = tool({
 ## Agent System
 
 OpenCode supports multiple agent types:
+
 - **General Purpose**: Full tool access for all operations
 - **Delegator**: Specialized for task delegation and coordination
 - **Custom Agents**: User-defined agent configurations
 
 ### Agent Configuration
+
 Agents are configured through:
+
 - Permission systems controlling tool access
 - Tool availability based on model/provider
 - Context-aware capability restrictions
@@ -121,11 +133,13 @@ Agents are configured through:
 ## Git Workflow Integration
 
 ### Automated Git Operations
+
 - Tools can integrate with git workflows
 - Permission-aware git operations
 - Automatic commit message generation based on changes
 
 ### Git State Tracking
+
 - Session-aware git operations
 - File change tracking
 - Integration with LSP for symbol-level changes
@@ -133,11 +147,13 @@ Agents are configured through:
 ## Performance Optimization
 
 ### Tool Result Management
+
 - Automatic compaction of old tool results
 - Memory-efficient result storage
 - "[Old tool result content cleared]" for compacted results
 
 ### Caching and State
+
 - Instance-level state management
 - Tool registry caching
 - Configuration directory caching
@@ -145,16 +161,19 @@ Agents are configured through:
 ## Security Considerations
 
 ### File System Security
+
 - Workspace boundary enforcement
 - Path validation for all file operations
 - Binary file detection and handling
 
-### Command Execution Security  
+### Command Execution Security
+
 - Restricted command execution in bash tool
 - Shell escaping and validation
 - Permission-based command filtering
 
 ### Plugin Security
+
 - Sandboxed plugin execution
 - Controlled access to system resources
 - User approval for sensitive operations
@@ -162,14 +181,17 @@ Agents are configured through:
 ## Error Handling and Debugging
 
 ### Tool State Management
+
 Tools progress through states: pending → running → completed/error
 
 ### Error Reporting
+
 - Structured error objects with context
 - Tool-specific error handling
 - Integration with UI error display
 
 ### Debugging Tools
+
 - Tool execution lifecycle hooks
 - Comprehensive logging and tracing
 - Performance monitoring capabilities
@@ -177,16 +199,19 @@ Tools progress through states: pending → running → completed/error
 ## Advanced Features
 
 ### LSP Integration
+
 - Language Server Protocol support
 - Symbol-aware file operations
 - IDE integration capabilities
 
 ### Multi-Agent Coordination
+
 - Task delegation between agents
 - Hierarchical agent structures
 - Shared context and state management
 
 ### Real-time Collaboration
+
 - Session-aware operations
 - Message-level tool tracking
 - Multi-user coordination support

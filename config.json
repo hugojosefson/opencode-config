@@ -24,7 +24,7 @@
         "apiKey": "${OLLAMA_VAST_API_KEY}"
       },
       "models": {
-	"gpt-oss:20b": {},
+        "gpt-oss:20b": {},
         "deepseek-r1:7b": {
           "tools": true,
           "options": {

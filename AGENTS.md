@@ -7,14 +7,15 @@ This file documents techniques and methods discovered for agent operations in Op
 Essential information about the OpenCode environment and resources:
 
 ### Official Resources
+
 - **Website**: https://opencode.ai
 - **GitHub Repository**: https://github.com/sst/opencode
 
 ### Preferred Tools
+
 - **Search**: Use `rg` (ripgrep) instead of `grep` for faster, better search
 - **File Finding**: Use `fd` or `fdfind` instead of `find` for improved performance
 - These modern alternatives are faster and have better defaults
-
 
 ## Surgical Path Bypass
 
@@ -74,6 +75,7 @@ deno task all    # fmt + lint + check + readme + test + coverage
 ```
 
 **Discovery Strategy:**
+
 - Check for `deno task all` in `deno.json` or `deno.jsonc` first
 - Fall back to `Makefile` targets like `make all`, `make test`, `make check`
 - Check `package.json` scripts for `npm run all`, `npm test`, `npm run lint`
@@ -83,6 +85,7 @@ deno task all    # fmt + lint + check + readme + test + coverage
 - When in doubt, ask user for the project's quality check command
 
 **Benefits:**
+
 - Prevents broken builds from entering version control
 - Ensures consistent code formatting and style
 - Validates all tests pass with full coverage
@@ -90,6 +93,7 @@ deno task all    # fmt + lint + check + readme + test + coverage
 - Catches type errors and linting issues early
 
 **Implementation Strategy:**
+
 - Create a single task that chains all validation steps
 - Make it mandatory in development documentation
 - Include in CI/CD as a double-check
@@ -111,11 +115,13 @@ git commit -m "Clean up experimental code for production"
 ```
 
 **Branch Conventions:**
+
 - Use simple, short kebab-case names: `optimize-parser`, `fix-bug`, `new-feature`
 - No prefixes like `feature/` or `research/` - just descriptive names
 - Git history shows all commits that touched specific paths via `gitk` or `git log --follow`
 
 **Use Cases:**
+
 - Keeping research artifacts separate during development
 - Clean production code without experimental clutter
 - Clear git history showing when research was removed
@@ -152,6 +158,7 @@ git commit -m "Clean up experimental code for production"
 ```
 
 **Principles:**
+
 - Keep production directories clean and focused
 - Separate source templates from generated files
 - Remove experimental code before tagging releases
@@ -182,18 +189,21 @@ readme/
 ```
 
 **Detection Strategy:**
+
 - Check if `/README.md` in workspace is read-only - likely generated
 - Look for `readme` task in `deno.json`/`deno.jsonc` or `package.json`
 - Look for `README.md` target in `Makefile`
 - After editing `readme/` folder, run the readme generation task unless already included in `deno task all`
 
 **Benefits:**
+
 - Single source of truth for documentation
 - Automatic inclusion of code examples
 - Consistent formatting across all docs
 - Easy maintenance and updates
 
 **Implementation:**
+
 - Use placeholder directives like `@@include(file.ext)`
 - Make generated files read-only to prevent direct editing
 - Include generation in pre-commit workflow
@@ -217,13 +227,15 @@ console.log("Hello from CLI!");
 ```
 
 **Setup:**
-- CLI script typically lives at `src/cli.ts` 
+
+- CLI script typically lives at `src/cli.ts`
 - Make executable with `chmod +x src/cli.ts`
 - Use deno-shebang for universal compatibility
 - Get shebang from https://raw.githubusercontent.com/hugojosefson/deno-shebang/refs/heads/main/src/deno-shebang.min.sh
 - Publishes to jsr.io with on-the-fly transpilation support
 
 **Benefits:**
+
 - Auto-installs correct Deno version if needed
 - Works without pre-installed Deno
 - Universal package manager compatibility via jsr.io
@@ -234,6 +246,7 @@ console.log("Hello from CLI!");
 **🚨 CRITICAL SECURITY REQUIREMENTS:**
 
 **NEVER ADD PERMISSIONS WITHOUT EXPLICIT USER PERMISSION**
+
 - **Agents must never modify permissions in scripts without user authorization**
 - **This is especially critical for blanket permissions like `--allow-all`, `--allow-net`, `--allow-run`**
 - **External dependencies outside of `jsr:@std/` require extra caution and explicit approval**
@@ -255,6 +268,7 @@ console.log("Hello from CLI!");
 ```
 
 **Security-First Documentation Approach:**
+
 - **Always request user permission before adding ANY new permissions**
 - **Explain exactly why each permission is needed and what it accesses**
 - **Provide minimal permission examples with security rationale**
@@ -263,11 +277,6 @@ console.log("Hello from CLI!");
 - **Set permissions in `DENO_RUN_ARGS` variable of deno-shebang scripts, not ad-hoc**
 - **Extra caution with external dependencies - verify trustworthiness first**
 
-
 ## Development Patterns
 
 Proven patterns for building robust, maintainable software with comprehensive testing and documentation.
-
-
-
-
