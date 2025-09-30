@@ -1,1 +1,5 @@
-{}
+{
+  "tasks": {
+    "all": "deno fmt && deno lint --fix && deno fmt && deno check"
+  }
+}
