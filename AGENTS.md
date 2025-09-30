@@ -129,7 +129,7 @@ git commit -m "Clean up experimental code for production"
 project/
 ├── src/                    # Core implementation
 ├── test/                   # Comprehensive test suite
-├── docs/                   # Documentation source templates
+├── readme/                 # Documentation source templates
 ├── .github/workflows/      # CI/CD automation
 ├── research/              # Experimental work (temporary)
 ├── experiments/           # Alternative approaches (temporary)
@@ -139,7 +139,7 @@ project/
 project/
 ├── src/                    # Core implementation
 ├── test/                   # Comprehensive test suite
-├── docs/                   # Documentation source
+├── readme/                 # Documentation source
 └── README.md              # Auto-generated documentation
 ```
 
@@ -172,7 +172,7 @@ Tool for git rebase autosquash operations to maintain clean commit history.
 **Template-Based Documentation:**
 
 ```bash
-docs/
+readme/
 ├── README.md              # Source template with @@include() directives
 ├── generate-readme.ts     # Generation script
 ├── examples/              # Include files
@@ -180,6 +180,12 @@ docs/
 │   └── usage.sh
 └── README.md              # Auto-generated final output (make read-only)
 ```
+
+**Detection Strategy:**
+- Check if `/README.md` in workspace is read-only - likely generated
+- Look for `readme` task in `deno.json`/`deno.jsonc` or `package.json`
+- Look for `README.md` target in `Makefile`
+- After editing `readme/` folder, run the readme generation task unless already included in `deno task all`
 
 **Benefits:**
 - Single source of truth for documentation
