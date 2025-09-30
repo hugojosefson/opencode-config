@@ -73,6 +73,13 @@ Implement comprehensive validation before any commit to ensure repository qualit
 deno task all    # fmt + lint + check + readme + test + coverage
 ```
 
+**Discovery Strategy:**
+- Check for `deno task all` in `deno.json` or `deno.jsonc` first
+- Fall back to `Makefile` targets like `make all`, `make test`, `make check`
+- Check `package.json` scripts for `npm run all`, `npm test`, `npm run lint`
+- Look for common patterns: `cargo check && cargo test`, `go test ./...`
+- When in doubt, ask user for the project's quality check command
+
 **Benefits:**
 - Prevents broken builds from entering version control
 - Ensures consistent code formatting and style
@@ -85,6 +92,7 @@ deno task all    # fmt + lint + check + readme + test + coverage
 - Make it mandatory in development documentation
 - Include in CI/CD as a double-check
 - Document the "never commit without running" rule clearly
+- **CRITICAL**: After completing work, run quality checks then commit to provide clean snapshot points for users
 
 ### Git Workflow for Research Projects
 
