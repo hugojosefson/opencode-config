@@ -220,6 +220,7 @@ console.log("Hello from CLI!");
 - CLI script typically lives at `src/cli.ts` 
 - Make executable with `chmod +x src/cli.ts`
 - Use deno-shebang for universal compatibility
+- Get shebang from https://raw.githubusercontent.com/hugojosefson/deno-shebang/refs/heads/main/src/deno-shebang.min.sh
 - Publishes to jsr.io with on-the-fly transpilation support
 
 **Benefits:**
@@ -230,46 +231,37 @@ console.log("Hello from CLI!");
 
 ### Permission-Specific Documentation
 
-**Minimal vs Blanket Permissions Strategy:**
+**🚨 CRITICAL SECURITY REQUIREMENTS:**
+
+**NEVER ADD PERMISSIONS WITHOUT EXPLICIT USER PERMISSION**
+- **Agents must never modify permissions in scripts without user authorization**
+- **This is especially critical for blanket permissions like `--allow-all`, `--allow-net`, `--allow-run`**
+- **External dependencies outside of `jsr:@std/` require extra caution and explicit approval**
+- **Always ask user before adding ANY new permissions to existing scripts**
+
+**Proper Permission Management:**
 
 ```typescript
+// CORRECT: Set permissions in DENO_RUN_ARGS of deno-shebang scripts
+// In src/cli.ts: DENO_RUN_ARGS="--allow-read=./config --allow-write=./output"
+
 // Good: Specific permissions with clear purpose
 --allow-read=./config --allow-write=./output
 
-// Avoid: Blanket permissions without justification  
+// DANGER: Blanket permissions without justification  
 --allow-all
+--allow-net  // Unless explicitly required for network operations
+--allow-run  // Unless explicitly required for subprocess execution
 ```
 
-**Documentation Approach:**
-- Explain why each permission is needed
-- Provide minimal permission examples
-- Document security implications
-- Offer different permission levels for different use cases
-
-### Multi-Pass Parsing Strategies
-
-**Systematic Processing for Complex Transformations:**
-
-```typescript
-// Example: AST-based processing
-function processCode(input: string): string {
-  // Pass 1: Extract metadata and preservation rules
-  const metadata = extractMetadata(input);
-  
-  // Pass 2: Collect identifiers for intelligent processing
-  const identifiers = collectIdentifiers(input, metadata);
-  
-  // Pass 3: Apply transformations with full context
-  return applyTransformations(input, metadata, identifiers);
-}
-```
-
-**Use Cases:**
-- Code minification with preservation rules
-- AST transformations requiring global context
-- Optimization passes that depend on previous analysis
-- Complex refactoring with dependency tracking
-
+**Security-First Documentation Approach:**
+- **Always request user permission before adding ANY new permissions**
+- **Explain exactly why each permission is needed and what it accesses**
+- **Provide minimal permission examples with security rationale**
+- **Document all security implications and potential risks**
+- **Offer different permission levels for different use cases**
+- **Set permissions in `DENO_RUN_ARGS` variable of deno-shebang scripts, not ad-hoc**
+- **Extra caution with external dependencies - verify trustworthiness first**
 
 
 ## Development Patterns
