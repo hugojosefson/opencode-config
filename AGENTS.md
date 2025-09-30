@@ -19,6 +19,86 @@ Essential information about the OpenCode environment and resources:
   performance
 - These modern alternatives are faster and have better defaults
 
+## Deno TypeScript Editing
+
+OpenCode's built-in editing system can interfere with TypeScript development in
+Deno projects by running non-Deno-aware type checkers that report false errors.
+
+### The Problem
+
+When editing `.ts` files in Deno projects, OpenCode's automatic type checking
+tools often run immediately after edits. These tools don't understand Deno's
+runtime APIs and module resolution, leading to:
+
+- False error reports for valid Deno APIs (`Deno.readTextFile`, `Deno.env`,
+  etc.)
+- Import resolution failures for Deno-style imports (`jsr:`, `npm:`, `https:`)
+- Type errors for Deno standard library usage
+- Incorrect assumptions about Node.js vs Deno environments
+
+### The Solution
+
+**Instead of relying on automatic type checking, agents should use proper Deno
+validation tools:**
+
+```bash
+# Primary validation - use project's quality check command
+deno task all        # Preferred: comprehensive validation (fmt + lint + check + test)
+
+# Fallback validation commands if no project-specific task exists
+deno check src/      # Type checking with Deno's TypeScript compiler
+deno lint --fix           # Deno-aware linting
+deno fmt --check    # Format validation
+deno test           # Run tests to validate functionality
+```
+
+### Best Practices
+
+1. **Ignore automatic type checker errors** - These are often false positives in
+   Deno projects
+
+2. **Use project-specific validation** - Always prefer `deno task all` or
+   similar project-defined quality check commands
+
+3. **Run validation after editing** - Complete your edits first, then run proper
+   Deno tools to validate
+
+4. **Focus on Deno-native tools** - Use `deno check`, `deno lint --fix`,
+   `deno fmt` instead of generic TypeScript tools
+
+5. **Trust Deno's compiler** - If `deno check` passes, the TypeScript is valid
+   for Deno runtime
+
+### Discovery Strategy
+
+Follow the "Mandatory Pre-Commit Workflows" section to discover the right
+validation commands for each project:
+
+- Look for `deno task all` in `deno.json` or `deno.jsonc`
+- Check for documented quality check commands in `README.md` or `AGENTS.md`
+- Fall back to individual Deno commands if no comprehensive task exists
+- When in doubt, ask the user for the project's preferred validation workflow
+
+### Example Workflow
+
+```bash
+# 1. Edit TypeScript files (ignore automatic type checker errors)
+# 2. Run project validation
+deno task all
+
+# 3. If no comprehensive task, run individual validations
+deno fmt
+deno lint --fix
+deno check src/
+deno test
+
+# 4. Commit only after validation passes
+git add . && git commit -m "feat: name of feature"
+```
+
+**Remember**: OpenCode's automatic type checking is not Deno-aware. Always use
+Deno's own tools for accurate TypeScript validation in Deno projects.
+
 ## Surgical Path Bypass
 
 The bash tool in opencode restricts commands (`cp`, `mv`, `rm`, `mkdir`,
@@ -121,7 +201,7 @@ mkdir research/ experiments/
 
 # Before production - clean up research
 git rm -rf research/ experiments/
-git commit -m "Clean up experimental code for production"
+git commit -m "chore(research): clean up for production"
 ```
 
 **Branch Conventions:**
@@ -166,7 +246,7 @@ project/
 ```bash
 # Clean experimental code for production
 rm -rf research/ experiments/ analysis/
-git commit -m "Clean up experimental code for production"
+git commit -m "chore(research): clean up for production"
 ```
 
 **Principles:**
