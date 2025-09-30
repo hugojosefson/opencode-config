@@ -146,10 +146,6 @@ project/
 **Research Preservation Workflow:**
 
 ```bash
-# Before major cleanup, preserve research history
-git tag research-$(date +%Y%m%d)
-git push origin research-$(date +%Y%m%d)
-
 # Clean experimental code for production
 rm -rf research/ experiments/ analysis/
 git commit -m "Clean up experimental code for production"
@@ -158,7 +154,6 @@ git commit -m "Clean up experimental code for production"
 **Principles:**
 - Keep production directories clean and focused
 - Separate source templates from generated files
-- Use git tags to preserve research before cleanup
 - Remove experimental code before tagging releases
 - Use clear naming conventions for temporary vs permanent
 
