@@ -1,10 +1,15 @@
 # Security Configuration Guide
 
-**Essential security practices for OpenCode configurations: environment variable management, API key protection, and safe publishing of configuration files with external service credentials.**
+**Essential security practices for OpenCode configurations: environment variable
+management, API key protection, and safe publishing of configuration files with
+external service credentials.**
 
 ## Overview
 
-This repository contains OpenCode configuration templates using environment variable references for secure external API key management. Configuration files use placeholder variables instead of actual secrets, enabling safe version control and sharing.
+This repository contains OpenCode configuration templates using environment
+variable references for secure external API key management. Configuration files
+use placeholder variables instead of actual secrets, enabling safe version
+control and sharing.
 
 ## Configuration Files
 
@@ -43,7 +48,8 @@ Environment variables supported by [config.json](config.json):
 | `OLLAMA_VAST_API_KEY`   | ✅       | -                           | API key for authentication   |
 | `OLLAMA_LOCAL_BASE_URL` | ❌       | `http://localhost:11434/v1` | Local Ollama instance URL    |
 
-Additional providers may require different variables - check the configuration file for `${VARIABLE_NAME}` patterns.
+Additional providers may require different variables - check the configuration
+file for `${VARIABLE_NAME}` patterns.
 
 ## Security Principles
 
@@ -52,7 +58,8 @@ Additional providers may require different variables - check the configuration f
 - **Configuration Templates**: Use `${VARIABLE}` placeholders in JSON files
 - **Environment Variables**: Store secrets outside version control
 - **Template Sharing**: Commit `.env.example` with placeholder values
-- **Documentation**: Reference security practices in [AGENTS.md](AGENTS.md) and [OpenCode-Tool-System-Documentation.md](OpenCode-Tool-System-Documentation.md)
+- **Documentation**: Reference security practices in [AGENTS.md](AGENTS.md) and
+  [OpenCode-Tool-System-Documentation.md](OpenCode-Tool-System-Documentation.md)
 
 ### ⚠️ Critical Restrictions
 
@@ -74,7 +81,8 @@ Additional providers may require different variables - check the configuration f
 - Prefer HTTPS endpoints for external services
 - Use localhost/127.0.0.1 for local development defaults
 - Validate all external URLs before use
-- Document required permissions in [AGENTS.md](AGENTS.md) and [OpenCode-Tool-System-Documentation.md](OpenCode-Tool-System-Documentation.md)
+- Document required permissions in [AGENTS.md](AGENTS.md) and
+  [OpenCode-Tool-System-Documentation.md](OpenCode-Tool-System-Documentation.md)
 
 ## Environment Examples
 
@@ -137,14 +145,19 @@ git push --force-with-lease
 
 - Use pre-commit hooks to scan for secrets
 - Regular security audits of configuration files
-- Follow practices documented in [AGENTS.md](AGENTS.md) and [OpenCode-Tool-System-Documentation.md](OpenCode-Tool-System-Documentation.md)
+- Follow practices documented in [AGENTS.md](AGENTS.md) and
+  [OpenCode-Tool-System-Documentation.md](OpenCode-Tool-System-Documentation.md)
 - Reference OpenCode security guidelines at [opencode.ai](https://opencode.ai)
 
 ## Related Documentation
 
-- [AGENTS.md](AGENTS.md) - Agent security, permission requirements, and advanced techniques
-- [OpenCode-Tool-System-Documentation.md](OpenCode-Tool-System-Documentation.md) - Tool system architecture and security considerations
+- [AGENTS.md](AGENTS.md) - Agent security, permission requirements, and advanced
+  techniques
+- [OpenCode-Tool-System-Documentation.md](OpenCode-Tool-System-Documentation.md) -
+  Tool system architecture and security considerations
 - [README.md](README.md) - Configuration overview and file structure
-- [config.json](config.json) - OpenCode configuration with environment variable placeholders
+- [config.json](config.json) - OpenCode configuration with environment variable
+  placeholders
 
-For advanced security techniques and OpenCode-specific considerations, see the comprehensive documentation in [AGENTS.md](AGENTS.md).
+For advanced security techniques and OpenCode-specific considerations, see the
+comprehensive documentation in [AGENTS.md](AGENTS.md).

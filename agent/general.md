@@ -26,7 +26,8 @@ permissions:
 
 ## PURPOSE:
 
-This subagent has complete tool access and handles all operations that the main delegator agent cannot perform directly due to tool restrictions.
+This subagent has complete tool access and handles all operations that the main
+delegator agent cannot perform directly due to tool restrictions.
 
 ## AVAILABLE TOOLS:
 
@@ -84,4 +85,5 @@ When delegated a task, analyze the request and use appropriate tools:
 4. Provide clear results back to the main agent
 5. Handle error cases gracefully
 
-**This agent serves as the primary executor for the delegator agent's requests.**
+**This agent serves as the primary executor for the delegator agent's
+requests.**

@@ -1,10 +1,13 @@
 # OpenCode Tool System Architecture
 
-**Technical reference for OpenCode's tool system: built-in tools, custom development, plugins, and execution lifecycles. Essential for understanding tool capabilities, limitations, and integration.**
+**Technical reference for OpenCode's tool system: built-in tools, custom
+development, plugins, and execution lifecycles. Essential for understanding tool
+capabilities, limitations, and integration.**
 
 ## Overview
 
-OpenCode combines built-in tools, file-based custom tools, and plugins into a unified system.
+OpenCode combines built-in tools, file-based custom tools, and plugins into a
+unified system.
 
 ## Tool Loading
 
@@ -55,7 +58,10 @@ export namespace Tool {
     metadata(input: { title?: string; metadata?: M }): void;
   };
 
-  export interface Info<Parameters extends z.ZodType = z.ZodType, M extends Metadata = Metadata> {
+  export interface Info<
+    Parameters extends z.ZodType = z.ZodType,
+    M extends Metadata = Metadata,
+  > {
     id: string;
     init: () => Promise<{
       description: string;
@@ -83,7 +89,10 @@ export type ToolContext = {
 export function tool<Args extends z.ZodRawShape>(input: {
   description: string;
   args: Args;
-  execute(args: z.infer<z.ZodObject<Args>>, context: ToolContext): Promise<string>;
+  execute(
+    args: z.infer<z.ZodObject<Args>>,
+    context: ToolContext,
+  ): Promise<string>;
 }) {
   return input;
 }
@@ -109,9 +118,18 @@ export interface Hooks {
   config?: (input: Config) => Promise<void>;
   tool?: { [key: string]: ToolDefinition };
   auth?: {/* OAuth and API key authentication */};
-  "chat.message"?: (input: {}, output: { message: UserMessage; parts: Part[] }) => Promise<void>;
-  "tool.execute.before"?: (input: { tool: string; sessionID: string; callID: string }, output: { args: any }) => Promise<void>;
-  "tool.execute.after"?: (input: { tool: string; sessionID: string; callID: string }, output: { title: string; output: string; metadata: any }) => Promise<void>;
+  "chat.message"?: (
+    input: {},
+    output: { message: UserMessage; parts: Part[] },
+  ) => Promise<void>;
+  "tool.execute.before"?: (
+    input: { tool: string; sessionID: string; callID: string },
+    output: { args: any },
+  ) => Promise<void>;
+  "tool.execute.after"?: (
+    input: { tool: string; sessionID: string; callID: string },
+    output: { title: string; output: string; metadata: any },
+  ) => Promise<void>;
   // ... other hooks
 }
 ```
@@ -120,7 +138,10 @@ export interface Hooks {
 
 ```typescript
 export interface BunShell {
-  (strings: TemplateStringsArray, ...expressions: ShellExpression[]): BunShellPromise;
+  (
+    strings: TemplateStringsArray,
+    ...expressions: ShellExpression[]
+  ): BunShellPromise;
 
   braces(pattern: string): string[];
   escape(input: string): string;
@@ -154,11 +175,21 @@ export namespace ToolRegistry {
 
     // Load file-based tools
     for (const dir of await Config.directories()) {
-      for await (const match of new Bun.Glob("tool/*.{js,ts}").scan({ cwd: dir, absolute: true })) {
+      for await (
+        const match of new Bun.Glob("tool/*.{js,ts}").scan({
+          cwd: dir,
+          absolute: true,
+        })
+      ) {
         const namespace = path.basename(match, path.extname(match));
         const mod = await import(match);
         for (const [id, def] of Object.entries<ToolDefinition>(mod)) {
-          custom.push(fromPlugin(id === "default" ? namespace : `${namespace}_${id}`, def));
+          custom.push(
+            fromPlugin(
+              id === "default" ? namespace : `${namespace}_${id}`,
+              def,
+            ),
+          );
         }
       }
     }
@@ -211,4 +242,5 @@ export namespace ToolRegistry {
 3. **Performance** - Consider impact on chat response times
 4. **Compatibility** - Ensure tools work across OpenCode versions
 
-This architecture enables extensible toolsets while maintaining security, performance, and user experience.
+This architecture enables extensible toolsets while maintaining security,
+performance, and user experience.

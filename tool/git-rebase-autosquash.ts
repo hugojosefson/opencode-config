@@ -35,7 +35,8 @@ declare const Bun: {
 };
 
 export default {
-  description: `Git rebase autosquash tool for AI agents to maintain clean commit history.
+  description:
+    `Git rebase autosquash tool for AI agents to maintain clean commit history.
 
 This tool provides git rebase autosquash functionality by accepting command parameters 
 and executing the appropriate git commands. It supports creating fixup commits and 
@@ -61,7 +62,8 @@ Key features:
   async execute(args: any, _context: any) {
     // Since we can't use Zod schemas in file-based tools, we'll accept any args
     // and do manual validation
-    const { action, targetCommit, commitMessage, verifyOnly = false } = args || {};
+    const { action, targetCommit, commitMessage, verifyOnly = false } = args ||
+      {};
 
     // Provide helpful error if no action specified
     if (!action) {
@@ -114,7 +116,8 @@ Examples:
       case "create-fixup-by-message":
         // Use array form to properly handle special characters
         commands = ["git", "commit", "-m", `fixup! ${commitMessage}`];
-        description = `Create fixup commit with message matching "${commitMessage}"`;
+        description =
+          `Create fixup commit with message matching "${commitMessage}"`;
         break;
 
       case "apply-autosquash":
@@ -149,7 +152,12 @@ To execute, call again with verifyOnly=false or omit verifyOnly parameter.`;
     // Execute the git command using Bun's subprocess API
     try {
       // Set environment variables for non-interactive rebase
-      const env = action === "apply-autosquash" ? { ...(globalThis as any).process?.env || {}, GIT_SEQUENCE_EDITOR: "true" } : (globalThis as any).process?.env || {};
+      const env = action === "apply-autosquash"
+        ? {
+          ...(globalThis as any).process?.env || {},
+          GIT_SEQUENCE_EDITOR: "true",
+        }
+        : (globalThis as any).process?.env || {};
 
       const proc = Bun.spawn(commands, {
         stdout: "pipe",
@@ -163,7 +171,9 @@ To execute, call again with verifyOnly=false or omit verifyOnly parameter.`;
       const stderr = await new Response(proc.stderr).text();
 
       if (result !== 0) {
-        throw new Error(`Command failed with exit code ${result}: ${stderr || stdout}`);
+        throw new Error(
+          `Command failed with exit code ${result}: ${stderr || stdout}`,
+        );
       }
 
       let successMessage = `✓ Successfully executed: ${commands.join(" ")}`;
@@ -177,7 +187,8 @@ To execute, call again with verifyOnly=false or omit verifyOnly parameter.`;
           break;
 
         case "create-fixup-by-message":
-          successMessage += `\n\n→ Fixup commit created with message "${commitMessage}"` +
+          successMessage +=
+            `\n\n→ Fixup commit created with message "${commitMessage}"` +
             `\n→ Ensure this exactly matches the first line of your target commit` +
             `\n→ Next: Use action='apply-autosquash' to combine commits`;
           break;
@@ -189,7 +200,8 @@ To execute, call again with verifyOnly=false or omit verifyOnly parameter.`;
           break;
       }
 
-      const fullOutput = successMessage + (stdout ? `\n\nGit output:\n${stdout}` : "");
+      const fullOutput = successMessage +
+        (stdout ? `\n\nGit output:\n${stdout}` : "");
       return fullOutput.trim();
     } catch (error: any) {
       const errorMessage = error.message || error.toString();
@@ -224,7 +236,10 @@ async function cleanupFailingRebase() {
 
     const checkResult = await checkProc.exited;
     if (checkResult !== 0) {
-      return { hadRebaseInProgress: false, message: "Could not check git status" };
+      return {
+        hadRebaseInProgress: false,
+        message: "Could not check git status",
+      };
     }
 
     const statusOutput = await new Response(checkProc.stdout).text();

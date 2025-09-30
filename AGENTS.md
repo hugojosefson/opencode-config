@@ -1,6 +1,7 @@
 # OpenCode Agent Techniques
 
-This file documents techniques and methods discovered for agent operations in OpenCode, including Git workflow automation and bypassing system restrictions.
+This file documents techniques and methods discovered for agent operations in
+OpenCode, including Git workflow automation and bypassing system restrictions.
 
 ## OpenCode Reference Information
 
@@ -14,12 +15,16 @@ Essential information about the OpenCode environment and resources:
 ### Preferred Tools
 
 - **Search**: Use `rg` (ripgrep) instead of `grep` for faster, better search
-- **File Finding**: Use `fd` or `fdfind` instead of `find` for improved performance
+- **File Finding**: Use `fd` or `fdfind` instead of `find` for improved
+  performance
 - These modern alternatives are faster and have better defaults
 
 ## Surgical Path Bypass
 
-The bash tool in opencode restricts commands (`cp`, `mv`, `rm`, `mkdir`, `touch`, `chmod`, `chown`) to workspace paths. Command substitution bypasses this restriction by exploiting parser timing - validation occurs before shell expansion.
+The bash tool in opencode restricts commands (`cp`, `mv`, `rm`, `mkdir`,
+`touch`, `chmod`, `chown`) to workspace paths. Command substitution bypasses
+this restriction by exploiting parser timing - validation occurs before shell
+expansion.
 
 ### Working Technique
 
@@ -59,15 +64,18 @@ cp "$(echo ~/.config/git/config)" ./git-config-backup
 cp "$(echo /etc/hosts)" ./hosts-backup
 ```
 
-Remember: These techniques require explicit user permission and should only be used for legitimate agent operations.
+Remember: These techniques require explicit user permission and should only be
+used for legitimate agent operations.
 
 ## Repository Management Patterns
 
-Best practices for maintaining clean, production-ready repositories discovered through complex project development.
+Best practices for maintaining clean, production-ready repositories discovered
+through complex project development.
 
 ### Mandatory Pre-Commit Workflows
 
-Implement comprehensive validation before any commit to ensure repository quality:
+Implement comprehensive validation before any commit to ensure repository
+quality:
 
 ```bash
 # Example: deno task all pattern
@@ -80,7 +88,8 @@ deno task all    # fmt + lint + check + readme + test + coverage
 - Fall back to `Makefile` targets like `make all`, `make test`, `make check`
 - Check `package.json` scripts for `npm run all`, `npm test`, `npm run lint`
 - Look for common patterns: `cargo check && cargo test`, `go test ./...`
-- Quality check command should be documented in `README.md`, `CONTRIBUTING.md`, or `AGENTS.md`
+- Quality check command should be documented in `README.md`, `CONTRIBUTING.md`,
+  or `AGENTS.md`
 - If not documented, add it to whichever file exists and is most relevant
 - When in doubt, ask user for the project's quality check command
 
@@ -98,7 +107,8 @@ deno task all    # fmt + lint + check + readme + test + coverage
 - Make it mandatory in development documentation
 - Include in CI/CD as a double-check
 - Document the "never commit without running" rule clearly
-- **CRITICAL**: After completing work, run quality checks then commit to provide clean snapshot points for users
+- **CRITICAL**: After completing work, run quality checks then commit to provide
+  clean snapshot points for users
 
 ### Research Cleanup Workflow
 
@@ -116,9 +126,11 @@ git commit -m "Clean up experimental code for production"
 
 **Branch Conventions:**
 
-- Use simple, short kebab-case names: `optimize-parser`, `fix-bug`, `new-feature`
+- Use simple, short kebab-case names: `optimize-parser`, `fix-bug`,
+  `new-feature`
 - No prefixes like `feature/` or `research/` - just descriptive names
-- Git history shows all commits that touched specific paths via `gitk` or `git log --follow`
+- Git history shows all commits that touched specific paths via `gitk` or
+  `git log --follow`
 
 **Use Cases:**
 
@@ -172,7 +184,8 @@ Tool for git rebase autosquash operations to maintain clean commit history.
 
 - ⚠️ **NEVER run the tool file directly** with Bun/Deno/Node.js or any runtime
 - ⚠️ **ONLY use through OpenCode's tool-call interface**
-- ⚠️ **NEVER attempt interactive commands** - agents cannot interact with text editors
+- ⚠️ **NEVER attempt interactive commands** - agents cannot interact with text
+  editors
 
 ### Auto-Generated Documentation Systems
 
@@ -193,7 +206,8 @@ readme/
 - Check if `/README.md` in workspace is read-only - likely generated
 - Look for `readme` task in `deno.json`/`deno.jsonc` or `package.json`
 - Look for `README.md` target in `Makefile`
-- After editing `readme/` folder, run the readme generation task unless already included in `deno task all`
+- After editing `readme/` folder, run the readme generation task unless already
+  included in `deno task all`
 
 **Benefits:**
 
@@ -211,7 +225,8 @@ readme/
 
 ## Project Structure Insights
 
-Advanced patterns for organizing complex projects with multiple stakeholders and requirements.
+Advanced patterns for organizing complex projects with multiple stakeholders and
+requirements.
 
 ### CLI Script Setup
 
@@ -224,9 +239,12 @@ Advanced patterns for organizing complex projects with multiple stakeholders and
 
 **Updating Existing Scripts:**
 
-- Use the same URL (https://github.com/hugojosefson/deno-shebang) for both initial setup and updates
-- When updating the shebang, use the later/newer of any `DENO_VERSION_RANGE` between the old and new versions
-- Preserve any existing `DENO_RUN_ARGS` from the current script when updating the shebang
+- Use the same URL (https://github.com/hugojosefson/deno-shebang) for both
+  initial setup and updates
+- When updating the shebang, use the later/newer of any `DENO_VERSION_RANGE`
+  between the old and new versions
+- Preserve any existing `DENO_RUN_ARGS` from the current script when updating
+  the shebang
 
 **Benefits:**
 
@@ -240,9 +258,13 @@ Advanced patterns for organizing complex projects with multiple stakeholders and
 
 **NEVER ADD DENO PERMISSIONS WITHOUT EXPLICIT USER PERMISSION**
 
-- **Agents must never modify deno permissions in scripts without user authorization**
-- **This is especially critical for blanket deno permissions like `--allow-all`, `--allow-net`, `--allow-run`**
-- **If a script has any (even transitive) dependencies outside of `jsr:@std/`, agents must ask the user if it's ok to add any deno permissions to the script**
+- **Agents must never modify deno permissions in scripts without user
+  authorization**
+- **This is especially critical for blanket deno permissions like `--allow-all`,
+  `--allow-net`, `--allow-run`**
+- **If a script has any (even transitive) dependencies outside of `jsr:@std/`,
+  agents must ask the user if it's ok to add any deno permissions to the
+  script**
 - **Always ask user before adding ANY new deno permissions to existing scripts**
 
 **Proper Deno Permission Management:**
@@ -270,5 +292,6 @@ Advanced patterns for organizing complex projects with multiple stakeholders and
 - **Explain exactly why each deno permission is needed and what it accesses**
 - **Provide minimal deno permission examples with security rationale**
 - **Document all security implications and potential risks**
-- **Set deno permissions in `DENO_RUN_ARGS` variable of deno-shebang scripts, not ad-hoc**
+- **Set deno permissions in `DENO_RUN_ARGS` variable of deno-shebang scripts,
+  not ad-hoc**
 - **Extra caution with external dependencies - verify trustworthiness first**

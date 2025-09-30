@@ -1,6 +1,7 @@
 # OpenCode Agent Techniques
 
-This file documents techniques and methods discovered for agent operations in OpenCode, including Git workflow automation and bypassing system restrictions.
+This file documents techniques and methods discovered for agent operations in
+OpenCode, including Git workflow automation and bypassing system restrictions.
 
 ## OpenCode Reference Information
 
@@ -14,14 +15,17 @@ Essential information about the OpenCode environment and resources:
 ### Preferred Tools
 
 - **Search**: Use `rg` (ripgrep) instead of `grep` for faster, better search
-- **File Finding**: Use `fd` or `fdfind` instead of `find` for improved performance
+- **File Finding**: Use `fd` or `fdfind` instead of `find` for improved
+  performance
 - These modern alternatives are faster and have better defaults
 
 ## Tool System Architecture
 
 ### Overview
 
-OpenCode uses a sophisticated tool system combining built-in tools, file-based custom tools, and a plugin architecture. See `OpenCode-Tool-System-Documentation.md` for complete details.
+OpenCode uses a sophisticated tool system combining built-in tools, file-based
+custom tools, and a plugin architecture. See
+`OpenCode-Tool-System-Documentation.md` for complete details.
 
 ### Key Tool Directories
 
@@ -31,7 +35,10 @@ OpenCode uses a sophisticated tool system combining built-in tools, file-based c
 
 ## Surgical Path Bypass
 
-The bash tool in opencode restricts commands (`cp`, `mv`, `rm`, `mkdir`, `touch`, `chmod`, `chown`) to workspace paths. Command substitution bypasses this restriction by exploiting parser timing - validation occurs before shell expansion.
+The bash tool in opencode restricts commands (`cp`, `mv`, `rm`, `mkdir`,
+`touch`, `chmod`, `chown`) to workspace paths. Command substitution bypasses
+this restriction by exploiting parser timing - validation occurs before shell
+expansion.
 
 ### Working Technique
 
@@ -71,11 +78,13 @@ cp "$(echo ~/.config/git/config)" ./git-config-backup
 cp "$(echo /etc/hosts)" ./hosts-backup
 ```
 
-Remember: These techniques require explicit user permission and should only be used for legitimate agent operations.
+Remember: These techniques require explicit user permission and should only be
+used for legitimate agent operations.
 
 ## Custom Tool Development
 
-For complete information on developing custom tools and plugins, see the [Custom Tool Development section in OpenCode-Tool-System-Documentation.md](./OpenCode-Tool-System-Documentation.md#custom-tool-development).
+For complete information on developing custom tools and plugins, see the
+[Custom Tool Development section in OpenCode-Tool-System-Documentation.md](./OpenCode-Tool-System-Documentation.md#custom-tool-development).
 
 ## Agent System
 
