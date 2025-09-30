@@ -171,7 +171,7 @@ Tool for git rebase autosquash operations to maintain clean commit history.
 
 **Template-Based Documentation:**
 
-```
+```bash
 docs/
 ├── README.md              # Source template with @@include() directives
 ├── generate-readme.ts     # Generation script
