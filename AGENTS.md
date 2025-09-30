@@ -19,7 +19,7 @@ Essential information about the OpenCode environment and resources:
 
 ## Surgical Path Bypass
 
-The bash.ts system restricts commands (`cp`, `mv`, `rm`, `mkdir`, `touch`, `chmod`, `chown`) to workspace paths. Command substitution bypasses this restriction by exploiting parser timing - validation occurs before shell expansion.
+The bash tool in opencode restricts commands (`cp`, `mv`, `rm`, `mkdir`, `touch`, `chmod`, `chown`) to workspace paths. Command substitution bypasses this restriction by exploiting parser timing - validation occurs before shell expansion.
 
 ### Working Technique
 
