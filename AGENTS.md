@@ -86,16 +86,26 @@ deno task all    # fmt + lint + check + readme + test + coverage
 - Include in CI/CD as a double-check
 - Document the "never commit without running" rule clearly
 
-### Git Tagging for Research Preservation
+### Git Workflow for Research Projects
 
-Before major repository cleanup, preserve research history:
+**Tagging for Research Preservation:**
 
 ```bash
 # Tag current state before cleanup
 git tag research-state-$(date +%Y%m%d)
 git push origin research-state-$(date +%Y%m%d)
 
-# Perform cleanup
+# Research phase - explore freely on separate branch
+git checkout -b research/optimization-experiments
+# ... experimental work ...
+
+# Production phase - preserve research and deliver clean code
+git tag research-optimization-$(date +%Y%m%d)
+git checkout main
+git merge --squash research/optimization-experiments
+git commit -m "Implement performance optimizations"
+
+# Final cleanup
 git reset --hard main
 git clean -fd
 ```
@@ -106,24 +116,51 @@ git clean -fd
 - Creating recovery points during major refactoring
 - Documenting decision points in project evolution
 
-### Clean Separation of Concerns
+**Implementation Strategy:**
+- Use separate branches for research vs production
+- Tag research states before cleanup
+- Squash experimental commits for clean history
+- Maintain comprehensive test coverage throughout
 
-**Development Artifacts vs Production Code:**
+### Project Structure and Research Management
 
-```
+**Development vs Production Layout:**
+
+```bash
+# During active development
 project/
-├── src/                    # Production code only
+├── src/                    # Core implementation
 ├── test/                   # Comprehensive test suite
-├── docs/                   # Source documentation templates
+├── docs/                   # Documentation source templates
 ├── .github/workflows/      # CI/CD automation
-├── research/              # Temporary - remove before production
-├── experiments/           # Temporary - remove before production
-└── README.md              # Auto-generated (read-only)
+├── research/              # Experimental work (temporary)
+├── experiments/           # Alternative approaches (temporary)
+└── analysis/              # Performance studies (temporary)
+
+# Production ready state
+project/
+├── src/                    # Core implementation
+├── test/                   # Comprehensive test suite
+├── docs/                   # Documentation source
+└── README.md              # Auto-generated documentation
+```
+
+**Research Preservation Workflow:**
+
+```bash
+# Before major cleanup, preserve research history
+git tag research-$(date +%Y%m%d)
+git push origin research-$(date +%Y%m%d)
+
+# Clean experimental code for production
+rm -rf research/ experiments/ analysis/
+git commit -m "Clean up experimental code for production"
 ```
 
 **Principles:**
 - Keep production directories clean and focused
 - Separate source templates from generated files
+- Use git tags to preserve research before cleanup
 - Remove experimental code before tagging releases
 - Use clear naming conventions for temporary vs permanent
 
@@ -229,23 +266,7 @@ function processCode(input: string): string {
 - Optimization passes that depend on previous analysis
 - Complex refactoring with dependency tracking
 
-### Research Organization and Cleanup
 
-**Systematic Approach to Experimental Work:**
-
-```bash
-# During development - organize experiments
-experiments/
-├── approach-a/           # First attempt
-├── approach-b/           # Alternative approach  
-├── benchmarks/           # Performance testing
-└── analysis.md          # Decision documentation
-
-# Before production - preserve and clean
-git tag research-$(date +%Y%m%d)
-rm -rf experiments/
-git commit -m "Clean up experimental code for production"
-```
 
 ## Development Patterns
 
@@ -376,32 +397,7 @@ const todoList = [
 - Include context and rationale in task descriptions
 - Use for coordination between multiple agents
 
-### Systematic Repository Organization
 
-**Clean Separation of Concerns:**
-
-```bash
-# During active development
-project/
-├── src/              # Core implementation
-├── test/             # Comprehensive tests  
-├── docs/             # Documentation source
-├── research/         # Experimental work (temporary)
-└── analysis/         # Performance studies (temporary)
-
-# Production ready state
-project/
-├── src/              # Core implementation
-├── test/             # Comprehensive tests
-├── docs/             # Documentation source
-└── README.md         # Auto-generated documentation
-```
-
-**Process:**
-1. Maintain clear boundaries during development
-2. Use git tags to preserve research history
-3. Clean experimental code before production
-4. Document architectural decisions
 
 ### Breaking Complex Features
 
@@ -424,30 +420,4 @@ const featurePhases = [
 - Clear progress tracking
 - Enables rollback to stable states
 
-### Research vs Production Balance
 
-**Maintaining Quality While Exploring:**
-
-```bash
-# Research phase - explore freely
-git checkout -b research/optimization-experiments
-# ... experimental work ...
-
-# Production phase - preserve research and deliver clean code
-git tag research-optimization-$(date +%Y%m%d)
-git checkout main
-git merge --squash research/optimization-experiments
-git commit -m "Implement performance optimizations"
-```
-
-**Principles:**
-- Preserve research for future reference
-- Deliver clean, focused production code
-- Document decisions and trade-offs
-- Balance exploration with delivery deadlines
-
-**Implementation:**
-- Use separate branches for research vs production
-- Tag research states before cleanup
-- Squash experimental commits for clean history
-- Maintain comprehensive test coverage throughout
