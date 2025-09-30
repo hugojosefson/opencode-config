@@ -45,3 +45,13 @@ all the tools and context. All the failed detailed things that the subagent runs
 into and fixes; all those "wasted" tokens, the **delegator** just doesn't have
 to see. It only has to write subagent prompts, read completed results from
 subagents, keep track of the overall plan and the TODO list.
+
+### Example
+
+This is an example of a short chat I had with the **delegator** agent, using the
+[opencode](https://opencode.ai/) client.
+
+Note the context (upper right corner): The **delegator** has lots of tokens
+left, because it delegated all the detailed work to the **general** subagent.
+
+![opencode-delegator-look-at-the-context-savings.png](opencode-delegator-look-at-the-context-savings.png)
