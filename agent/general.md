@@ -38,7 +38,6 @@ This subagent has complete tool access and handles all operations that the main 
 - ✅ **Write** - File creation
 - ✅ **List** - Directory listing
 - ✅ **Webfetch** - Web requests
-- ✅ **Task** - Can further delegate if needed
 
 ## RESPONSIBILITIES:
 
