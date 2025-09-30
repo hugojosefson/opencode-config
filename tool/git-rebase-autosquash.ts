@@ -34,6 +34,14 @@ declare const Bun: {
   file(path: string): BunFile;
 };
 
+// Type for tool arguments
+interface GitRebaseArgs {
+  action?: string;
+  targetCommit?: string;
+  commitMessage?: string;
+  verifyOnly?: boolean;
+}
+
 export default {
   description:
     `Git rebase autosquash tool for AI agents to maintain clean commit history.
@@ -59,11 +67,16 @@ Key features:
     // and validate them internally
   },
 
-  async execute(args: any, _context: any) {
+  async execute(
+    args: Record<string, unknown>,
+    _context: Record<string, unknown>,
+  ) {
     // Since we can't use Zod schemas in file-based tools, we'll accept any args
     // and do manual validation
-    const { action, targetCommit, commitMessage, verifyOnly = false } = args ||
-      {};
+    const action = args?.action as string;
+    const targetCommit = args?.targetCommit as string;
+    const commitMessage = args?.commitMessage as string;
+    const verifyOnly = (args?.verifyOnly as boolean) || false;
 
     // Provide helpful error if no action specified
     if (!action) {
@@ -120,7 +133,7 @@ Examples:
           `Create fixup commit with message matching "${commitMessage}"`;
         break;
 
-      case "apply-autosquash":
+      case "apply-autosquash": {
         // First check if there's a rebase in progress and clean it up
         const cleanupResult = await cleanupFailingRebase();
         if (cleanupResult.hadRebaseInProgress) {
@@ -130,6 +143,7 @@ Examples:
         commands = ["git", "rebase", "-i", targetCommit, "--autosquash"];
         description = `Apply autosquash rebase from ${targetCommit}`;
         break;
+      }
 
       default:
         return `❌ Error: Unknown action '${action}'
@@ -154,10 +168,12 @@ To execute, call again with verifyOnly=false or omit verifyOnly parameter.`;
       // Set environment variables for non-interactive rebase
       const env = action === "apply-autosquash"
         ? {
-          ...(globalThis as any).process?.env || {},
+          ...(globalThis as { process?: { env?: Record<string, string> } })
+            .process?.env || {},
           GIT_SEQUENCE_EDITOR: "true",
         }
-        : (globalThis as any).process?.env || {};
+        : (globalThis as { process?: { env?: Record<string, string> } }).process
+          ?.env || {};
 
       const proc = Bun.spawn(commands, {
         stdout: "pipe",
@@ -203,8 +219,10 @@ To execute, call again with verifyOnly=false or omit verifyOnly parameter.`;
       const fullOutput = successMessage +
         (stdout ? `\n\nGit output:\n${stdout}` : "");
       return fullOutput.trim();
-    } catch (error: any) {
-      const errorMessage = error.message || error.toString();
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error
+        ? error.message
+        : String(error);
 
       return `❌ Git command failed
 Command: ${commands.join(" ")}
@@ -279,10 +297,12 @@ async function cleanupFailingRebase() {
         message: `Failed to abort rebase: ${abortStderr}`,
       };
     }
-  } catch (error: any) {
+  } catch (error: unknown) {
     return {
       hadRebaseInProgress: false,
-      message: `Error during cleanup: ${error.message}`,
+      message: `Error during cleanup: ${
+        error instanceof Error ? error.message : String(error)
+      }`,
     };
   }
 }
