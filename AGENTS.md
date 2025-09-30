@@ -268,59 +268,6 @@ console.log("Hello from CLI!");
 
 Proven patterns for building robust, maintainable software with comprehensive testing and documentation.
 
-### Tree-Sitter vs Regex/Tokenization
-
-**When to Choose AST Parsing:**
-
-```typescript
-// Tree-sitter: 100% accurate semantic understanding
-import Parser from "npm:web-tree-sitter";
-import Language from "npm:tree-sitter-bash";
-
-// vs Regex: Fast but error-prone for complex syntax
-const variablePattern = /\$\{?([a-zA-Z_][a-zA-Z0-9_]*)\}?/g;
-```
-
-**Decision Criteria:**
-- **Accuracy Requirements:** AST for 100% correctness, regex for simple patterns
-- **Performance vs Correctness:** AST adds ~4ms but prevents errors
-- **Maintenance:** AST handles edge cases automatically
-- **Complexity:** Use AST for language processing, regex for simple text
-
-**Benefits of AST Approach:**
-- Semantic understanding vs pattern matching
-- Error prevention through parse tree validation
-- Comprehensive language support (200+ node types)
-- Future-proof against language evolution
-
-### Test-Driven Development with Coverage
-
-**Comprehensive Testing Strategy:**
-
-```typescript
-// Step-based organization for clarity
-Deno.test("minification features", async (t) => {
-  await t.step("basic comment removal", () => {
-    const input = "# comment\necho hello";
-    const expected = "echo hello";
-    assertEquals(minify(input), expected);
-  });
-  
-  await t.step("variable renaming with preservation", () => {
-    const input = "# shminify:preserve important\necho $important";
-    const expected = "echo $important";
-    assertEquals(minify(input), expected);
-  });
-});
-```
-
-**Key Practices:**
-- Define expected output explicitly in tests
-- Test preservation of functionality, not just syntax
-- Cover edge cases and error conditions
-- Use descriptive test names that explain purpose
-- Achieve 100% coverage as a quality gate
-
 ### Documentation-as-Code
 
 **Template System for Consistency:**
