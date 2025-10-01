@@ -642,7 +642,117 @@ documentation, code comments, and any other written output.
 - "Project structure and research management"
 - "Security-first documentation approach"
 
-**Key Principle:** Write like a knowledgeable human who gets straight to the
-point. Provide information efficiently without unnecessary commentary, emphasis,
-or social padding. Focus on being helpful through clarity and precision, not
-through verbose pleasantries or inflated language.
+### 18. Use tables only for genuine key-value data
+
+Tables should be used ONLY for actual key-value pairs or multi-column structured
+data. Do not use tables for content that belongs in lists or other formats.
+
+**Use tables ONLY when you have:**
+
+- Genuine key-value pairs (like configuration settings, specifications,
+  properties)
+- Multi-column data that requires alignment across rows
+- Structured data where relationships between columns matter
+
+**DON'T use tables for:**
+
+- Simple numbered lists (use 1., 2., 3.)
+- Simple bullet lists (use -, *, +)
+- Steps in a process (use numbered lists)
+- Lists of features or benefits (use bullet lists)
+- Content that could theoretically be tabulated but isn't truly key-value data
+
+**DO use tables for key-value pairs:**
+
+```markdown
+| Setting         | Value      |
+| :-------------- | :--------- |
+| Port            | 8080       |
+| Timeout         | 30 seconds |
+| Max connections | 100        |
+| SSL enabled     | true       |
+```
+
+**DON'T use tables for simple lists:**
+
+```markdown
+<!-- Wrong: This should be a bullet list -->
+
+| Feature          | Description              |
+| :--------------- | :----------------------- |
+| Fast performance | Optimized algorithms     |
+| Easy setup       | One-command installation |
+| Cross-platform   | Works on any OS          |
+
+<!-- Correct: Use a bullet list -->
+
+- Fast performance with optimized algorithms
+- Easy setup with one-command installation
+- Cross-platform compatibility
+```
+
+Tables are for structured data formatting, not general content organization.
+
+### 19. Use proper headings instead of bold pseudo-headings
+
+Avoid using bold text as fake headings when real markdown headings should be
+used. This is about document structure and navigation, not data formatting.
+
+**The problem:** Using bold text that acts like a heading but isn't marked up as
+one.
+
+**DON'T use bold as fake headings:**
+
+```markdown
+**Key Principle:** Use semantic markup for structure Text explaining the
+principle...
+
+**Benefits:** Multiple advantages
+
+- Better navigation
+- Professional appearance
+
+**Implementation Strategy:** Follow these steps
+
+1. Identify pseudo-headings
+2. Convert to real headings
+```
+
+**DO use proper markdown headings:**
+
+```markdown
+### Key principle
+
+Use semantic markup for structure Text explaining the principle...
+
+### Benefits
+
+Multiple advantages:
+
+- Better navigation
+- Professional appearance
+
+### Implementation strategy
+
+Follow these steps:
+
+1. Identify pseudo-headings
+2. Convert to real headings
+```
+
+**Why this matters:**
+
+- Proper headings create document navigation and table of contents
+- Screen readers can jump between headings for accessibility
+- Looks more professional and less AI-generated
+- Distinguishes document structure from data formatting
+
+Use headings for document organization, not bold text that pretends to be
+headings.
+
+### Core principle
+
+Write like a knowledgeable human who gets straight to the point. Provide
+information efficiently without unnecessary commentary, emphasis, or social
+padding. Focus on being helpful through clarity and precision, not through
+verbose pleasantries or inflated language.
