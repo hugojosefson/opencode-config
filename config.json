@@ -141,5 +141,28 @@
         "hf.co/Qwen/Qwen2.5-Coder-7B-Instruct-GGUF:Q3_K_M": {}
       }
     }
+  },
+  "lsp": {
+    "typescript": {
+      "disabled": true
+    },
+    "deno": {
+      "command": [
+        "deno",
+        "lsp"
+      ],
+      "extensions": [
+        ".ts",
+        ".tsx",
+        ".js",
+        ".jsx",
+        ".mts",
+        ".cts"
+      ],
+      "initialization": {
+        "enable": true,
+        "lint": true
+      }
+    }
   }
 }
