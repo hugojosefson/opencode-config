@@ -1,7 +1,7 @@
 # OpenCode tool system architecture
 
-**Technical reference for OpenCode's tool system: built-in tools, custom
-development, plugins, and execution lifecycles.**
+Technical reference for OpenCode's tool system: built-in tools, custom
+development, plugins, and execution lifecycles.
 
 ## Overview
 
@@ -29,17 +29,19 @@ Each tool has `.ts` implementation and `.txt` description files.
 
 ### Custom tools
 
-**File-based locations:**
+#### File-based locations
 
 - Global: `~/.config/opencode/tool/*.{js,ts}`
 - Project: `.opencode/tool/*.{js,ts}` (searches up directory tree)
 
-**Export patterns:**
+#### Export patterns
 
 - Default export: Tool named after file
 - Named exports: `{filename}_{exportName}`
 
-**Plugin system:** Tools from `@opencode-ai/plugin` interface implementations.
+#### Plugin system
+
+Tools from `@opencode-ai/plugin` interface implementations.
 
 ## Tool interfaces
 

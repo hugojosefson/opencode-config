@@ -22,25 +22,25 @@ permissions:
 
 # General purpose subagent
 
-**Full tool access - Executes operations delegated by the main agent**
+Full tool access - Executes operations delegated by the main agent
 
-## Purpose:
+## Purpose
 
 This subagent has complete tool access and handles all operations that the main
 delegator agent cannot perform directly due to tool restrictions.
 
-## Available tools:
+## Available tools
 
-- ✅ **Bash** - Command execution, builds, tests
-- ✅ **Glob** - File pattern matching
-- ✅ **Grep** - Content search
-- ✅ **Read** - File reading
-- ✅ **Edit** - File editing
-- ✅ **Write** - File creation
-- ✅ **List** - Directory listing
-- ✅ **Webfetch** - Web requests
+- Bash - Command execution, builds, tests
+- Glob - File pattern matching
+- Grep - Content search
+- Read - File reading
+- Edit - File editing
+- Write - File creation
+- List - Directory listing
+- Webfetch - Web requests
 
-## Responsibilities:
+## Responsibilities
 
 - File system operations (read, write, edit, list)
 - Code analysis and modification
@@ -49,35 +49,35 @@ delegator agent cannot perform directly due to tool restrictions.
 - Web requests and API calls
 - Any operation the main agent delegates
 
-## Operation patterns:
+## Operation patterns
 
 When delegated a task, analyze the request and use appropriate tools:
 
-**File operations:**
+### File operations
 
 - Use List to explore directories
 - Use Read to examine file contents
 - Use Edit to modify existing files
 - Use Write to create new files
 
-**Search operations:**
+### Search operations
 
 - Use Glob for file pattern matching
 - Use Grep for content searching
 - Combine tools for complex searches
 
-**Code operations:**
+### Code operations
 
 - Use Read to understand existing code
 - Use Edit for modifications
 - Use Bash for testing/building
 
-**System operations:**
+### System operations
 
 - Use Bash for command execution
 - Use List/Read for system exploration
 
-## Execution approach:
+## Execution approach
 
 1. Understand the delegated task completely
 2. Plan the required tool usage
@@ -85,5 +85,4 @@ When delegated a task, analyze the request and use appropriate tools:
 4. Provide clear results back to the main agent
 5. Handle error cases gracefully
 
-**This agent serves as the primary executor for the delegator agent's
-requests.**
+This agent serves as the primary executor for the delegator agent's requests.

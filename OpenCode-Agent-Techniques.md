@@ -133,7 +133,7 @@ quality:
 deno task all    # fmt + lint + check + readme + test + coverage
 ```
 
-Discovery strategy:
+#### Discovery strategy
 
 - Check for `deno task all` in `deno.json` or `deno.jsonc` first
 - Fall back to `Makefile` targets like `make all`, `make test`, `make check`
@@ -144,7 +144,7 @@ Discovery strategy:
 - If not documented, add it to whichever file exists and is most relevant
 - When in doubt, ask user for the project's quality check command
 
-Benefits:
+#### Benefits
 
 - Prevents broken builds from entering version control
 - Ensures consistent code formatting and style
@@ -152,7 +152,7 @@ Benefits:
 - Auto-generates documentation from templates
 - Catches type errors and linting issues early
 
-Implementation strategy:
+#### Implementation strategy
 
 - Create a single task that chains all validation steps
 - Make it mandatory in development documentation
@@ -163,7 +163,7 @@ Implementation strategy:
 
 ### Research cleanup workflow
 
-Simple research management:
+#### Simple research management
 
 ```bash
 # During development - organize research files
@@ -175,7 +175,7 @@ git rm -rf research/ experiments/
 git commit -m "chore(research): clean up for production"
 ```
 
-Branch conventions:
+#### Branch conventions
 
 - Use simple, short kebab-case names: `optimize-parser`, `fix-bug`,
   `new-feature`
@@ -183,7 +183,7 @@ Branch conventions:
 - Git history shows all commits that touched specific paths via `gitk` or
   `git log --follow`
 
-Use cases:
+#### Use cases
 
 - Keeping research artifacts separate during development
 - Clean production code without experimental clutter
@@ -191,7 +191,7 @@ Use cases:
 
 ### Project structure and research management
 
-Development vs production layout:
+#### Development vs production layout
 
 ```bash
 # During active development
@@ -212,7 +212,7 @@ project/
 └── README.md              # Auto-generated documentation
 ```
 
-Research preservation workflow:
+#### Research preservation workflow
 
 ```bash
 # Clean experimental code for production
@@ -220,7 +220,7 @@ rm -rf research/ experiments/ analysis/
 git commit -m "chore(research): clean up for production"
 ```
 
-Principles:
+#### Principles
 
 - Keep production directories clean and focused
 - Separate source templates from generated files
@@ -231,7 +231,7 @@ Principles:
 
 Tool for git rebase autosquash operations to maintain clean commit history.
 
-Critical restrictions:
+#### Critical restrictions
 
 - ⚠️ NEVER run the tool file directly with Bun/Deno/Node.js or any runtime
 - ⚠️ ONLY use through OpenCode's tool-call interface
@@ -240,7 +240,7 @@ Critical restrictions:
 
 ### Auto-generated documentation systems
 
-Template-based documentation:
+#### Template-based documentation
 
 ```bash
 readme/
@@ -252,7 +252,7 @@ readme/
 └── README.md              # Auto-generated final output (make read-only)
 ```
 
-Detection strategy:
+#### Detection strategy
 
 - Check if `/README.md` in workspace is read-only - likely generated
 - Look for `readme` task in `deno.json`/`deno.jsonc` or `package.json`
@@ -260,14 +260,14 @@ Detection strategy:
 - After editing `readme/` folder, run the readme generation task unless already
   included in `deno task all`
 
-Benefits:
+#### Benefits
 
 - Single source of truth for documentation
 - Automatic inclusion of code examples
 - Consistent formatting across all docs
 - Easy maintenance and updates
 
-Implementation:
+#### Implementation
 
 - Use placeholder directives like `@@include(file.ext)`
 - Make generated files read-only to prevent direct editing
@@ -281,14 +281,14 @@ requirements.
 
 ### CLI script setup
 
-Setup:
+#### Setup
 
 - CLI script typically lives at `src/cli.ts`
 - Make executable with `chmod +x src/cli.ts`
 - Use deno-shebang for universal compatibility
 - Get the latest shebang from https://github.com/hugojosefson/deno-shebang
 
-Updating existing scripts:
+#### Updating existing scripts
 
 - Use the same URL (https://github.com/hugojosefson/deno-shebang) for both
   initial setup and updates
@@ -297,7 +297,7 @@ Updating existing scripts:
 - Preserve any existing `DENO_RUN_ARGS` from the current script when updating
   the shebang
 
-Benefits:
+#### Benefits
 
 - Auto-installs correct Deno version if needed
 - Works without pre-installed Deno
@@ -305,9 +305,9 @@ Benefits:
 
 ### Permission-specific documentation
 
-🚨 CRITICAL SECURITY REQUIREMENTS:
+#### 🚨 CRITICAL SECURITY REQUIREMENTS
 
-NEVER ADD DENO PERMISSIONS WITHOUT EXPLICIT USER PERMISSION
+**NEVER ADD DENO PERMISSIONS WITHOUT EXPLICIT USER PERMISSION**
 
 - Agents must never modify deno permissions in scripts without user
   authorization
@@ -317,7 +317,7 @@ NEVER ADD DENO PERMISSIONS WITHOUT EXPLICIT USER PERMISSION
   agents must ask the user if it's ok to add any deno permissions to the script
 - Always ask user before adding ANY new deno permissions to existing scripts
 
-Proper Deno permission management:
+#### Proper Deno permission management
 
 ```typescript
 // CORRECT: Set deno permissions in DENO_RUN_ARGS of deno-shebang scripts
@@ -336,7 +336,7 @@ Proper Deno permission management:
 --allow-run=git,npm             // Good for specific defined commands
 ```
 
-Security-first documentation approach:
+#### Security-first documentation approach
 
 - Always request user permission before adding ANY new deno permissions
 - Explain exactly why each deno permission is needed and what it accesses

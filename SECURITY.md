@@ -20,7 +20,7 @@ storing actual secrets.
 
 ## Setup instructions
 
-### 1. Environment variables
+### Environment variables
 
 Create a `.env` file from the template or set variables directly:
 
@@ -37,7 +37,7 @@ export OLLAMA_VAST_API_KEY="your-api-key-here"
 export OLLAMA_LOCAL_BASE_URL="http://localhost:11434/v1"
 ```
 
-### 2. Variable configuration
+### Variable configuration
 
 Environment variables supported by [config.json](config.json):
 
@@ -50,7 +50,7 @@ Environment variables supported by [config.json](config.json):
 Additional providers may require different variables - check the configuration
 file for `${VARIABLE_NAME}` patterns.
 
-## Security principles
+## Security practices
 
 ### Safe practices
 
@@ -148,7 +148,7 @@ Warning: Force pushing rewrites history - coordinate with your team.
   [OpenCode-Tool-System-Documentation.md](OpenCode-Tool-System-Documentation.md)
 - Reference OpenCode security guidelines at [opencode.ai](https://opencode.ai)
 
-## Related Documentation
+## Related documentation
 
 - [AGENTS.md](AGENTS.md) - Agent security, permission requirements, and advanced
   techniques

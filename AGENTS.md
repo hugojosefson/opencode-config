@@ -651,6 +651,7 @@ data. Do not use tables for content that belongs in lists or other formats.
 
 - Genuine key-value pairs (like configuration settings, specifications,
   properties)
+- File/path → description mappings (project structure, "What's here" sections)
 - Multi-column data that requires alignment across rows
 - Structured data where relationships between columns matter
 
@@ -673,7 +674,19 @@ data. Do not use tables for content that belongs in lists or other formats.
 | SSL enabled     | true       |
 ```
 
-**DON'T use tables for simple lists:**
+**DO use tables for file/path mappings:**
+
+```markdown
+| File/Directory | Description                  |
+| :------------- | :--------------------------- |
+| src/           | Main application source code |
+| test/          | Unit and integration tests   |
+| docs/          | Documentation and guides     |
+| config.json    | Application configuration    |
+| README.md      | Project overview and setup   |
+```
+
+**DON'T use tables for simple feature lists:**
 
 ```markdown
 <!-- Wrong: This should be a bullet list -->
@@ -692,6 +705,8 @@ data. Do not use tables for content that belongs in lists or other formats.
 ```
 
 Tables are for structured data formatting, not general content organization.
+File/directory listings with descriptions are legitimate key-value data that
+should use tables.
 
 ### 19. Use proper headings instead of bold pseudo-headings
 
@@ -740,15 +755,53 @@ Follow these steps:
 2. Convert to real headings
 ```
 
+**Preserve existing document hierarchy:**
+
+- Don't automatically promote subsection headings just because they seem
+  important
+- Respect the intended information architecture of existing documents
+- A subsection heading (####) should remain a subsection unless the document
+  structure genuinely needs reorganization
+- When in doubt, maintain the current heading level rather than promote it
+
 **Why this matters:**
 
 - Proper headings create document navigation and table of contents
 - Screen readers can jump between headings for accessibility
 - Looks more professional and less AI-generated
 - Distinguishes document structure from data formatting
+- Preserves the author's intended information hierarchy
 
 Use headings for document organization, not bold text that pretends to be
-headings.
+headings. Respect existing heading levels unless document restructuring is
+explicitly needed.
+
+### 20. Never modify license text
+
+License files contain legally binding text that must never be altered. Any
+changes to license content can invalidate legal protections and create serious
+liability issues.
+
+**NEVER modify:**
+
+- LICENSE files
+- LICENSE.txt files
+- License headers in source code
+- Copyright notices
+- Legal disclaimers
+- Terms of service
+- Any text that appears to be legal boilerplate
+
+**This applies regardless of:**
+
+- Writing style guidelines
+- Formatting preferences
+- AI detection concerns
+- Documentation consistency
+
+Legal text has specific wording requirements and changing even punctuation,
+capitalization, or formatting can have legal consequences. When in doubt about
+whether content is legal text, do not modify it.
 
 ### Core principle
 
