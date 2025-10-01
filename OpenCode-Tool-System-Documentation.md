@@ -1,17 +1,16 @@
-# OpenCode Tool System Architecture
+# OpenCode tool system architecture
 
 **Technical reference for OpenCode's tool system: built-in tools, custom
-development, plugins, and execution lifecycles. Essential for understanding tool
-capabilities, limitations, and integration.**
+development, plugins, and execution lifecycles.**
 
 ## Overview
 
 OpenCode combines built-in tools, file-based custom tools, and plugins into a
 unified system.
 
-## Tool Loading
+## Tool loading
 
-### Built-in Tools (`packages/opencode/src/tool/`)
+### Built-in tools (`packages/opencode/src/tool/`)
 
 - **bash** - Command execution with security restrictions
 - **edit** - File modification with surgical precision
@@ -28,7 +27,7 @@ unified system.
 
 Each tool has `.ts` implementation and `.txt` description files.
 
-### Custom Tools
+### Custom tools
 
 **File-based locations:**
 
@@ -42,9 +41,9 @@ Each tool has `.ts` implementation and `.txt` description files.
 
 **Plugin system:** Tools from `@opencode-ai/plugin` interface implementations.
 
-## Tool Interfaces
+## Tool interfaces
 
-### Core Tool Interface
+### Core tool interface
 
 ```typescript
 export namespace Tool {
@@ -76,7 +75,7 @@ export namespace Tool {
 }
 ```
 
-### Plugin Tool Interface
+### Plugin tool interface
 
 ```typescript
 export type ToolContext = {
@@ -98,9 +97,9 @@ export function tool<Args extends z.ZodRawShape>(input: {
 }
 ```
 
-## Plugin System
+## Plugin system
 
-### Plugin Interface
+### Plugin interface
 
 ```typescript
 export type PluginInput = {
@@ -134,7 +133,7 @@ export interface Hooks {
 }
 ```
 
-### BunShell Interface
+### BunShell interface
 
 ```typescript
 export interface BunShell {
@@ -160,9 +159,9 @@ export interface BunShellPromise extends Promise<BunShellOutput> {
 }
 ```
 
-## Tool Registry and Execution
+## Tool registry and execution
 
-### Registry Operation
+### Registry operation
 
 ```typescript
 export namespace ToolRegistry {
@@ -207,40 +206,40 @@ export namespace ToolRegistry {
 }
 ```
 
-### Execution Lifecycle
+### Execution lifecycle
 
-1. **Tool Registration** - Discovery and loading into registry
-2. **Call Initiation** - LLM requests execution with validated parameters
-3. **Context Creation** - Session/message IDs, abort signal, metadata function
-4. **Hook Execution** - `tool.execute.before` hooks called
-5. **Tool Execution** - Execute function called with args and context
-6. **Result Processing** - Output processed and formatted
-7. **Hook Completion** - `tool.execute.after` hooks called
-8. **State Update** - Tool state updated to completed/error
+1. **Tool registration** - Discovery and loading into registry
+2. **Call initiation** - LLM requests execution with validated parameters
+3. **Context creation** - Session/message IDs, abort signal, metadata function
+4. **Hook execution** - `tool.execute.before` hooks called
+5. **Tool execution** - Execute function called with args and context
+6. **Result processing** - Output processed and formatted
+7. **Hook completion** - `tool.execute.after` hooks called
+8. **State update** - Tool state updated to completed/error
 
-## Best Practices
+## Best practices
 
-### Tool Development
+### Tool development
 
-1. **Descriptive Names** - Tool IDs should clearly indicate purpose
-2. **Input Validation** - Use Zod schemas for parameter validation
-3. **Error Handling** - Provide meaningful error messages
-4. **Cancellation Support** - Check abort signal for long operations
-5. **Progress Reporting** - Use metadata function for status updates
+1. **Descriptive names** - Tool IDs should clearly indicate purpose
+2. **Input validation** - Use Zod schemas for parameter validation
+3. **Error handling** - Provide meaningful error messages
+4. **Cancellation support** - Check abort signal for long operations
+5. **Progress reporting** - Use metadata function for status updates
 
-### Plugin Development
+### Plugin development
 
-1. **Lifecycle Hooks** - Use before/after hooks for logging/monitoring
-2. **Shell Security** - Validate commands to prevent security issues
-3. **Resource Management** - Clean up resources on abort
+1. **Lifecycle hooks** - Use before/after hooks for logging/monitoring
+2. **Shell security** - Validate commands to prevent security issues
+3. **Resource management** - Clean up resources on abort
 4. **Testing** - Test tools in isolation and integrated
 
 ### Integration
 
-1. **Permission Awareness** - Design tools for OpenCode's permission system
-2. **Context Usage** - Use session/message context appropriately
+1. **Permission awareness** - Design tools for OpenCode's permission system
+2. **Context usage** - Use session/message context appropriately
 3. **Performance** - Consider impact on chat response times
 4. **Compatibility** - Ensure tools work across OpenCode versions
 
-This architecture enables extensible toolsets while maintaining security,
+This architecture provides extensible toolsets while maintaining security,
 performance, and user experience.

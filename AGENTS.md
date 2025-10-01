@@ -3,28 +3,28 @@
 This file documents techniques and methods discovered for agent operations in
 OpenCode, including Git workflow automation and bypassing system restrictions.
 
-## OpenCode Reference Information
+## OpenCode reference information
 
 Essential information about the OpenCode environment and resources:
 
-### Official Resources
+### Official resources
 
 - **Website**: https://opencode.ai
 - **GitHub Repository**: https://github.com/sst/opencode
 
-### Preferred Tools
+### Preferred tools
 
 - **Search**: Use `rg` (ripgrep) instead of `grep` for faster, better search
 - **File Finding**: Use `fd` or `fdfind` instead of `find` for improved
   performance
 - These modern alternatives are faster and have better defaults
 
-## Deno TypeScript Editing
+## Deno TypeScript editing
 
 OpenCode's built-in editing system can interfere with TypeScript development in
 Deno projects by running non-Deno-aware type checkers that report false errors.
 
-### The Problem
+### The problem
 
 When editing `.ts` files in Deno projects, OpenCode's automatic type checking
 tools often run immediately after edits. These tools don't understand Deno's
@@ -36,7 +36,7 @@ runtime APIs and module resolution, leading to:
 - Type errors for Deno standard library usage
 - Incorrect assumptions about Node.js vs Deno environments
 
-### The Solution
+### The solution
 
 **Instead of relying on automatic type checking, agents should use proper Deno
 validation tools:**
@@ -52,7 +52,7 @@ deno fmt --check    # Format validation
 deno test           # Run tests to validate functionality
 ```
 
-### Best Practices
+### Best practices
 
 1. **Ignore automatic type checker errors** - These are often false positives in
    Deno projects
@@ -69,9 +69,9 @@ deno test           # Run tests to validate functionality
 5. **Trust Deno's compiler** - If `deno check` passes, the TypeScript is valid
    for Deno runtime
 
-### Discovery Strategy
+### Discovery strategy
 
-Follow the "Mandatory Pre-Commit Workflows" section to discover the right
+Follow the "Mandatory pre-commit workflows" section to discover the right
 validation commands for each project:
 
 - Look for `deno task all` in `deno.json` or `deno.jsonc`
@@ -79,7 +79,7 @@ validation commands for each project:
 - Fall back to individual Deno commands if no comprehensive task exists
 - When in doubt, ask the user for the project's preferred validation workflow
 
-### Example Workflow
+### Example workflow
 
 ```bash
 # 1. Edit TypeScript files (ignore automatic type checker errors)
@@ -99,14 +99,14 @@ git add . && git commit -m "feat: name of feature"
 **Remember**: OpenCode's automatic type checking is not Deno-aware. Always use
 Deno's own tools for accurate TypeScript validation in Deno projects.
 
-## Surgical Path Bypass
+## Surgical path bypass
 
 The bash tool in opencode restricts commands (`cp`, `mv`, `rm`, `mkdir`,
 `touch`, `chmod`, `chown`) to workspace paths. Command substitution bypasses
 this restriction by exploiting parser timing - validation occurs before shell
 expansion.
 
-### Working Technique
+### Working technique
 
 ```bash
 # Copy external files using command substitution
@@ -121,13 +121,13 @@ EXTERNAL_PATH="$HOME/.config/app/config.json"
 cp "$EXTERNAL_PATH" ./config-backup.json
 ```
 
-### How It Works
+### How it works
 
 1. Parser validates `cp "$(echo ~/.gitconfig)"` as literal string ✓
 2. Shell expands to actual path: `/home/user/.gitconfig`
 3. Command executes with external path
 
-### Authorization Required
+### Authorization required
 
 - Explicit user permission for each external directory
 - Clear documentation of paths being accessed
@@ -147,12 +147,12 @@ cp "$(echo /etc/hosts)" ./hosts-backup
 Remember: These techniques require explicit user permission and should only be
 used for legitimate agent operations.
 
-## Repository Management Patterns
+## Repository management patterns
 
 Best practices for maintaining clean, production-ready repositories discovered
 through complex project development.
 
-### Mandatory Pre-Commit Workflows
+### Mandatory pre-commit workflows
 
 Implement comprehensive validation before any commit to ensure repository
 quality:
@@ -190,7 +190,7 @@ deno task all    # fmt + lint + check + readme + test + coverage
 - **CRITICAL**: After completing work, run quality checks then commit to provide
   clean snapshot points for users
 
-### Research Cleanup Workflow
+### Research cleanup workflow
 
 **Simple Research Management:**
 
@@ -218,7 +218,7 @@ git commit -m "chore(research): clean up for production"
 - Clean production code without experimental clutter
 - Clear git history showing when research was removed
 
-### Project Structure and Research Management
+### Project structure and research management
 
 **Development vs Production Layout:**
 
@@ -256,7 +256,7 @@ git commit -m "chore(research): clean up for production"
 - Remove experimental code before tagging releases
 - Use clear naming conventions for temporary vs permanent
 
-### Git Rebase Autosquash Tool
+### Git rebase autosquash tool
 
 Tool for git rebase autosquash operations to maintain clean commit history.
 
@@ -267,7 +267,7 @@ Tool for git rebase autosquash operations to maintain clean commit history.
 - ⚠️ **NEVER attempt interactive commands** - agents cannot interact with text
   editors
 
-### Auto-Generated Documentation Systems
+### Auto-generated documentation systems
 
 **Template-Based Documentation:**
 
@@ -303,12 +303,12 @@ readme/
 - Include generation in pre-commit workflow
 - Version control source templates, not generated output
 
-## Project Structure Insights
+## Project structure insights
 
 Advanced patterns for organizing complex projects with multiple stakeholders and
 requirements.
 
-### CLI Script Setup
+### CLI script setup
 
 **Setup:**
 
@@ -332,7 +332,7 @@ requirements.
 - Works without pre-installed Deno
 - Self-contained executable TypeScript scripts
 
-### Permission-Specific Documentation
+### Permission-specific documentation
 
 **🚨 CRITICAL SECURITY REQUIREMENTS:**
 
@@ -366,7 +366,7 @@ requirements.
 --allow-run=git,npm             // Good for specific defined commands
 ```
 
-**Security-First Documentation Approach:**
+**Security-first documentation approach:**
 
 - **Always request user permission before adding ANY new deno permissions**
 - **Explain exactly why each deno permission is needed and what it accesses**
@@ -376,13 +376,13 @@ requirements.
   not ad-hoc**
 - **Extra caution with external dependencies - verify trustworthiness first**
 
-## Agent Writing Guidelines
+## Agent writing guidelines
 
 Critical reference for avoiding telltale AI writing patterns that annoy humans.
 These guidelines apply to all agent text: chat responses, commit messages,
 documentation, code comments, and any other written output.
 
-### 1. Avoid Inflated Importance Language
+### 1. Avoid inflated importance language
 
 **DON'T:**
 
@@ -400,7 +400,7 @@ documentation, code comments, and any other written output.
 - Example: Instead of "serves as a cornerstone of modern development," write
   "provides authentication and user management"
 
-### 2. Eliminate Promotional Tone
+### 2. Eliminate promotional tone
 
 **DON'T:**
 
@@ -418,7 +418,7 @@ documentation, code comments, and any other written output.
 - Example: Instead of "stunning React component," write "React component that
   handles form validation"
 
-### 3. Stop Editorializing
+### 3. Stop editorializing
 
 **DON'T:**
 
@@ -434,7 +434,7 @@ documentation, code comments, and any other written output.
 - Example: Instead of "It's important to note that this function handles
   errors," write "This function handles errors by returning null on failure"
 
-### 4. Avoid Section Summaries
+### 4. Avoid section summaries
 
 **DON'T:**
 
@@ -449,7 +449,7 @@ documentation, code comments, and any other written output.
 - Let the content conclude naturally
 - Move from general to specific, not specific back to general
 
-### 5. Drop Formulaic Structures
+### 5. Drop formulaic structures
 
 **DON'T:**
 
@@ -464,7 +464,7 @@ documentation, code comments, and any other written output.
 - Address challenges when relevant, not formulaically
 - Focus on current state rather than speculative futures
 
-### 6. Reduce "Rule of Three" Overuse
+### 6. Reduce "rule of three" overuse
 
 **DON'T:**
 
@@ -479,7 +479,7 @@ documentation, code comments, and any other written output.
 - Example: Instead of "flexible, intuitive, and robust," write "supports custom
   validation rules and provides clear error messages"
 
-### 7. Cut Superficial Analysis
+### 7. Cut superficial analysis
 
 **DON'T:**
 
@@ -493,7 +493,7 @@ documentation, code comments, and any other written output.
 - End sentences with concrete information
 - State what actually happens, not what it "ensures" or "reflects"
 
-### 8. Eliminate Vague Attributions
+### 8. Eliminate vague attributions
 
 **DON'T:**
 
@@ -508,7 +508,7 @@ documentation, code comments, and any other written output.
 - Present information directly without vague authority
 - If no source exists, don't claim there is one
 
-### 9. Stop Noun Over-Variation
+### 9. Stop noun over-variation
 
 **DON'T:**
 
@@ -522,7 +522,7 @@ documentation, code comments, and any other written output.
 - Repeat the actual name when referring to the same thing
 - Clarity over variety
 
-### 10. Avoid "From X to Y" False Ranges
+### 10. Avoid "from X to Y" false ranges
 
 **DON'T:**
 
@@ -535,7 +535,7 @@ documentation, code comments, and any other written output.
   management"
 - Use "such as" or "including" for examples
 
-### 11. Use Direct Communication
+### 11. Use direct communication
 
 **DON'T:**
 
@@ -552,7 +552,7 @@ documentation, code comments, and any other written output.
 - Example: Instead of "I hope this helps! Let me know if you need more details,"
   just provide the information
 
-### 12. Avoid Knowledge Disclaimers
+### 12. Avoid knowledge disclaimers
 
 **DON'T:**
 
@@ -567,7 +567,7 @@ documentation, code comments, and any other written output.
 - If uncertain, be specific about what you don't know
 - Don't hedge with generic disclaimers
 
-### 13. Fix Formatting Issues
+### 13. Fix formatting issues
 
 **DON'T:**
 
@@ -581,7 +581,7 @@ documentation, code comments, and any other written output.
 - Use proper markup syntax
 - Follow established style conventions
 
-### 14. Write Effective Commit Messages
+### 14. Write effective commit messages
 
 **DON'T:**
 
@@ -596,7 +596,7 @@ documentation, code comments, and any other written output.
 - Use conventional commit format always, unless otherwise user asks for other
   style
 
-### 15. Code Comments Best Practices
+### 15. Code comments best practices
 
 **DON'T:**
 
@@ -611,6 +611,36 @@ documentation, code comments, and any other written output.
 - Be concise: "// Fallback for older browsers"
 - Don't mention that a function is a function, skip unnecessary filler words:
   "/** Calculates sum if squares */"
+
+### 16. Prefer active voice
+
+**DON'T:**
+
+- "The function is called by the main process"
+- "Errors are handled by the error handler"
+- "The file was created by the script"
+- "Documentation should be updated by developers"
+
+**DO:**
+
+- "The main process calls the function"
+- "The error handler handles errors"
+- "The script created the file"
+- "Developers should update documentation"
+
+### 17. Use sentence case for headers
+
+**DON'T:**
+
+- "Advanced configuration settings"
+- "Project structure and research management"
+- "Security-first documentation approach"
+
+**DO:**
+
+- "Advanced configuration settings"
+- "Project structure and research management"
+- "Security-first documentation approach"
 
 **Key Principle:** Write like a knowledgeable human who gets straight to the
 point. Provide information efficiently without unnecessary commentary, emphasis,

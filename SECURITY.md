@@ -1,27 +1,26 @@
-# Security Configuration Guide
+# Security configuration guide
 
-**Essential security practices for OpenCode configurations: environment variable
-management, API key protection, and safe publishing of configuration files with
-external service credentials.**
+OpenCode configurations use environment variable references for external API key
+management. Configuration files use placeholder variables instead of actual
+secrets for safe version control and sharing.
 
 ## Overview
 
-This repository contains OpenCode configuration templates using environment
-variable references for secure external API key management. Configuration files
-use placeholder variables instead of actual secrets, enabling safe version
-control and sharing.
+This repository contains OpenCode configuration templates with environment
+variable placeholders. Configuration files reference variables rather than
+storing actual secrets.
 
-## Configuration Files
+## Configuration files
 
-| File                         | Description                                                   | Security Level      |
-| ---------------------------- | ------------------------------------------------------------- | ------------------- |
-| [config.json](config.json)   | OpenCode configuration with environment variable placeholders | ✅ Safe to commit   |
-| [.env.example](.env.example) | Environment variable template                                 | ✅ Safe to commit   |
-| `.env`                       | Actual environment variables                                  | ⚠️ **NEVER COMMIT** |
+| File                         | Description                                       | Security Level |
+| ---------------------------- | ------------------------------------------------- | -------------- |
+| [config.json](config.json)   | OpenCode configuration with variable placeholders | Safe to commit |
+| [.env.example](.env.example) | Environment variable template                     | Safe to commit |
+| `.env`                       | Actual environment variables                      | NEVER COMMIT   |
 
-## Setup Instructions
+## Setup instructions
 
-### 1. Environment Variables
+### 1. Environment variables
 
 Create a `.env` file from the template or set variables directly:
 
@@ -38,37 +37,37 @@ export OLLAMA_VAST_API_KEY="your-api-key-here"
 export OLLAMA_LOCAL_BASE_URL="http://localhost:11434/v1"
 ```
 
-### 2. Variable Configuration
+### 2. Variable configuration
 
 Environment variables supported by [config.json](config.json):
 
 | Variable                | Required | Default                     | Purpose                      |
 | ----------------------- | -------- | --------------------------- | ---------------------------- |
-| `OLLAMA_VAST_BASE_URL`  | ✅       | -                           | External Ollama instance URL |
-| `OLLAMA_VAST_API_KEY`   | ✅       | -                           | API key for authentication   |
-| `OLLAMA_LOCAL_BASE_URL` | ❌       | `http://localhost:11434/v1` | Local Ollama instance URL    |
+| `OLLAMA_VAST_BASE_URL`  | Yes      | -                           | External Ollama instance URL |
+| `OLLAMA_VAST_API_KEY`   | Yes      | -                           | API key for authentication   |
+| `OLLAMA_LOCAL_BASE_URL` | No       | `http://localhost:11434/v1` | Local Ollama instance URL    |
 
 Additional providers may require different variables - check the configuration
 file for `${VARIABLE_NAME}` patterns.
 
-## Security Principles
+## Security principles
 
-### ✅ Safe Practices
+### Safe practices
 
-- **Configuration Templates**: Use `${VARIABLE}` placeholders in JSON files
-- **Environment Variables**: Store secrets outside version control
-- **Template Sharing**: Commit `.env.example` with placeholder values
-- **Documentation**: Reference security practices in [AGENTS.md](AGENTS.md) and
+- Configuration templates: Use `${VARIABLE}` placeholders in JSON files
+- Environment variables: Store secrets outside version control
+- Template sharing: Commit `.env.example` with placeholder values
+- Documentation: Reference security practices in [AGENTS.md](AGENTS.md) and
   [OpenCode-Tool-System-Documentation.md](OpenCode-Tool-System-Documentation.md)
 
-### ⚠️ Critical Restrictions
+### Critical restrictions
 
-- **Never** commit actual API keys or passwords
-- **Never** replace environment variables with literal values in config files
-- **Never** add `.env` files to version control
-- **Always** validate environment variable patterns before committing
+- Never commit actual API keys or passwords
+- Never replace environment variables with literal values in config files
+- Never add `.env` files to version control
+- Always validate environment variable patterns before committing
 
-### 🔐 API Key Management
+### API key management
 
 - Use secure password managers for key storage
 - Rotate keys regularly (monthly/quarterly)
@@ -76,7 +75,7 @@ file for `${VARIABLE_NAME}` patterns.
 - Monitor usage for unusual activity
 - Revoke unused or compromised keys immediately
 
-### 🛡️ Configuration Security
+### Configuration security
 
 - Prefer HTTPS endpoints for external services
 - Use localhost/127.0.0.1 for local development defaults
@@ -84,7 +83,7 @@ file for `${VARIABLE_NAME}` patterns.
 - Document required permissions in [AGENTS.md](AGENTS.md) and
   [OpenCode-Tool-System-Documentation.md](OpenCode-Tool-System-Documentation.md)
 
-## Environment Examples
+## Environment examples
 
 ### Development
 
@@ -105,33 +104,33 @@ export OLLAMA_VAST_API_KEY="prod-api-key"
 
 ## Troubleshooting
 
-### Missing Environment Variables
+### Missing environment variables
 
 If you encounter errors about missing variables:
 
-1. **Check variable names** - They are case-sensitive
-2. **Verify values are set** - Use `echo $VARIABLE_NAME` to test
-3. **Restart applications** after setting new variables
-4. **Check `.env` loading** if using environment files
+1. Check variable names - They are case-sensitive
+2. Verify values are set - Use `echo $VARIABLE_NAME` to test
+3. Restart applications after setting new variables
+4. Check `.env` loading if using environment files
 
-### Configuration Issues
+### Configuration issues
 
-1. **Validate JSON syntax** in [config.json](config.json)
-2. **Check file permissions** for configuration files
-3. **Verify variable expansion** using `envsubst < config.json`
+1. Validate JSON syntax in [config.json](config.json)
+2. Check file permissions for configuration files
+3. Verify variable expansion using `envsubst < config.json`
 
-## Security Incident Response
+## Security incident response
 
-### If Secrets Are Compromised
+### If secrets are compromised
 
-**Immediate Actions:**
+Immediate actions:
 
-1. **Rotate all exposed credentials** immediately
-2. **Revoke API keys** at the provider level
-3. **Update environment variables** with new values
-4. **Monitor for unauthorized usage**
+1. Rotate all exposed credentials immediately
+2. Revoke API keys at the provider level
+3. Update environment variables with new values
+4. Monitor for unauthorized usage
 
-**Git History Cleanup:**
+Git history cleanup:
 
 ```bash
 # Remove secrets from Git history (DESTRUCTIVE)
@@ -139,7 +138,7 @@ git filter-branch --env-filter 'unset API_KEY' HEAD
 git push --force-with-lease
 ```
 
-⚠️ **Warning**: Force pushing rewrites history - coordinate with your team.
+Warning: Force pushing rewrites history - coordinate with your team.
 
 ### Prevention
 
@@ -159,5 +158,5 @@ git push --force-with-lease
 - [config.json](config.json) - OpenCode configuration with environment variable
   placeholders
 
-For advanced security techniques and OpenCode-specific considerations, see the
-comprehensive documentation in [AGENTS.md](AGENTS.md).
+For advanced security techniques and OpenCode-specific considerations, see
+[AGENTS.md](AGENTS.md).

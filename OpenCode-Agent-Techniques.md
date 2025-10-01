@@ -3,44 +3,109 @@
 This file documents techniques and methods discovered for agent operations in
 OpenCode, including Git workflow automation and bypassing system restrictions.
 
-## OpenCode Reference Information
+## OpenCode reference information
 
-Essential information about the OpenCode environment and resources:
+Information about the OpenCode environment and resources:
 
-### Official Resources
+### Official resources
 
-- **Website**: https://opencode.ai
-- **GitHub Repository**: https://github.com/sst/opencode
+- Website: https://opencode.ai
+- GitHub Repository: https://github.com/sst/opencode
 
-### Preferred Tools
+### Preferred tools
 
-- **Search**: Use `rg` (ripgrep) instead of `grep` for faster, better search
-- **File Finding**: Use `fd` or `fdfind` instead of `find` for improved
-  performance
+- Search: Use `rg` (ripgrep) instead of `grep` for faster, better search
+- File Finding: Use `fd` or `fdfind` instead of `find` for improved performance
 - These modern alternatives are faster and have better defaults
 
-## Tool System Architecture
+## Deno TypeScript editing
 
-### Overview
+OpenCode's built-in editing system can interfere with TypeScript development in
+Deno projects by running non-Deno-aware type checkers that report false errors.
 
-OpenCode uses a sophisticated tool system combining built-in tools, file-based
-custom tools, and a plugin architecture. See
-`OpenCode-Tool-System-Documentation.md` for complete details.
+### The problem
 
-### Key Tool Directories
+When editing `.ts` files in Deno projects, OpenCode's automatic type checking
+tools often run immediately after edits. These tools don't understand Deno's
+runtime APIs and module resolution, leading to:
 
-- **Built-in tools**: `packages/opencode/src/tool/`
-- **Global custom tools**: `~/.config/opencode/tool/*.{js,ts}`
-- **Project-specific tools**: `.opencode/tool/*.{js,ts}`
+- False error reports for valid Deno APIs (`Deno.readTextFile`, `Deno.env`,
+  etc.)
+- Import resolution failures for Deno-style imports (`jsr:`, `npm:`, `https:`)
+- Type errors for Deno standard library usage
+- Incorrect assumptions about Node.js vs Deno environments
 
-## Surgical Path Bypass
+### The solution
+
+Instead of relying on automatic type checking, agents should use proper Deno
+validation tools:
+
+```bash
+# Primary validation - use project's quality check command
+deno task all        # Preferred: comprehensive validation (fmt + lint + check + test)
+
+# Fallback validation commands if no project-specific task exists
+deno check src/      # Type checking with Deno's TypeScript compiler
+deno lint --fix           # Deno-aware linting
+deno fmt --check    # Format validation
+deno test           # Run tests to validate functionality
+```
+
+### Best practices
+
+1. Ignore automatic type checker errors - These are often false positives in
+   Deno projects
+
+2. Use project-specific validation - Always prefer `deno task all` or similar
+   project-defined quality check commands
+
+3. Run validation after editing - Complete your edits first, then run proper
+   Deno tools to validate
+
+4. Focus on Deno-native tools - Use `deno check`, `deno lint --fix`, `deno fmt`
+   instead of generic TypeScript tools
+
+5. Trust Deno's compiler - If `deno check` passes, the TypeScript is valid for
+   Deno runtime
+
+### Discovery strategy
+
+Follow the "Mandatory pre-commit workflows" section to discover the right
+validation commands for each project:
+
+- Look for `deno task all` in `deno.json` or `deno.jsonc`
+- Check for documented quality check commands in `README.md` or `AGENTS.md`
+- Fall back to individual Deno commands if no comprehensive task exists
+- When in doubt, ask the user for the project's preferred validation workflow
+
+### Example workflow
+
+```bash
+# 1. Edit TypeScript files (ignore automatic type checker errors)
+# 2. Run project validation
+deno task all
+
+# 3. If no comprehensive task, run individual validations
+deno fmt
+deno lint --fix
+deno check src/
+deno test
+
+# 4. Commit only after validation passes
+git add . && git commit -m "feat: name of feature"
+```
+
+Remember: OpenCode's automatic type checking is not Deno-aware. Always use
+Deno's own tools for accurate TypeScript validation in Deno projects.
+
+## Surgical path bypass
 
 The bash tool in opencode restricts commands (`cp`, `mv`, `rm`, `mkdir`,
 `touch`, `chmod`, `chown`) to workspace paths. Command substitution bypasses
 this restriction by exploiting parser timing - validation occurs before shell
 expansion.
 
-### Working Technique
+### Working technique
 
 ```bash
 # Copy external files using command substitution
@@ -55,13 +120,13 @@ EXTERNAL_PATH="$HOME/.config/app/config.json"
 cp "$EXTERNAL_PATH" ./config-backup.json
 ```
 
-### How It Works
+### How it works
 
 1. Parser validates `cp "$(echo ~/.gitconfig)"` as literal string ✓
 2. Shell expands to actual path: `/home/user/.gitconfig`
 3. Command executes with external path
 
-### Authorization Required
+### Authorization required
 
 - Explicit user permission for each external directory
 - Clear documentation of paths being accessed
@@ -81,109 +146,235 @@ cp "$(echo /etc/hosts)" ./hosts-backup
 Remember: These techniques require explicit user permission and should only be
 used for legitimate agent operations.
 
-## Custom Tool Development
+## Repository management patterns
 
-For complete information on developing custom tools and plugins, see the
-[Custom Tool Development section in OpenCode-Tool-System-Documentation.md](./OpenCode-Tool-System-Documentation.md#custom-tool-development).
+Best practices for maintaining clean, production-ready repositories discovered
+through complex project development.
 
-## Agent System
+### Mandatory pre-commit workflows
 
-OpenCode supports multiple agent types:
+Implement comprehensive validation before any commit to ensure repository
+quality:
 
-- **General Purpose**: Full tool access for all operations
-- **Delegator**: Specialized for task delegation and coordination
-- **Custom Agents**: User-defined agent configurations
+```bash
+# Example: deno task all pattern
+deno task all    # fmt + lint + check + readme + test + coverage
+```
 
-### Agent Configuration
+Discovery strategy:
 
-Agents are configured through:
+- Check for `deno task all` in `deno.json` or `deno.jsonc` first
+- Fall back to `Makefile` targets like `make all`, `make test`, `make check`
+- Check `package.json` scripts for `npm run all`, `npm test`, `npm run lint`
+- Look for common patterns: `cargo check && cargo test`, `go test ./...`
+- Quality check command should be documented in `README.md`, `CONTRIBUTING.md`,
+  or `AGENTS.md`
+- If not documented, add it to whichever file exists and is most relevant
+- When in doubt, ask user for the project's quality check command
 
-- Permission systems controlling tool access
-- Tool availability based on model/provider
-- Context-aware capability restrictions
+Benefits:
 
-## Git Workflow Integration
+- Prevents broken builds from entering version control
+- Ensures consistent code formatting and style
+- Validates all tests pass with full coverage
+- Auto-generates documentation from templates
+- Catches type errors and linting issues early
 
-### Automated Git Operations
+Implementation strategy:
 
-- Tools can integrate with git workflows
-- Permission-aware git operations
-- Automatic commit message generation based on changes
+- Create a single task that chains all validation steps
+- Make it mandatory in development documentation
+- Include in CI/CD as a double-check
+- Document the "never commit without running" rule clearly
+- CRITICAL: After completing work, run quality checks then commit to provide
+  clean snapshot points for users
 
-### Git State Tracking
+### Research cleanup workflow
 
-- Session-aware git operations
-- File change tracking
-- Integration with LSP for symbol-level changes
+Simple research management:
 
-## Performance Optimization
+```bash
+# During development - organize research files
+mkdir research/ experiments/
+# ... do experimental work ...
 
-### Tool Result Management
+# Before production - clean up research
+git rm -rf research/ experiments/
+git commit -m "chore(research): clean up for production"
+```
 
-- Automatic compaction of old tool results
-- Memory-efficient result storage
-- "[Old tool result content cleared]" for compacted results
+Branch conventions:
 
-### Caching and State
+- Use simple, short kebab-case names: `optimize-parser`, `fix-bug`,
+  `new-feature`
+- No prefixes like `feature/` or `research/` - just descriptive names
+- Git history shows all commits that touched specific paths via `gitk` or
+  `git log --follow`
 
-- Instance-level state management
-- Tool registry caching
-- Configuration directory caching
+Use cases:
 
-## Security Considerations
+- Keeping research artifacts separate during development
+- Clean production code without experimental clutter
+- Clear git history showing when research was removed
 
-### File System Security
+### Project structure and research management
 
-- Workspace boundary enforcement
-- Path validation for all file operations
-- Binary file detection and handling
+Development vs production layout:
 
-### Command Execution Security
+```bash
+# During active development
+project/
+├── src/                    # Core implementation
+├── test/                   # Comprehensive test suite
+├── readme/                 # Documentation source templates
+├── .github/workflows/      # CI/CD automation
+├── research/              # Experimental work (temporary)
+├── experiments/           # Alternative approaches (temporary)
+└── analysis/              # Performance studies (temporary)
 
-- Restricted command execution in bash tool
-- Shell escaping and validation
-- Permission-based command filtering
+# Production ready state
+project/
+├── src/                    # Core implementation
+├── test/                   # Comprehensive test suite
+├── readme/                 # Documentation source
+└── README.md              # Auto-generated documentation
+```
 
-### Plugin Security
+Research preservation workflow:
 
-- Sandboxed plugin execution
-- Controlled access to system resources
-- User approval for sensitive operations
+```bash
+# Clean experimental code for production
+rm -rf research/ experiments/ analysis/
+git commit -m "chore(research): clean up for production"
+```
 
-## Error Handling and Debugging
+Principles:
 
-### Tool State Management
+- Keep production directories clean and focused
+- Separate source templates from generated files
+- Remove experimental code before tagging releases
+- Use clear naming conventions for temporary vs permanent
 
-Tools progress through states: pending → running → completed/error
+### Git rebase autosquash tool
 
-### Error Reporting
+Tool for git rebase autosquash operations to maintain clean commit history.
 
-- Structured error objects with context
-- Tool-specific error handling
-- Integration with UI error display
+Critical restrictions:
 
-### Debugging Tools
+- ⚠️ NEVER run the tool file directly with Bun/Deno/Node.js or any runtime
+- ⚠️ ONLY use through OpenCode's tool-call interface
+- ⚠️ NEVER attempt interactive commands - agents cannot interact with text
+  editors
 
-- Tool execution lifecycle hooks
-- Comprehensive logging and tracing
-- Performance monitoring capabilities
+### Auto-generated documentation systems
 
-## Advanced Features
+Template-based documentation:
 
-### LSP Integration
+```bash
+readme/
+├── README.md              # Source template with @@include() directives
+├── generate-readme.ts     # Generation script
+├── examples/              # Include files
+│   ├── usage.ts
+│   └── usage.sh
+└── README.md              # Auto-generated final output (make read-only)
+```
 
-- Language Server Protocol support
-- Symbol-aware file operations
-- IDE integration capabilities
+Detection strategy:
 
-### Multi-Agent Coordination
+- Check if `/README.md` in workspace is read-only - likely generated
+- Look for `readme` task in `deno.json`/`deno.jsonc` or `package.json`
+- Look for `README.md` target in `Makefile`
+- After editing `readme/` folder, run the readme generation task unless already
+  included in `deno task all`
 
-- Task delegation between agents
-- Hierarchical agent structures
-- Shared context and state management
+Benefits:
 
-### Real-time Collaboration
+- Single source of truth for documentation
+- Automatic inclusion of code examples
+- Consistent formatting across all docs
+- Easy maintenance and updates
 
-- Session-aware operations
-- Message-level tool tracking
-- Multi-user coordination support
+Implementation:
+
+- Use placeholder directives like `@@include(file.ext)`
+- Make generated files read-only to prevent direct editing
+- Include generation in pre-commit workflow
+- Version control source templates, not generated output
+
+## Project structure insights
+
+Advanced patterns for organizing complex projects with multiple stakeholders and
+requirements.
+
+### CLI script setup
+
+Setup:
+
+- CLI script typically lives at `src/cli.ts`
+- Make executable with `chmod +x src/cli.ts`
+- Use deno-shebang for universal compatibility
+- Get the latest shebang from https://github.com/hugojosefson/deno-shebang
+
+Updating existing scripts:
+
+- Use the same URL (https://github.com/hugojosefson/deno-shebang) for both
+  initial setup and updates
+- When updating the shebang, use the later/newer of any `DENO_VERSION_RANGE`
+  between the old and new versions
+- Preserve any existing `DENO_RUN_ARGS` from the current script when updating
+  the shebang
+
+Benefits:
+
+- Auto-installs correct Deno version if needed
+- Works without pre-installed Deno
+- Self-contained executable TypeScript scripts
+
+### Permission-specific documentation
+
+🚨 CRITICAL SECURITY REQUIREMENTS:
+
+NEVER ADD DENO PERMISSIONS WITHOUT EXPLICIT USER PERMISSION
+
+- Agents must never modify deno permissions in scripts without user
+  authorization
+- This is especially critical for blanket deno permissions like `--allow-all`,
+  `--allow-net`, `--allow-run`
+- If a script has any (even transitive) dependencies outside of `jsr:@std/`,
+  agents must ask the user if it's ok to add any deno permissions to the script
+- Always ask user before adding ANY new deno permissions to existing scripts
+
+Proper Deno permission management:
+
+```typescript
+// CORRECT: Set deno permissions in DENO_RUN_ARGS of deno-shebang scripts
+// In src/cli.ts: DENO_RUN_ARGS="--allow-read=./config --allow-write=./output"
+
+// Good: Specific deno permissions with clear purpose
+--allow-read=./config --allow-write=./output
+
+// DANGER: Blanket deno permissions without justification  
+--allow-all
+--allow-net         // Unless explicitly required for dynamic network operations
+--allow-run         // Unless explicitly required for dynamic subprocess execution
+
+// Good: Static/specific deno permissions
+--allow-net=api.example.com     // Good for static addresses
+--allow-run=git,npm             // Good for specific defined commands
+```
+
+Security-first documentation approach:
+
+- Always request user permission before adding ANY new deno permissions
+- Explain exactly why each deno permission is needed and what it accesses
+- Provide minimal deno permission examples with security rationale
+- Document all security implications and potential risks
+- Set deno permissions in `DENO_RUN_ARGS` variable of deno-shebang scripts, not
+  ad-hoc
+- Extra caution with external dependencies - verify trustworthiness first
+
+## Agent writing guidelines
+
+See AGENTS.md for comprehensive agent writing guidelines to avoid telltale AI
+writing patterns.
