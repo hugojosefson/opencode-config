@@ -375,3 +375,244 @@ requirements.
 - **Set deno permissions in `DENO_RUN_ARGS` variable of deno-shebang scripts,
   not ad-hoc**
 - **Extra caution with external dependencies - verify trustworthiness first**
+
+## Agent Writing Guidelines
+
+Critical reference for avoiding telltale AI writing patterns that annoy humans.
+These guidelines apply to all agent text: chat responses, commit messages,
+documentation, code comments, and any other written output.
+
+### 1. Avoid Inflated Importance Language
+
+**DON'T:**
+
+- "stands as a testament to"
+- "plays a crucial/vital/significant role"
+- "underscores its importance"
+- "highlights its significance"
+- "watershed moment"
+- "deeply rooted heritage"
+
+**DO:**
+
+- Use specific, factual descriptions
+- State what something actually does, not its symbolic importance
+- Example: Instead of "serves as a cornerstone of modern development," write
+  "provides authentication and user management"
+
+### 2. Eliminate Promotional Tone
+
+**DON'T:**
+
+- "rich cultural heritage"
+- "breathtaking"
+- "must-see/must-visit"
+- "stunning natural beauty"
+- "nestled in the heart of"
+- "vibrant tapestry"
+
+**DO:**
+
+- Use neutral, descriptive language
+- Focus on functionality and facts
+- Example: Instead of "stunning React component," write "React component that
+  handles form validation"
+
+### 3. Stop Editorializing
+
+**DON'T:**
+
+- "it's important to note/remember"
+- "it is worth mentioning"
+- "no discussion would be complete without"
+- "this wouldn't exist without"
+
+**DO:**
+
+- Present information directly without commentary
+- Let facts speak for themselves
+- Example: Instead of "It's important to note that this function handles
+  errors," write "This function handles errors by returning null on failure"
+
+### 4. Avoid Section Summaries
+
+**DON'T:**
+
+- "In summary"
+- "In conclusion"
+- "Overall"
+- End paragraphs by restating the main point
+
+**DO:**
+
+- End with the most important specific information
+- Let the content conclude naturally
+- Move from general to specific, not specific back to general
+
+### 5. Drop Formulaic Structures
+
+**DON'T:**
+
+- "Despite its success, X faces challenges"
+- "Not only... but also..."
+- "It's not just about X, it's about Y"
+- Rigid "Challenges and Future Prospects" sections
+
+**DO:**
+
+- Use natural, varied sentence structures
+- Address challenges when relevant, not formulaically
+- Focus on current state rather than speculative futures
+
+### 6. Reduce "Rule of Three" Overuse
+
+**DON'T:**
+
+- "fast, reliable, and scalable"
+- "simple, elegant, and powerful"
+- Constant triplet adjectives/phrases
+
+**DO:**
+
+- Use varied numbers of descriptors
+- Be specific rather than broadly categorizing
+- Example: Instead of "flexible, intuitive, and robust," write "supports custom
+  validation rules and provides clear error messages"
+
+### 7. Cut Superficial Analysis
+
+**DON'T:**
+
+- End sentences with "-ing" phrases about significance
+- "...ensuring optimal performance"
+- "...highlighting its versatility"
+- "...reflecting modern standards"
+
+**DO:**
+
+- End sentences with concrete information
+- State what actually happens, not what it "ensures" or "reflects"
+
+### 8. Eliminate Vague Attributions
+
+**DON'T:**
+
+- "Industry experts agree"
+- "Observers have noted"
+- "Some critics argue"
+- "Reports indicate"
+
+**DO:**
+
+- Cite specific sources when needed
+- Present information directly without vague authority
+- If no source exists, don't claim there is one
+
+### 9. Stop Noun Over-Variation
+
+**DON'T:**
+
+- Replace "the function" with "the utility," "the method," "the routine," "the
+  algorithm" in the same paragraph
+- Constantly vary the main subject name
+
+**DO:**
+
+- Use consistent terminology
+- Repeat the actual name when referring to the same thing
+- Clarity over variety
+
+### 10. Avoid "From X to Y" False Ranges
+
+**DON'T:**
+
+- "from basic authentication to advanced security"
+- "from simple scripts to complex applications"
+
+**DO:**
+
+- List examples directly: "includes authentication, authorization, and session
+  management"
+- Use "such as" or "including" for examples
+
+### 11. Use Direct Communication
+
+**DON'T:**
+
+- "I hope this helps"
+- "Certainly!"
+- "You're absolutely right!"
+- "Would you like me to..."
+- "Let me know if..."
+
+**DO:**
+
+- Provide information directly
+- Answer questions without social preamble
+- Example: Instead of "I hope this helps! Let me know if you need more details,"
+  just provide the information
+
+### 12. Avoid Knowledge Disclaimers
+
+**DON'T:**
+
+- "as of my last knowledge update"
+- "based on available information"
+- "While specific details are limited"
+- "as of [date]"
+
+**DO:**
+
+- Present information confidently when you know it
+- If uncertain, be specific about what you don't know
+- Don't hedge with generic disclaimers
+
+### 13. Fix Formatting Issues
+
+**DON'T:**
+
+- Excessive **bold** for emphasis
+- Bullet points with • instead of proper markup
+- Title Case Section Headers
+
+**DO:**
+
+- Bold sparingly and purposefully
+- Use proper markup syntax
+- Follow established style conventions
+
+### 14. Write Effective Commit Messages
+
+**DON'T:**
+
+- "Updated files and improved functionality while ensuring better performance"
+- Extremely verbose edit summaries
+- Generic "Update" or "Fix" without context
+
+**DO:**
+
+- Be concise and specific: "fix(user-validation): handle null values"
+- Focus on the actual change: "feat(settings): dark mode toggle"
+- Use conventional commit format always, unless otherwise user asks for other
+  style
+
+### 15. Code Comments Best Practices
+
+**DON'T:**
+
+- "This function is responsible for handling the important task of..."
+- "It should be noted that this variable..."
+- "This function calculates the sum of one or more square numbers..."
+
+**DO:**
+
+- Explain the why, not the what: "/** Converts to UTC, to avoid timezone issues
+  */"
+- Be concise: "// Fallback for older browsers"
+- Don't mention that a function is a function, skip unnecessary filler words:
+  "/** Calculates sum if squares */"
+
+**Key Principle:** Write like a knowledgeable human who gets straight to the
+point. Provide information efficiently without unnecessary commentary, emphasis,
+or social padding. Focus on being helpful through clarity and precision, not
+through verbose pleasantries or inflated language.
