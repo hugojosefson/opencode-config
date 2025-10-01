@@ -376,6 +376,51 @@ requirements.
   not ad-hoc**
 - **Extra caution with external dependencies - verify trustworthiness first**
 
+## 🚨 CRITICAL SECURITY WARNING: Auth token handling
+
+**NEVER HARDCODE OR MANUALLY PASS AUTH TOKENS:**
+
+- ⚠️ **NEVER print auth tokens in scripts, logs, or command arguments**
+- ⚠️ **NEVER pass auth tokens as command-line arguments**
+- ⚠️ **NEVER store auth tokens in code, scripts, or configuration files**
+- ⚠️ **NEVER echo, console.log, or output auth tokens for any reason**
+
+**ALWAYS use programmatic just-in-time token retrieval:**
+
+```typescript
+// CORRECT: Programmatic token retrieval
+const token = await getAuthToken(); // Get from secure storage
+const response = await fetch("https://api.github.com/user", {
+  headers: { "Authorization": `token ${token}` },
+});
+
+// WRONG: Hardcoded or manual token usage
+const token = "gho_678tdgq7i46tdgiq67w35gd"; // NEVER DO THIS
+process.env.GITHUB_TOKEN = "gho_..."; // NEVER DO THIS
+console.log(`Using token: ${token}`); // NEVER DO THIS
+exec(`gh auth login --with-token ${token}`); // NEVER DO THIS
+```
+
+**Required security practices:**
+
+- **Integrate auth token retrieval programmatically in each script**
+- **Use secure storage mechanisms (keychains, credential managers)**
+- **Retrieve tokens just-in-time when needed**
+- **Never log or output token values**
+- **Never pass tokens as process arguments**
+- **Use environment variables only for runtime, never persistent storage**
+
+**Token exposure violations include:**
+
+- Printing tokens to console or logs
+- Passing tokens as CLI arguments
+- Storing tokens in files or code
+- Echoing tokens in scripts
+- Displaying tokens in error messages
+
+Auth token security is non-negotiable. Any script that handles authentication
+must implement secure programmatic token retrieval.
+
 ## Agent writing guidelines
 
 Critical reference for avoiding telltale AI writing patterns that annoy humans.
