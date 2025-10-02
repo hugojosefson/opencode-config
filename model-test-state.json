@@ -11,33 +11,42 @@
     "openai/gpt-4.1-mini": {
       "modelId": "openai/gpt-4.1-mini",
       "backoffLevel": 0,
-      "priority": 3
+      "priority": 3,
+      "lastTestTime": 1759366224805,
+      "responseTime": 1233,
+      "testResult": "success"
     },
     "openai/gpt-4.1-nano": {
       "modelId": "openai/gpt-4.1-nano",
       "backoffLevel": 0,
-      "priority": 3
+      "priority": 3,
+      "lastTestTime": 1759366224805,
+      "responseTime": 696,
+      "testResult": "success"
     },
     "openai/gpt-4o": {
       "modelId": "openai/gpt-4o",
       "backoffLevel": 0,
       "priority": 1,
-      "lastTestTime": 1759363222958,
-      "responseTime": 719,
+      "lastTestTime": 1759365406006,
+      "responseTime": 1260,
       "testResult": "success"
     },
     "openai/gpt-4o-mini": {
       "modelId": "openai/gpt-4o-mini",
       "backoffLevel": 0,
       "priority": 1,
-      "lastTestTime": 1759363222958,
-      "responseTime": 466,
+      "lastTestTime": 1759365406006,
+      "responseTime": 666,
       "testResult": "success"
     },
     "openai/gpt-5": {
       "modelId": "openai/gpt-5",
       "backoffLevel": 0,
-      "priority": 5
+      "priority": 5,
+      "lastTestTime": 1759366224805,
+      "responseTime": 322,
+      "testResult": "rate_limited"
     },
     "openai/gpt-5-chat": {
       "modelId": "openai/gpt-5-chat",
@@ -233,32 +242,32 @@
       "modelId": "microsoft/phi-4",
       "backoffLevel": 0,
       "priority": 1,
-      "lastTestTime": 1759364665581,
-      "responseTime": 1315,
+      "lastTestTime": 1759366178890,
+      "responseTime": 998,
       "testResult": "success"
     },
     "microsoft/phi-4-mini-instruct": {
       "modelId": "microsoft/phi-4-mini-instruct",
       "backoffLevel": 0,
       "priority": 1,
-      "lastTestTime": 1759363222958,
-      "responseTime": 810,
+      "lastTestTime": 1759365427234,
+      "responseTime": 1208,
       "testResult": "success"
     },
     "microsoft/phi-4-mini-reasoning": {
       "modelId": "microsoft/phi-4-mini-reasoning",
       "backoffLevel": 0,
       "priority": 1,
-      "lastTestTime": 1759364660317,
-      "responseTime": 1093,
+      "lastTestTime": 1759366178890,
+      "responseTime": 1237,
       "testResult": "success"
     },
     "microsoft/phi-4-multimodal-instruct": {
       "modelId": "microsoft/phi-4-multimodal-instruct",
       "backoffLevel": 0,
       "priority": 1,
-      "lastTestTime": 1759364665581,
-      "responseTime": 797,
+      "lastTestTime": 1759366178890,
+      "responseTime": 796,
       "testResult": "success"
     },
     "microsoft/phi-4-reasoning": {
@@ -300,8 +309,8 @@
       "modelId": "gpt-4o-mini",
       "backoffLevel": 0,
       "priority": 1,
-      "lastTestTime": 1759363222958,
-      "responseTime": 975,
+      "lastTestTime": 1759365427234,
+      "responseTime": 859,
       "testResult": "success"
     },
     "gpt-4o-mini-2024-07-18": {
@@ -328,8 +337,8 @@
       "modelId": "gpt-4o",
       "backoffLevel": 0,
       "priority": 1,
-      "lastTestTime": 1759363222958,
-      "responseTime": 718,
+      "lastTestTime": 1759365451767,
+      "responseTime": 1040,
       "testResult": "success"
     },
     "gpt-4o-2024-11-20": {
@@ -423,8 +432,8 @@
       "priority": 5
     }
   },
-  "lastResearchTime": 1759363253991,
+  "lastResearchTime": 1759366282018,
   "rateLimitInfo": {},
-  "lastApiCall": 1759364665581,
-  "globalBackoffUntil": 1759363060813
+  "lastApiCall": 1759366224805,
+  "globalBackoffUntil": 1759446539805
 }

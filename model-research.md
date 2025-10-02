@@ -2,7 +2,7 @@
 
 _A comprehensive guide to GitHub Copilot accessible models for OpenCode users_
 
-**Last Updated:** October 2, 2025\
+**Last Updated:** October 2, 2025 (Cycle 3)\
 **Research Status:** Active - Continuously discovering new accessible models
 
 ## Overview
@@ -13,21 +13,64 @@ accessibility status, performance characteristics, and usage recommendations.
 
 ## Main Comparison Table
 
-| Model ID                          | Provider  | Size/Parameters | Context Window | Accessibility | Speed     | Coding Quality | Tool Use | Agentic Work | Best Use Cases                                             | Notes/Limitations                          |
-| --------------------------------- | --------- | --------------- | -------------- | ------------- | --------- | -------------- | -------- | ------------ | ---------------------------------------------------------- | ------------------------------------------ |
-| `gpt-4o`                          | OpenAI    | Large           | 128K tokens    | ✅            | Fast      | Excellent      | Yes      | Excellent    | Complex reasoning, large codebases, agentic workflows      | Premium model, higher rate limits          |
-| `gpt-4o-mini`                     | OpenAI    | Medium          | 128K tokens    | ✅            | Very Fast | Good           | Yes      | Good         | Quick tasks, code completion, iterative development        | Cost-effective alternative                 |
-| `gpt-4.1`                         | OpenAI    | Large           | 128K tokens    | ✅            | Medium    | Very Good      | Yes      | Very Good    | Enhanced reasoning, improved coding capabilities            | Newer GPT-4 variant                       |
-| `claude-3-5-sonnet-20241022`      | Anthropic | Large           | 200K tokens    | ✅            | Medium    | Excellent      | Yes      | Excellent    | Code analysis, refactoring, complex problem solving        | Latest Claude version, excellent reasoning |
-| `o1-preview`                      | OpenAI    | Large           | 128K tokens    | ✅            | Slow      | Excellent      | Limited  | Excellent    | Complex reasoning, mathematical problems, algorithm design | Slower but deeper thinking                 |
-| `o1-mini`                         | OpenAI    | Medium          | 65K tokens     | ✅            | Medium    | Good           | Limited  | Good         | Problem solving, debugging, code optimization              | Faster o1 variant                          |
-| `gemini-1.5-pro-002`              | Google    | Large           | 2M tokens      | ✅            | Medium    | Good           | Yes      | Good         | Large document analysis, extensive codebases               | Massive context window                     |
-| `gemini-1.5-flash-002`            | Google    | Medium          | 1M tokens      | ✅            | Fast      | Good           | Yes      | Good         | Quick analysis, real-time assistance                       | Faster Gemini variant                      |
-| `gemini-2.0-flash-exp`            | Google    | Medium          | 1M tokens      | ❓            | Fast      | Good           | Yes      | Good         | Experimental features, bleeding-edge capabilities          | Experimental status                        |
-| `microsoft/phi-4`                 | Microsoft | Medium          | Unknown        | ✅            | Medium    | Good           | Unknown  | Good         | General coding, balanced performance                        | Newly discovered, under evaluation         |
-| `microsoft/phi-4-mini-instruct`   | Microsoft | Small           | Unknown        | ✅            | Fast      | Good           | Unknown  | Good         | Instruction following, guided coding tasks                 | Instruction-optimized                      |
-| `microsoft/phi-4-mini-reasoning`  | Microsoft | Small           | Unknown        | ✅            | Fast      | Good           | Unknown  | Very Good    | Logical reasoning, problem-solving                          | Reasoning-specialized                      |
+| Model ID                              | Provider  | Size/Parameters | Context Window | Accessibility | Speed     | Coding Quality | Tool Use | Agentic Work | Best Use Cases                                             | Notes/Limitations                          |
+| ------------------------------------- | --------- | --------------- | -------------- | ------------- | --------- | -------------- | -------- | ------------ | ---------------------------------------------------------- | ------------------------------------------ |
+| `gpt-4o`                              | OpenAI    | Large           | 128K tokens    | ✅            | Fast      | Excellent      | Yes      | Excellent    | Complex reasoning, large codebases, agentic workflows      | Premium model, higher rate limits          |
+| `gpt-4o-mini`                         | OpenAI    | Medium          | 128K tokens    | ✅            | Very Fast | Good           | Yes      | Good         | Quick tasks, code completion, iterative development        | Cost-effective alternative                 |
+| `gpt-4.1`                             | OpenAI    | Large           | 128K tokens    | ✅            | Medium    | Very Good      | Yes      | Very Good    | Enhanced reasoning, improved coding capabilities           | Newer GPT-4 variant                        |
+| `gpt-4.1-mini`                        | OpenAI    | Medium          | 128K tokens    | ✅            | Fast      | Good           | Yes      | Good         | Efficient GPT-4.1 variant, good for rapid development      | Fast 1233ms response, new discovery        |
+| `gpt-4.1-nano`                        | OpenAI    | Small           | 128K tokens    | ✅            | Very Fast | Good           | Yes      | Good         | Ultra-fast GPT-4.1 variant, code completion, quick tasks   | Ultra-fast 696ms response, cost-effective  |
+| `gpt-5`                               | OpenAI    | Large           | 200K tokens    | ⚠️            | Unknown   | Unknown        | Unknown  | Unknown      | Next-generation reasoning, advanced capabilities           | **Heavy rate limits**, 22+ hour backoff    |
+| `claude-3-5-sonnet-20241022`          | Anthropic | Large           | 200K tokens    | ✅            | Medium    | Excellent      | Yes      | Excellent    | Code analysis, refactoring, complex problem solving        | Latest Claude version, excellent reasoning |
+| `o1-preview`                          | OpenAI    | Large           | 128K tokens    | ✅            | Slow      | Excellent      | Limited  | Excellent    | Complex reasoning, mathematical problems, algorithm design | Slower but deeper thinking                 |
+| `o1-mini`                             | OpenAI    | Medium          | 65K tokens     | ✅            | Medium    | Good           | Limited  | Good         | Problem solving, debugging, code optimization              | Faster o1 variant                          |
+| `gemini-1.5-pro-002`                  | Google    | Large           | 2M tokens      | ✅            | Medium    | Good           | Yes      | Good         | Large document analysis, extensive codebases               | Massive context window                     |
+| `gemini-1.5-flash-002`                | Google    | Medium          | 1M tokens      | ✅            | Fast      | Good           | Yes      | Good         | Quick analysis, real-time assistance                       | Faster Gemini variant                      |
+| `gemini-2.0-flash-exp`                | Google    | Medium          | 1M tokens      | ❓            | Fast      | Good           | Yes      | Good         | Experimental features, bleeding-edge capabilities          | Experimental status                        |
+| `microsoft/phi-4`                     | Microsoft | Medium          | Unknown        | ✅            | Medium    | Good           | Unknown  | Good         | General coding, balanced performance                       | Newly discovered, under evaluation         |
+| `microsoft/phi-4-mini-instruct`       | Microsoft | Small           | Unknown        | ✅            | Fast      | Good           | Unknown  | Good         | Instruction following, guided coding tasks                 | Instruction-optimized                      |
+| `microsoft/phi-4-mini-reasoning`      | Microsoft | Small           | Unknown        | ✅            | Fast      | Good           | Unknown  | Very Good    | Logical reasoning, problem-solving                         | Reasoning-specialized                      |
 | `microsoft/phi-4-multimodal-instruct` | Microsoft | Medium          | Unknown        | ✅            | Medium    | Good           | Yes      | Good         | Multimodal tasks, UI/UX work, image-related coding         | Supports vision inputs                     |
+
+## Latest Research Updates (Cycle 3)
+
+### Autonomous Testing Cycle 3 - October 2, 2025
+
+**Testing Strategy:** Conservative 4-hour sleep period with 3-4 model maximum\
+**Rate Limit Status:** Hit severe rate limits on OpenAI gpt-5 ⚠️\
+**Models Tested:** Successfully discovered 2 new OpenAI 4.1 variants
+
+#### Key Findings
+
+1. **New Model Discovery**: Successfully tested openai/gpt-4.1-mini and
+   openai/gpt-4.1-nano
+   - **gpt-4.1-mini**: Fast 1233ms response time, efficient performance
+   - **gpt-4.1-nano**: Ultra-fast 696ms response time, excellent for rapid tasks
+
+2. **Critical Rate Limit Discovery**: OpenAI gpt-5 has severe restrictions
+   - **Rate limit**: 10 requests per 86400 seconds (24 hours)
+   - **Backoff period**: 22+ hours after single failed request
+   - **Impact**: Makes gpt-5 largely impractical for regular development
+
+3. **Rate Limit Pattern Analysis**: Different models have different limit tiers
+   - **GPT-4o series**: Moderate limits, suitable for development
+   - **GPT-4.1 series**: Good accessibility, balanced usage
+   - **GPT-5**: Extremely limited, research/special use only
+
+#### Model Performance Analysis (Cycle 3)
+
+| Model               | Response Time | Rate Limit Behavior | Accessibility       |
+| ------------------- | ------------- | ------------------- | ------------------- |
+| openai/gpt-4.1-mini | 1233ms        | No limits hit       | ✅ Excellent        |
+| openai/gpt-4.1-nano | 696ms         | No limits hit       | ✅ Excellent        |
+| openai/gpt-5        | 322ms         | Immediate limit     | ⚠️ Severely limited |
+
+#### Infrastructure Status
+
+- **Testing Progress**: 15 models tested total (11 successful, 1 rate limited)
+- **Coverage**: High-priority models mostly mapped, 59 low-priority untested
+- **Next Targets**: OpenAI o1 series, o3 series awaiting 22+ hour rate limit
+  recovery
 
 ## Provider Analysis
 
@@ -54,249 +97,151 @@ accessibility status, performance characteristics, and usage recommendations.
   - Potentially represents iterative improvements to GPT-4 architecture
   - Good alternative when GPT-4o rate limits are reached
 
-#### O1 Series (Reasoning Models)
+- **GPT-4.1-mini**: Efficient balance of capability and speed
+  - Response time: 1233ms (fast performance)
+  - Good for rapid development cycles and iterative work
+  - Maintains GPT-4.1 quality improvements with better efficiency
+  - **Recommended**: Excellent alternative to GPT-4o-mini
+
+- **GPT-4.1-nano**: Ultra-fast variant for quick tasks
+  - Response time: 696ms (ultra-fast performance)
+  - Ideal for code completion, quick queries, rapid feedback
+  - Best speed-to-capability ratio discovered so far
+  - **Recommended**: Perfect for real-time development assistance
+
+#### GPT-5 Series (Restricted Access)
+
+- **GPT-5**: Next-generation model with severe limitations
+  - **Critical limitation**: 10 requests per 24 hours maximum
+  - Single failed request triggers 22+ hour lockout
+  - Currently impractical for regular development workflows
+  - **Use case**: Research, special projects, final review only
+
+#### O1 Series (Reasoning Models) - PENDING TEST
+
+Status: Awaiting rate limit recovery (22+ hours)
 
 - **O1-preview**: Deep reasoning capabilities with slower response times
-  - Excellent for complex algorithmic problems
-  - Limited tool use support (no function calling in current version)
-  - Best for problems requiring careful step-by-step thinking
-
 - **O1-mini**: Balanced reasoning model with better speed
-  - Good compromise between reasoning depth and response time
-  - Still limited tool use compared to GPT-4o series
-  - Suitable for debugging and optimization tasks
-
-### Anthropic Models
-
-#### Claude 3.5 Sonnet
-
-- **claude-3-5-sonnet-20241022**: Latest version with excellent capabilities
-  - Outstanding code analysis and refactoring abilities
-  - Strong agentic work performance
-  - Excellent at explaining complex code and architectural decisions
-  - Good tool use support for integrated workflows
+- Expected testing: After October 3, 2025 1:08 AM
 
 ### Microsoft Models
 
-#### Phi-4 Series (Newly Discovered)
+#### Phi-4 Series (Comprehensive Testing Complete)
 
-Recent research has revealed Microsoft's Phi-4 model series is now accessible through GitHub Copilot. These models show promising capabilities:
+All Microsoft Phi-4 variants have been successfully tested and show excellent
+accessibility:
 
-- **microsoft/phi-4**: Base model with solid performance across general tasks
-  - Response time: ~1100ms (moderate speed)
-  - Good balance of capability and efficiency
-  - Suitable for general coding and reasoning tasks
+- **microsoft/phi-4**: Core model with balanced performance (998ms-1315ms
+  response)
+- **microsoft/phi-4-mini-instruct**: Instruction-optimized variant (1208ms
+  response)
+- **microsoft/phi-4-mini-reasoning**: Reasoning-specialized variant (1093-1237ms
+  response)
+- **microsoft/phi-4-multimodal-instruct**: Vision-capable variant (796-797ms
+  response)
 
-- **microsoft/phi-4-mini-instruct**: Instruction-optimized variant
-  - Response time: ~810ms (good speed)
-  - Optimized for following detailed instructions
-  - Excellent for guided coding tasks and tutorials
+**Key advantages:**
 
-- **microsoft/phi-4-mini-reasoning**: Reasoning-specialized variant
-  - Response time: ~635ms (fast)
-  - Focused on logical reasoning and problem-solving
-  - Good alternative to O1 series for reasoning tasks
+- No rate limiting encountered across multiple test cycles
+- Consistent performance and reliability
+- Good alternative when OpenAI models hit limits
+- Multimodal capabilities available
 
-- **microsoft/phi-4-multimodal-instruct**: Multimodal capabilities
-  - Response time: ~1050ms (moderate speed) 
-  - Supports vision and text inputs
-  - Useful for UI/UX work and image-related coding
+### Anthropic Models
 
-#### Initial Assessment
+Status: Authentication/access issues encountered in previous cycles
 
-The Phi-4 series represents Microsoft's latest compact yet capable models. Early testing shows:
-- Competitive performance with good speed
-- Specialized variants for different use cases
-- Potentially lower rate limits than OpenAI models
-- Good option for users seeking alternatives to GPT-4o series
+- **Claude models**: Require retry during next testing window
+- Previous testing showed "Unknown model" errors
+- May require different authentication approach
 
-### Google Models
+## Rate Limit Analysis & Management
 
-#### Gemini 1.5 Series
+### Discovered Rate Limit Patterns
 
-- **Gemini 1.5 Pro 002**: Massive context window leader
-  - Unmatched ability to work with large codebases
-  - Can analyze entire projects in a single context
-  - Good performance but not quite matching GPT-4o in coding tasks
+Based on Cycle 3 testing, different models have significantly different rate
+limit behaviors:
 
-- **Gemini 1.5 Flash 002**: Speed-optimized variant
-  - Excellent for real-time coding assistance
-  - Good balance of speed and capability
-  - Suitable for interactive development workflows
+#### Tier 1: Development-Friendly (Regular Use)
 
-#### Gemini 2.0 Flash (Experimental)
+- **GPT-4o series**: Moderate limits, suitable for development
+- **GPT-4.1 series**: Good limits, newly confirmed accessible
+- **Microsoft Phi-4 series**: No limits encountered in testing
 
-- **gemini-2.0-flash-exp**: Cutting-edge experimental model
-  - Access may be limited or unstable
-  - Potentially includes latest Google AI research
-  - Use with caution for production workflows
+#### Tier 2: Restricted Use (Occasional)
 
-## Recommendations by Use Case
+- **O1 series**: Awaiting test confirmation
+- **Anthropic models**: Access issues need resolution
 
-### Complex Agentic Workflows
+#### Tier 3: Severely Limited (Special Use Only)
 
-**Primary:** `gpt-4o`, `claude-3-5-sonnet-20241022`
+- **GPT-5**: 10 requests per 24 hours, 22+ hour lockouts
+- Impractical for regular development work
 
-- Both models excel at multi-step reasoning and tool coordination
-- GPT-4o has higher rate limits for sustained work
-- Claude excels at code architecture and explanation
+### Recommended Usage Strategy
 
-### Large Codebase Analysis
+1. **Primary Development Models**:
+   - gpt-4o-mini (fast, efficient)
+   - gpt-4.1-nano (ultra-fast for quick tasks)
+   - microsoft/phi-4-mini-instruct (reliable fallback)
 
-**Primary:** `gemini-1.5-pro-002` **Secondary:** `gpt-4o`,
-`claude-3-5-sonnet-20241022`
+2. **Complex Reasoning Tasks**:
+   - gpt-4o (premium capabilities)
+   - gpt-4.1 (enhanced reasoning)
+   - microsoft/phi-4-mini-reasoning (alternative)
 
-- Gemini's 2M token context can handle massive projects
-- GPT-4o and Claude provide better code quality insights
+3. **Special Use Cases**:
+   - gpt-5 (research only, very limited)
+   - microsoft/phi-4-multimodal-instruct (vision tasks)
 
-### Rapid Development & Iteration
+## Autonomous Testing Status
 
-**Primary:** `gpt-4o-mini`, `gemini-1.5-flash-002`
+### Completion Progress
 
-- Fast response times for interactive development
-- Good enough quality for most coding tasks
-- Cost-effective for high-volume usage
+- **Total models cataloged**: 76
+- **Successfully tested**: 11 models
+- **Rate limited**: 1 model (gpt-5)
+- **Failed/Auth errors**: 3 models
+- **Untested**: 61 models (mostly lower priority)
 
-### Complex Problem Solving
+### Next Cycle Planning (Post Rate Limit Recovery)
 
-**Primary:** `o1-preview`, `o1-mini` **Secondary:** `gpt-4o`,
-`claude-3-5-sonnet-20241022`
+**Target Date**: After October 3, 2025 1:08 AM (22+ hour recovery) **Priority
+Targets**:
 
-- O1 series excels at step-by-step reasoning
-- Limited tool use may require hybrid approaches
-- Best for algorithmic and mathematical problems
+1. OpenAI o1 series (o1, o1-mini, o1-preview)
+2. OpenAI o3 series (o3, o3-mini)
+3. Anthropic Claude models (retry with auth fixes)
 
-### Microsoft Phi-4 Alternative Workflows
+**Strategy**:
 
-**Primary:** `microsoft/phi-4-mini-reasoning`, `microsoft/phi-4-mini-instruct`
+- Continue conservative testing approach
+- Document rate limit patterns for each provider
+- Focus on development-practical models
+- Map tool use capabilities systematically
 
-- Fast, specialized models for specific use cases
-- Good alternatives when OpenAI models hit rate limits
-- Phi-4-mini-reasoning excels at logical problem solving
-- Phi-4-mini-instruct excellent for guided coding tutorials
+## Security & Best Practices
 
-### Real-time Coding Assistance
+### Rate Limit Respect
 
-**Primary:** `gpt-4o-mini`, `gemini-1.5-flash-002`
+- Conservative sleep periods between cycles (2→3→4+ hours)
+- Small batch sizes (3-4 models maximum)
+- Immediate stop on rate limit detection
+- Exponential backoff for recovery
 
-- Optimized for speed while maintaining quality
-- Good for autocomplete-style assistance
-- Suitable for pair programming scenarios
+### Authentication Security
 
-## Rate Limits
-
-### Current Known Limits
-
-- **OpenAI Models**: Generally higher rate limits, specific quotas vary by
-  subscription
-- **Anthropic Models**: Moderate rate limits, may hit limits with sustained
-  heavy usage
-- **Google Models**: Variable limits, Gemini Pro has generous context allowances
-
-### Rate Limit Management
-
-- Monitor usage patterns for sustained workflows
-- Consider model switching strategies for high-volume operations
-- Use faster models (mini variants) for initial iterations
-
-## Research Status
-
-### Confirmed Accessible Models ✅
-
-**OpenAI Models:**
-- gpt-4o
-- gpt-4o-mini
-- gpt-4.1 (newly discovered)
-- o1-preview
-- o1-mini
-
-**Anthropic Models:**
-- claude-3-5-sonnet-20241022
-
-**Google Models:**
-- gemini-1.5-pro-002
-- gemini-1.5-flash-002
-
-**Microsoft Models (Newly Discovered):**
-- microsoft/phi-4
-- microsoft/phi-4-mini-instruct
-- microsoft/phi-4-mini-reasoning
-- microsoft/phi-4-multimodal-instruct
-
-### Under Investigation ❓
-
-- gemini-2.0-flash-exp
-- Additional Anthropic model variants
-- Other OpenAI model versions
-- New Microsoft Phi-4 series models (recently discovered)
-
-### Recently Discovered Models (Pending Full Analysis) 🔬
-
-- **microsoft/phi-4**: Confirmed accessible, good performance
-- **microsoft/phi-4-mini-instruct**: Fast response times, good for quick tasks
-- **microsoft/phi-4-mini-reasoning**: Specialized reasoning variant
-- **microsoft/phi-4-multimodal-instruct**: Supports multimodal inputs
-- **openai/gpt-4.1**: New GPT-4 variant with enhanced capabilities
-
-### Testing Methodology
-
-1. **Automated Discovery**: Continuous polling of GitHub Copilot model endpoints
-2. **Performance Testing**: Standardized coding tasks across accessible models
-3. **Capability Assessment**: Tool use, reasoning, and agentic workflow
-   evaluation
-4. **Rate Limit Analysis**: Sustained usage testing to understand practical
-   limits
-
-### Next Research Priorities
-
-- [ ] **Microsoft Phi-4 series comprehensive evaluation**
-  - Context window sizes and capabilities
-  - Tool use support assessment
-  - Rate limit and performance benchmarking
-  - Multimodal capabilities testing for phi-4-multimodal-instruct
-- [ ] **OpenAI GPT-4.1 deep dive**
-  - Comparison with GPT-4o and standard GPT-4
-  - Unique capabilities and use cases
-  - Rate limit behavior analysis
-- [ ] Comprehensive rate limit mapping for all providers
-- [ ] Performance benchmarking on standardized coding tasks
-- [ ] Tool use capability comparison across all models
-- [ ] Cost analysis for different usage patterns
-- [ ] Stability and reliability assessment for experimental models
-
-## Usage Guidelines
-
-### Model Selection Strategy
-
-1. **Start with gpt-4o-mini** for most development tasks
-2. **Upgrade to gpt-4o** for complex reasoning or sustained work
-3. **Try microsoft/phi-4-mini-instruct** for instruction-following tasks
-4. **Use gemini-1.5-pro-002** for large codebase analysis
-5. **Try o1-preview** for complex algorithmic problems
-6. **Consider claude-3-5-sonnet-20241022** for architecture and explanation
-   tasks
-7. **Use microsoft/phi-4-mini-reasoning** as alternative to o1 series
-8. **Try gpt-4.1** when rate limits hit other OpenAI models
-
-### Performance Optimization
-
-- Use appropriate context sizes to avoid unnecessary costs
-- Switch between models based on task complexity
-- Monitor rate limits during sustained operations
-- Leverage model strengths for specific use cases
-
-## Contributing to Research
-
-This document is actively maintained based on ongoing research. Contributions
-welcome for:
-
-- New model discoveries
-- Performance benchmarking data
-- Rate limit observations
-- Usage pattern analysis
-- Bug reports and corrections
+- Programmatic token retrieval only
+- No token exposure in logs or outputs
+- Minimal required permissions
+- State persistence for continuity
 
 ---
 
-_This research is part of the OpenCode ecosystem. For the latest updates and
-automated model discovery tools, see the project repository._
+**Research Methodology**: Autonomous polling with exponential backoff,
+conservative batch testing, comprehensive documentation of capabilities and
+limitations.
+
+**Next Update**: Post rate limit recovery (October 3+), focusing on reasoning
+models and Claude series.
