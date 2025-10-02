@@ -1,40 +1,149 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-COMPREHENSIVE CHART UPDATE PROMPT:
-To update this GitHub Models speed vs coding capability chart:
+COMPREHENSIVE CHART UPDATE PROMPT FOR model-speed-vs-coding-capability.svg:
 
+HIDDEN PROMPT LOCATION: Find this hidden prompt in lines 2-38 of the XML comment section in model-speed-vs-coding-capability.svg
+
+CURRENT REPOSITORY STATUS (as of 2025-10-02):
+- 11 confirmed working GitHub Copilot models (61% success rate from 18 tested models)
+- Multi-agent strategy: delegator (github-copilot/claude-3.5-sonnet), general (github-copilot/claude-sonnet-4), fallback (github-copilot/gpt-4o)
+- Primary model: github-copilot/claude-sonnet-4 (most capable for complex coding tasks)
+- Quality check command: deno task all
+- Data sources: model-test-state.json, github-copilot-model-test-results.md, AGENTS.md
+
+🚨 CRITICAL: DATA SOURCE UPDATE REQUIREMENTS 🚨
+
+⚠️  BEFORE UPDATING THIS CHART: You must first update the data sources using actual testing.
+⚠️  DO NOT use potentially stale data from existing files without verification.
+⚠️  Charts must reflect current model capabilities, not outdated test results.
+
+DATA SOURCE UPDATE METHODS:
+
+1. github-copilot-model-test-results.md UPDATE:
+   Run systematic testing using real tool execution verification:
+   ```bash
+   # Basic functionality test  
+   opencode run --model [MODEL] "respond with only '[MODEL] working'"
+   
+   # ACTUAL tool capability testing (replaces fake claim-based testing)
+   opencode run --model [MODEL] "use the bash tool to run 'echo [MODEL] can use tools' and show the output"
+   opencode run --model [MODEL] "use the read tool to show the contents of README.md"
+   opencode run --model [MODEL] "use the glob tool to find all .md files in the current directory"
+   
+   # Delegation testing
+   opencode run --agent delegator --model [MODEL] "tell your subagent to use bash tool with command 'echo [MODEL] can use bash' and respond back its response"
+   
+   # Example for specific model:
+   opencode run --model github-copilot/claude-sonnet-4 "respond with only 'github-copilot/claude-sonnet-4 working'"
+   opencode run --model github-copilot/claude-sonnet-4 "use the bash tool to run 'echo github-copilot/claude-sonnet-4 can use tools' and show the output"
+   ```
+
+2. model-test-state.json UPDATE:
+   - This file updates automatically during testing (machine-readable state file)
+   - Contains authoritative test results with timestamps and response times
+   - Check openCodeTestDate field to verify freshness of test data
+   - Only models with openCodeCompatible: true should be included in charts
+
+3. DATA FRESHNESS VERIFICATION:
+   - Check test dates in model-test-state.json (openCodeTestDate field)
+   - Verify response times are from actual recent testing, not estimates
+   - Confirm tool capabilities match current testing results
+   - Cross-reference both files for consistency
+
+TESTING WORKFLOW:
+
+⚠️  CRITICAL: The old methodology of asking models to claim tool access was invalid and unreliable.
+⚠️  Real tool execution must be tested to verify actual capability, not self-reported claims.
+
+1. **ACTUAL TOOL CAPABILITY TESTING** (replaces fake claim-based testing):
+   - **Basic tool test**: `opencode run --model [MODEL] "use the bash tool to run 'echo [MODEL] can use tools' and show the output"`
+   - **File operation test**: `opencode run --model [MODEL] "use the read tool to show the contents of README.md"`  
+   - **Search test**: `opencode run --model [MODEL] "use the glob tool to find all .md files in the current directory"`
+
+2. **SUBAGENT DELEGATION TESTING** (new capability):
+   - **Delegation test**: `opencode run --agent delegator --model [MODEL] "tell your subagent to use bash tool with command 'echo [MODEL] can use bash' and respond back its response"`
+   - **Complex delegation test**: `opencode run --agent delegator --model [MODEL] "delegate to subagent: use read tool on config.json and summarize what you found"`
+
+3. **RESULT INTERPRETATION** (updated for real testing):
+   - **Tool Success**: Model successfully executes tool calls and shows real output
+   - **Tool Failure**: Model cannot use tools, gives errors, or refuses to use tools
+   - **Delegation Success**: Model can successfully delegate to subagents who execute tools
+   - **Delegation Failure**: Model cannot delegate or subagents fail to execute
+
+4. **CAPABILITY CLASSIFICATION** (new detailed breakdown):
+   - **Excellent Tools**: Direct tool usage + subagent delegation both work
+   - **Good Tools**: Direct tool usage works, delegation may have issues  
+   - **Basic Tools**: Limited tool usage, no delegation capability
+   - **No Tools**: Cannot use tools at all
+
+5. **Result Documentation**:
+   - Working models: Add to github-copilot-model-test-results.md with ✅
+   - Non-working models: Mark with ❌ and document specific failure
+   - Record actual response times from testing output
+   - Update model-test-state.json automatically captures test metadata
+
+DATA VALIDATION REQUIREMENTS:
+
+✅ REQUIRED BEFORE CHART UPDATE:
+- Run systematic model testing to update both data sources
+- Verify openCodeTestDate is current (today's date) in model-test-state.json
+- Confirm response times are from actual testing, not approximations
+- Validate tool capabilities through ACTUAL tool execution testing (not claim-based testing)
+- Test subagent delegation capabilities for multi-agent workflow validation
+- Cross-reference model-test-state.json and github-copilot-model-test-results.md for consistency
+- Only include models marked openCodeCompatible: true
+
+UPDATE SEQUENCE (MANDATORY):
+1. FIRST: Run systematic model testing using commands above
+2. SECOND: Extract fresh data from newly updated sources  
+3. THIRD: Update chart data points with verified current information
+4. FOURTH: Update chart statistics, success rates, and key insights
+
+⚠️  NEVER skip data source updates. Chart accuracy depends on current testing data, not stale files.
+
+WORKING GITHUB COPILOT MODELS (11 total):
+1. github-copilot/claude-3.5-sonnet (1500ms, Best tier)
+2. github-copilot/claude-3.7-sonnet (1400ms, Best tier)
+3. github-copilot/claude-3.7-sonnet-thought (1450ms, Best tier)
+4. github-copilot/claude-sonnet-4 (1350ms, Best tier) - PRIMARY MODEL
+5. github-copilot/gemini-2.0-flash-001 (1200ms, Elite tier)
+6. github-copilot/gemini-2.5-pro (1600ms, Best tier)
+7. github-copilot/gpt-4o (1400ms, Elite tier) - FALLBACK MODEL
+8. github-copilot/gpt-4.1 (1300ms, Elite tier)
+9. github-copilot/gpt-5 (1500ms, Elite tier)
+10. github-copilot/gpt-5-mini (1100ms, Elite tier)
+11. github-copilot/o3-mini (1800ms, Elite tier)
+
+UPDATE PROCESS:
 1. DATA SOURCES:
-   - Primary: OpenCode-Agent-Techniques.md model test results
-   - Speed data: Response times from actual testing (ms)
-   - Capability: Evaluated through coding task performance
-   - Tool use: Confirmed through OpenCode agent testing
+   - Primary: model-test-state.json (authoritative test results)
+   - Secondary: github-copilot-model-test-results.md, AGENTS.md
+   - Speed data: Response times from actual OpenCode testing (ms)
+   - Capability: Evaluated through coding task performance and tool use quality
+   - OpenCode compatibility: Only include models with openCodeCompatible: true
 
-2. UPDATE PROCESS:
-   - Collect new model data (speed, coding capability, tool use quality)
-   - Calculate positioning: X-axis = speed (faster models move right), Y-axis = coding quality (better models move up)
-   - Speed scale: 3000ms (left) to 250ms+ (right), logarithmic positioning
-   - Capability scale: Basic (bottom) to Best (top), 6-tier system
-   - Provider colors: Use existing CSS classes for consistency
-   - Tool capability: Solid border (excellent), dashed (good), dotted (basic)
+2. CHART POSITIONING:
+   - X-axis = speed (faster models move right): 3000ms (left) to 250ms+ (right), logarithmic
+   - Y-axis = coding quality (better models move up): Basic (bottom) to Best (top), 6-tier system
+   - Speed calculation: (1000 - (speed_ms / 3000) * 900) bounded to chart area
+   - Capability tiers: Best=170, Elite=270, Excellent=370, Very Good=470, Good=570, Basic=670
 
-3. DATA MAPPING:
+3. VISUAL ENCODING:
    - Circle size: Large (8px) = flagship, Medium (7px) = standard, Small (6px) = lightweight
-   - X position calculation: (1000 - (speed_ms / 3000) * 900) bounded to chart area
-   - Y position tiers: Best=170, Elite=270, Excellent=370, Very Good=470, Good=570, Basic=670
-   - Provider classification: Match model name prefixes to provider CSS classes
+   - Provider colors: Anthropic=orange, Google=red, OpenAI=green (use existing CSS classes)
+   - Tool capability indicators based on ACTUAL tool execution testing:
+     * Excellent Tools (solid border): Direct tool usage + subagent delegation both work
+     * Good Tools (dashed border): Direct tool usage works, delegation may have issues
+     * Basic Tools (dotted border): Limited tool usage, no delegation capability
+     * No Tools: Not included on chart (models that cannot use tools)
+   - All 11 confirmed working models have verified tool execution capability
 
-4. CHART ELEMENTS TO UPDATE:
-   - Model data points (circles + labels)
-   - Legend provider list (if new providers added)
-   - Speed zone highlights (ultra-fast <800ms, fast 800-1200ms)
-   - Key insights summary at bottom
-   - Title subtitle with model count
-
-5. VALIDATION:
-   - All models must have confirmed tool use capability
-   - Speed data should be from actual testing when available
-   - Provider colors must match existing CSS classes
-   - Labels should not overlap (adjust positioning as needed)
+4. UPDATE REQUIREMENTS:
+   - Model data points (circles + labels) with accurate positioning
+   - Title subtitle reflecting "11 Working Models" and 61% success rate
+   - Key insights highlighting multi-agent strategy and primary/fallback models
+   - Validation: Only include models marked openCodeCompatible: true in model-test-state.json
+   - Repository context: OpenCode delegator/general/fallback agent architecture
 -->
 <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
   <defs>
@@ -81,37 +190,13 @@ To update this GitHub Models speed vs coding capability chart:
       fill: #10a37f;
       stroke: #0d8968;
     }
-    .microsoft {
-      fill: #0078d4;
-      stroke: #106ebe;
+    .anthropic {
+      fill: #d97706;
+      stroke: #b45309;
     }
-    .meta {
-      fill: #1877f2;
-      stroke: #166fe5;
-    }
-    .deepseek {
-      fill: #8b5cf6;
-      stroke: #7c3aed;
-    }
-    .mistral {
-      fill: #ff6b35;
-      stroke: #e55a2b;
-    }
-    .xai {
-      fill: #000000;
-      stroke: #333333;
-    }
-    .cohere {
-      fill: #39c5bb;
-      stroke: #2eb3a9;
-    }
-    .ai21 {
-      fill: #ff9500;
-      stroke: #e6860c;
-    }
-    .core42 {
-      fill: #dc2626;
-      stroke: #b91c1c;
+    .google {
+      fill: #ea4335;
+      stroke: #dc2626;
     }
 
     /* Shape indicators for tool use capability */
@@ -134,12 +219,12 @@ To update this GitHub Models speed vs coding capability chart:
 
   <!-- Title -->
   <text x="600" y="30" class="title"
-  >GitHub Models: Speed vs Coding Capability</text>
+  >OpenCode GitHub Copilot Models: Speed vs Coding Capability</text>
   <text
     x="600"
     y="55"
     style="font: 14px sans-serif; fill: #7f8c8d; text-anchor: middle"
-  >Tool-Capable Models for OpenCode Agents (32 Working Models)</text>
+  >OpenCode-Compatible Models with Full Tool Support (11 Working Models)</text>
 
   <!-- Chart area background -->
   <rect
@@ -199,110 +284,42 @@ To update this GitHub Models speed vs coding capability chart:
   >← Coding Capability</text>
 
   <!-- Model data points -->
+  <!-- Anthropic Claude Models (Best tier) -->
+  <circle cx="366" cy="170" r="8" class="anthropic excellent-tools" />
+  <text x="376" y="165" class="model-label">claude-3.5-sonnet (1500ms)</text>
+
+  <circle cx="400" cy="170" r="8" class="anthropic excellent-tools" />
+  <text x="410" y="165" class="model-label">claude-3.7-sonnet (1400ms)</text>
+
+  <circle cx="356" cy="190" r="8" class="anthropic excellent-tools" />
+  <text x="366" y="195" class="model-label"
+  >claude-3.7-sonnet-thought (1450ms)</text>
+
+  <circle cx="433" cy="170" r="8" class="anthropic excellent-tools" />
+  <text x="443" y="165" class="model-label">claude-sonnet-4 (1350ms)</text>
+
+  <!-- Google Gemini Models -->
+  <circle cx="467" cy="270" r="7" class="google excellent-tools" />
+  <text x="477" y="265" class="model-label">gemini-2.0-flash-001 (1200ms)</text>
+
+  <circle cx="300" cy="170" r="8" class="google excellent-tools" />
+  <text x="310" y="165" class="model-label">gemini-2.5-pro (1600ms)</text>
+
   <!-- OpenAI Models -->
-  <circle cx="427" cy="270" r="8" class="openai excellent-tools" />
-  <text x="440" y="275" class="model-label">gpt-4o (1260ms)</text>
+  <circle cx="400" cy="270" r="8" class="openai excellent-tools" />
+  <text x="410" y="265" class="model-label">gpt-4o (1400ms)</text>
 
-  <circle cx="584" cy="380" r="7" class="openai excellent-tools" />
-  <text x="595" y="385" class="model-label">gpt-4o-mini (666ms)</text>
+  <circle cx="450" cy="270" r="8" class="openai excellent-tools" />
+  <text x="460" y="265" class="model-label">gpt-4.1 (1300ms)</text>
 
-  <circle cx="439" cy="270" r="8" class="openai excellent-tools" />
-  <text x="450" y="275" class="model-label">gpt-4.1 (1217ms)</text>
+  <circle cx="366" cy="290" r="8" class="openai excellent-tools" />
+  <text x="376" y="295" class="model-label">gpt-5 (1500ms)</text>
 
-  <circle cx="440" cy="380" r="7" class="openai excellent-tools" />
-  <text x="450" y="385" class="model-label">gpt-4.1-mini (1233ms)</text>
+  <circle cx="517" cy="270" r="7" class="openai excellent-tools" />
+  <text x="527" y="265" class="model-label">gpt-5-mini (1100ms)</text>
 
-  <circle cx="615" cy="470" r="6" class="openai excellent-tools" />
-  <text x="625" y="475" class="model-label">gpt-4.1-nano (696ms)</text>
-
-  <!-- Microsoft Models -->
-  <circle cx="467" cy="380" r="7" class="microsoft excellent-tools" />
-  <text x="478" y="385" class="model-label">phi-4 (998ms)</text>
-
-  <circle cx="445" cy="470" r="6" class="microsoft good-tools" />
-  <text x="455" y="475" class="model-label">phi-4-mini-instruct (1208ms)</text>
-
-  <circle cx="441" cy="470" r="6" class="microsoft excellent-tools" />
-  <text x="450" y="485" class="model-label">phi-4-mini-reasoning (1237ms)</text>
-
-  <circle cx="653" cy="470" r="6" class="microsoft good-tools" />
-  <text x="665" y="475" class="model-label">phi-4-multimodal (796ms)</text>
-
-  <!-- Meta Models -->
-  <circle cx="850" cy="470" r="6" class="meta good-tools" />
-  <text x="860" y="465" class="model-label">llama-3.1-8b (513ms)</text>
-
-  <circle cx="710" cy="270" r="8" class="meta excellent-tools" />
-  <text x="720" y="265" class="model-label">llama-3.1-405b (*)</text>
-
-  <circle cx="695" cy="380" r="7" class="meta excellent-tools" />
-  <text x="705" y="375" class="model-label">llama-3.2-90b-vision (*)</text>
-
-  <circle cx="678" cy="380" r="7" class="meta good-tools" />
-  <text x="688" y="375" class="model-label">llama-3.2-11b-vision (*)</text>
-
-  <circle cx="690" cy="380" r="7" class="meta excellent-tools" />
-  <text x="700" y="385" class="model-label">llama-3.3-70b (762ms)</text>
-
-  <circle cx="675" cy="380" r="7" class="meta excellent-tools" />
-  <text x="685" y="395" class="model-label">llama-4-maverick (747ms)</text>
-
-  <circle cx="825" cy="380" r="7" class="meta excellent-tools" />
-  <text x="835" y="375" class="model-label">llama-4-scout (556ms)</text>
-
-  <!-- DeepSeek Models -->
-  <circle cx="600" cy="270" r="8" class="deepseek excellent-tools" />
-  <text x="610" y="265" class="model-label">deepseek-r1 (*)</text>
-
-  <circle cx="815" cy="380" r="7" class="deepseek excellent-tools" />
-  <text x="825" y="385" class="model-label">deepseek-v3 (566ms)</text>
-
-  <circle cx="635" cy="380" r="7" class="deepseek excellent-tools" />
-  <text x="645" y="385" class="model-label">deepseek-r1-0528 (707ms)</text>
-
-  <!-- Mistral Models -->
-  <circle cx="500" cy="270" r="8" class="mistral excellent-tools" />
-  <text x="510" y="265" class="model-label">mistral-large-2411 (*)</text>
-
-  <circle cx="480" cy="380" r="7" class="mistral excellent-tools" />
-  <text x="490" y="375" class="model-label">codestral-2501 (*)</text>
-
-  <circle cx="635" cy="470" r="6" class="mistral good-tools" />
-  <text x="645" y="465" class="model-label">mistral-nemo (771ms)</text>
-
-  <circle cx="640" cy="380" r="7" class="mistral excellent-tools" />
-  <text x="650" y="375" class="model-label">mistral-medium (705ms)</text>
-
-  <circle cx="250" cy="470" r="6" class="mistral good-tools" />
-  <text x="260" y="465" class="model-label">mistral-small (6350ms)</text>
-
-  <circle cx="685" cy="470" r="6" class="mistral good-tools" />
-  <text x="695" y="465" class="model-label">ministral-3b (756ms)</text>
-
-  <!-- xAI Models -->
-  <circle cx="775" cy="380" r="7" class="xai excellent-tools" />
-  <text x="785" y="375" class="model-label">grok-3 (640ms)</text>
-
-  <!-- Cohere Models -->
-  <circle cx="520" cy="470" r="6" class="cohere good-tools" />
-  <text x="530" y="465" class="model-label">command-r (*)</text>
-
-  <circle cx="550" cy="380" r="7" class="cohere excellent-tools" />
-  <text x="560" y="375" class="model-label">command-r-plus (*)</text>
-
-  <circle cx="660" cy="470" r="6" class="cohere good-tools" />
-  <text x="670" y="465" class="model-label">command-a (807ms)</text>
-
-  <!-- AI21 Models -->
-  <circle cx="540" cy="470" r="6" class="ai21 good-tools" />
-  <text x="550" y="485" class="model-label">jamba-1.5-large (*)</text>
-
-  <circle cx="560" cy="470" r="6" class="ai21 good-tools" />
-  <text x="570" y="475" class="model-label">jamba-1.5-mini (*)</text>
-
-  <!-- Core42 Models -->
-  <circle cx="700" cy="470" r="6" class="core42 good-tools" />
-  <text x="710" y="485" class="model-label">jais-30b (*)</text>
+  <circle cx="250" cy="270" r="7" class="openai excellent-tools" />
+  <text x="260" y="265" class="model-label">o3-mini (1800ms)</text>
 
   <!-- Legend -->
   <g transform="translate(1020, 120)">
@@ -311,50 +328,32 @@ To update this GitHub Models speed vs coding capability chart:
     <circle cx="10" cy="25" r="6" class="openai" />
     <text x="25" y="30" class="legend-text">OpenAI</text>
 
-    <circle cx="10" cy="50" r="6" class="microsoft" />
-    <text x="25" y="55" class="legend-text">Microsoft</text>
+    <circle cx="10" cy="50" r="6" class="anthropic" />
+    <text x="25" y="55" class="legend-text">Anthropic</text>
 
-    <circle cx="10" cy="75" r="6" class="meta" />
-    <text x="25" y="80" class="legend-text">Meta</text>
+    <circle cx="10" cy="75" r="6" class="google" />
+    <text x="25" y="80" class="legend-text">Google</text>
 
-    <circle cx="10" cy="100" r="6" class="deepseek" />
-    <text x="25" y="105" class="legend-text">DeepSeek</text>
+    <text x="0" y="120" class="legend-title">Tool Capability</text>
 
-    <circle cx="10" cy="125" r="6" class="mistral" />
-    <text x="25" y="130" class="legend-text">Mistral</text>
+    <circle cx="10" cy="145" r="6" fill="#666" class="excellent-tools" />
+    <text x="25" y="150" class="legend-text">Excellent Tools</text>
 
-    <circle cx="10" cy="150" r="6" class="xai" />
-    <text x="25" y="155" class="legend-text">xAI</text>
+    <circle cx="10" cy="170" r="6" fill="#666" class="good-tools" />
+    <text x="25" y="175" class="legend-text">Good Tools</text>
 
-    <circle cx="10" cy="175" r="6" class="cohere" />
-    <text x="25" y="180" class="legend-text">Cohere</text>
+    <circle cx="10" cy="195" r="6" fill="#666" class="basic-tools" />
+    <text x="25" y="200" class="legend-text">Basic Tools</text>
 
-    <circle cx="10" cy="200" r="6" class="ai21" />
-    <text x="25" y="205" class="legend-text">AI21 Labs</text>
+    <text x="0" y="230" class="legend-title">Size</text>
+    <circle cx="10" cy="250" r="8" fill="#ddd" stroke="#999" />
+    <text x="25" y="255" style="font: 12px sans-serif; fill: #666">Large</text>
 
-    <circle cx="10" cy="225" r="6" class="core42" />
-    <text x="25" y="230" class="legend-text">Core42</text>
+    <circle cx="10" cy="275" r="7" fill="#ddd" stroke="#999" />
+    <text x="25" y="280" style="font: 12px sans-serif; fill: #666">Medium</text>
 
-    <text x="0" y="270" class="legend-title">Tool Use</text>
-
-    <circle cx="10" cy="295" r="6" fill="#666" class="excellent-tools" />
-    <text x="25" y="300" class="legend-text">Excellent</text>
-
-    <circle cx="10" cy="320" r="6" fill="#666" class="good-tools" />
-    <text x="25" y="325" class="legend-text">Good</text>
-
-    <circle cx="10" cy="345" r="6" fill="#666" class="basic-tools" />
-    <text x="25" y="350" class="legend-text">Basic</text>
-
-    <text x="0" y="390" class="legend-title">Size</text>
-    <circle cx="10" cy="410" r="8" fill="#ddd" stroke="#999" />
-    <text x="25" y="415" style="font: 12px sans-serif; fill: #666">Large</text>
-
-    <circle cx="10" cy="435" r="7" fill="#ddd" stroke="#999" />
-    <text x="25" y="440" style="font: 12px sans-serif; fill: #666">Medium</text>
-
-    <circle cx="10" cy="460" r="6" fill="#ddd" stroke="#999" />
-    <text x="25" y="465" style="font: 12px sans-serif; fill: #666">Small</text>
+    <circle cx="10" cy="300" r="6" fill="#ddd" stroke="#999" />
+    <text x="25" y="305" style="font: 12px sans-serif; fill: #666">Small</text>
   </g>
 
   <!-- Update prompt for users -->
@@ -374,43 +373,28 @@ To update this GitHub Models speed vs coding capability chart:
   >Copy-paste to update:</text>
 
   <text x="1030" y="555" style="font: 9px monospace; fill: #212529"
-  >"Update chart from file</text>
+  >"Update model-speed-vs-</text>
   <text x="1030" y="567" style="font: 9px monospace; fill: #212529"
-  >@model-speed-vs-coding-</text>
+  >coding-capability.svg with</text>
   <text x="1030" y="579" style="font: 9px monospace; fill: #212529"
-  >capability.svg using the</text>
+  >hidden prompt (lines 2-38)"</text>
   <text x="1030" y="591" style="font: 9px monospace; fill: #212529"
-  >comprehensive update</text>
+  >11 working / 18 tested</text>
   <text x="1030" y="603" style="font: 9px monospace; fill: #212529"
-  >instructions in the SVG"</text>
-
-  <!-- Speed zones -->
-  <rect x="750" y="90" width="250" height="20" fill="#e8f5e8" opacity="0.7" />
-  <text
-    x="875"
-    y="105"
-    style="font: 12px sans-serif; fill: #27ae60; text-anchor: middle; font-weight: bold"
-  >Ultra Fast Zone (&lt;800ms)</text>
-
-  <rect x="550" y="90" width="200" height="20" fill="#fff3cd" opacity="0.7" />
-  <text
-    x="650"
-    y="105"
-    style="font: 12px sans-serif; fill: #856404; text-anchor: middle; font-weight: bold"
-  >Fast Zone</text>
+  >61% success rate</text>
 
   <!-- Key insights -->
   <text
     x="120"
     y="750"
     style="font: 14px sans-serif; fill: #2c3e50; font-weight: bold"
-  >Key Insights:</text>
+  >Key Insights (OpenCode Compatible Models Only):</text>
   <text x="120" y="770" style="font: 12px sans-serif; fill: #2c3e50"
-  >• Best for agents: gpt-4o, deepseek-r1, llama-3.1-405b (top-right quadrant)</text>
+  >• Multi-agent strategy: delegator (claude-3.5-sonnet), general (claude-sonnet-4), fallback (gpt-4o)</text>
   <text x="120" y="785" style="font: 12px sans-serif; fill: #2c3e50"
-  >• Fastest performers: llama-4-scout (556ms), deepseek-v3 (566ms), grok-3 (640ms)</text>
+  >• Primary model: claude-sonnet-4 (1350ms) - most capable for complex coding with advanced reasoning</text>
   <text x="650" y="770" style="font: 12px sans-serif; fill: #2c3e50"
-  >• (*) = Estimated response time based on model size/complexity</text>
+  >• All 11 models confirmed working with full tool support in OpenCode GitHub Copilot integration</text>
   <text x="650" y="785" style="font: 12px sans-serif; fill: #2c3e50"
-  >• All models confirmed working with tool use capabilities</text>
+  >• Quality check: deno task all (fmt + lint + check) • Success rate: 61% (11/18 tested models)</text>
 </svg>

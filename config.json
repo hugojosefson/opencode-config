@@ -1,6 +1,6 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "model": "meta/llama-4-scout-17b-16e-instruct",
+  "model": "github-copilot/claude-sonnet-4",
   "provider": {
     "ollama-local": {
       "npm": "@ai-sdk/openai-compatible",

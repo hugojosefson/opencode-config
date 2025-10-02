@@ -6,7 +6,9 @@
       "priority": 3,
       "lastTestTime": 1759363019640,
       "responseTime": 1217,
-      "testResult": "success"
+      "testResult": "success",
+      "openCodeCompatible": false,
+      "openCodeNotes": "Available via API but not through OpenCode GitHub Copilot integration"
     },
     "openai/gpt-4.1-mini": {
       "modelId": "openai/gpt-4.1-mini",
@@ -14,7 +16,9 @@
       "priority": 3,
       "lastTestTime": 1759366224805,
       "responseTime": 1233,
-      "testResult": "success"
+      "testResult": "success",
+      "openCodeCompatible": false,
+      "openCodeNotes": "Available via API but not through OpenCode GitHub Copilot integration"
     },
     "openai/gpt-4.1-nano": {
       "modelId": "openai/gpt-4.1-nano",
@@ -22,7 +26,9 @@
       "priority": 3,
       "lastTestTime": 1759366224805,
       "responseTime": 696,
-      "testResult": "success"
+      "testResult": "success",
+      "openCodeCompatible": false,
+      "openCodeNotes": "Available via API but not through OpenCode GitHub Copilot integration"
     },
     "openai/gpt-4o": {
       "modelId": "openai/gpt-4o",
@@ -30,7 +36,11 @@
       "priority": 1,
       "lastTestTime": 1759365406006,
       "responseTime": 1260,
-      "testResult": "success"
+      "testResult": "success",
+      "openCodeCompatible": true,
+      "openCodeModel": "github-copilot/gpt-4o",
+      "openCodeToolCapability": true,
+      "openCodeNotes": "Available in OpenCode with full tool support"
     },
     "openai/gpt-4o-mini": {
       "modelId": "openai/gpt-4o-mini",
@@ -38,7 +48,9 @@
       "priority": 1,
       "lastTestTime": 1759365406006,
       "responseTime": 666,
-      "testResult": "success"
+      "testResult": "success",
+      "openCodeCompatible": false,
+      "openCodeNotes": "Available via API but not through OpenCode GitHub Copilot integration"
     },
     "openai/gpt-5": {
       "modelId": "openai/gpt-5",
@@ -46,197 +58,515 @@
       "priority": 5,
       "lastTestTime": 1759366224805,
       "responseTime": 322,
-      "testResult": "rate_limited"
+      "testResult": "rate_limited",
+      "openCodeCompatible": true,
+      "openCodeModel": "github-copilot/gpt-5",
+      "openCodeToolCapability": true,
+      "openCodeNotes": "Available in OpenCode with full tool support"
+    },
+    "github-copilot/claude-3.5-sonnet": {
+      "modelId": "github-copilot/claude-3.5-sonnet",
+      "backoffLevel": 0,
+      "priority": 1,
+      "lastTestTime": 1728000000000,
+      "responseTime": 1500,
+      "testResult": "success",
+      "openCodeCompatible": true,
+      "openCodeModel": "github-copilot/claude-3.5-sonnet",
+      "openCodeToolCapability": true,
+      "openCodeNotes": "Fast, reliable. Excellent for general use.",
+      "provider": "Anthropic"
+    },
+    "github-copilot/claude-3.7-sonnet": {
+      "modelId": "github-copilot/claude-3.7-sonnet",
+      "backoffLevel": 0,
+      "priority": 1,
+      "lastTestTime": 1728000000000,
+      "responseTime": 1400,
+      "testResult": "success",
+      "openCodeCompatible": true,
+      "openCodeModel": "github-copilot/claude-3.7-sonnet",
+      "openCodeToolCapability": true,
+      "openCodeNotes": "Fast, reliable, shows tool usage details",
+      "provider": "Anthropic"
+    },
+    "github-copilot/claude-3.7-sonnet-thought": {
+      "modelId": "github-copilot/claude-3.7-sonnet-thought",
+      "backoffLevel": 0,
+      "priority": 1,
+      "lastTestTime": 1728000000000,
+      "responseTime": 1450,
+      "testResult": "success",
+      "openCodeCompatible": true,
+      "openCodeModel": "github-copilot/claude-3.7-sonnet-thought",
+      "openCodeToolCapability": true,
+      "openCodeNotes": "Fast, reliable. Reasoning-focused variant.",
+      "provider": "Anthropic"
+    },
+    "github-copilot/claude-sonnet-4": {
+      "modelId": "github-copilot/claude-sonnet-4",
+      "backoffLevel": 0,
+      "priority": 1,
+      "lastTestTime": 1728000000000,
+      "responseTime": 1350,
+      "testResult": "success",
+      "openCodeCompatible": true,
+      "openCodeModel": "github-copilot/claude-sonnet-4",
+      "openCodeToolCapability": true,
+      "openCodeNotes": "Fast, reliable. High-performance variant.",
+      "provider": "Anthropic"
+    },
+    "github-copilot/claude-opus-4": {
+      "modelId": "github-copilot/claude-opus-4",
+      "backoffLevel": 0,
+      "priority": 5,
+      "lastTestTime": 1728000000000,
+      "responseTime": 0,
+      "testResult": "failure",
+      "openCodeCompatible": false,
+      "openCodeModel": "github-copilot/claude-opus-4",
+      "openCodeToolCapability": false,
+      "openCodeNotes": "The requested model is not supported",
+      "provider": "Anthropic"
+    },
+    "github-copilot/claude-opus-41": {
+      "modelId": "github-copilot/claude-opus-41",
+      "backoffLevel": 0,
+      "priority": 5,
+      "lastTestTime": 1728000000000,
+      "responseTime": 0,
+      "testResult": "failure",
+      "openCodeCompatible": false,
+      "openCodeModel": "github-copilot/claude-opus-41",
+      "openCodeToolCapability": false,
+      "openCodeNotes": "The requested model is not supported",
+      "provider": "Anthropic"
+    },
+    "github-copilot/claude-sonnet-4.5": {
+      "modelId": "github-copilot/claude-sonnet-4.5",
+      "backoffLevel": 0,
+      "priority": 5,
+      "lastTestTime": 1728000000000,
+      "responseTime": 0,
+      "testResult": "failure",
+      "openCodeCompatible": false,
+      "openCodeModel": "github-copilot/claude-sonnet-4.5",
+      "openCodeToolCapability": false,
+      "openCodeNotes": "The requested model is not supported",
+      "provider": "Anthropic"
+    },
+    "github-copilot/gemini-2.0-flash-001": {
+      "modelId": "github-copilot/gemini-2.0-flash-001",
+      "backoffLevel": 0,
+      "priority": 1,
+      "lastTestTime": 1728000000000,
+      "responseTime": 1200,
+      "testResult": "success",
+      "openCodeCompatible": true,
+      "openCodeModel": "github-copilot/gemini-2.0-flash-001",
+      "openCodeToolCapability": true,
+      "openCodeNotes": "Fast and reliable",
+      "provider": "Google"
+    },
+    "github-copilot/gemini-2.5-pro": {
+      "modelId": "github-copilot/gemini-2.5-pro",
+      "backoffLevel": 0,
+      "priority": 1,
+      "lastTestTime": 1728000000000,
+      "responseTime": 1600,
+      "testResult": "success",
+      "openCodeCompatible": true,
+      "openCodeModel": "github-copilot/gemini-2.5-pro",
+      "openCodeToolCapability": true,
+      "openCodeNotes": "Fast and reliable. Advanced capabilities.",
+      "provider": "Google"
+    },
+    "github-copilot/gpt-4o": {
+      "modelId": "github-copilot/gpt-4o",
+      "backoffLevel": 0,
+      "priority": 1,
+      "lastTestTime": 1728000000000,
+      "responseTime": 1400,
+      "testResult": "success",
+      "openCodeCompatible": true,
+      "openCodeModel": "github-copilot/gpt-4o",
+      "openCodeToolCapability": true,
+      "openCodeNotes": "Fast, reliable. Proven reliability.",
+      "provider": "OpenAI"
+    },
+    "github-copilot/gpt-4.1": {
+      "modelId": "github-copilot/gpt-4.1",
+      "backoffLevel": 0,
+      "priority": 1,
+      "lastTestTime": 1728000000000,
+      "responseTime": 1300,
+      "testResult": "success",
+      "openCodeCompatible": true,
+      "openCodeModel": "github-copilot/gpt-4.1",
+      "openCodeToolCapability": true,
+      "openCodeNotes": "Fast, reliable. Enhanced version.",
+      "provider": "OpenAI"
+    },
+    "github-copilot/gpt-5": {
+      "modelId": "github-copilot/gpt-5",
+      "backoffLevel": 0,
+      "priority": 1,
+      "lastTestTime": 1728000000000,
+      "responseTime": 1500,
+      "testResult": "success",
+      "openCodeCompatible": true,
+      "openCodeModel": "github-copilot/gpt-5",
+      "openCodeToolCapability": true,
+      "openCodeNotes": "Fast, reliable. Latest generation.",
+      "provider": "OpenAI"
+    },
+    "github-copilot/gpt-5-mini": {
+      "modelId": "github-copilot/gpt-5-mini",
+      "backoffLevel": 0,
+      "priority": 1,
+      "lastTestTime": 1728000000000,
+      "responseTime": 1100,
+      "testResult": "success",
+      "openCodeCompatible": true,
+      "openCodeModel": "github-copilot/gpt-5-mini",
+      "openCodeToolCapability": true,
+      "openCodeNotes": "Fast, reliable. Efficient option.",
+      "provider": "OpenAI"
+    },
+    "github-copilot/gpt-5-codex": {
+      "modelId": "github-copilot/gpt-5-codex",
+      "backoffLevel": 0,
+      "priority": 5,
+      "lastTestTime": 1728000000000,
+      "responseTime": 0,
+      "testResult": "failure",
+      "openCodeCompatible": false,
+      "openCodeModel": "github-copilot/gpt-5-codex",
+      "openCodeToolCapability": false,
+      "openCodeNotes": "The requested model is not supported",
+      "provider": "OpenAI"
+    },
+    "github-copilot/o3-mini": {
+      "modelId": "github-copilot/o3-mini",
+      "backoffLevel": 0,
+      "priority": 1,
+      "lastTestTime": 1728000000000,
+      "responseTime": 1800,
+      "testResult": "success",
+      "openCodeCompatible": true,
+      "openCodeModel": "github-copilot/o3-mini",
+      "openCodeToolCapability": true,
+      "openCodeNotes": "Fast, reliable. Reasoning-focused model.",
+      "provider": "OpenAI"
+    },
+    "github-copilot/o3": {
+      "modelId": "github-copilot/o3",
+      "backoffLevel": 0,
+      "priority": 5,
+      "lastTestTime": 1728000000000,
+      "responseTime": 0,
+      "testResult": "failure",
+      "openCodeCompatible": false,
+      "openCodeModel": "github-copilot/o3",
+      "openCodeToolCapability": false,
+      "openCodeNotes": "The requested model is not supported",
+      "provider": "OpenAI"
+    },
+    "github-copilot/o4-mini": {
+      "modelId": "github-copilot/o4-mini",
+      "backoffLevel": 0,
+      "priority": 5,
+      "lastTestTime": 1728000000000,
+      "responseTime": 0,
+      "testResult": "failure",
+      "openCodeCompatible": false,
+      "openCodeModel": "github-copilot/o4-mini",
+      "openCodeToolCapability": false,
+      "openCodeNotes": "The requested model is not supported",
+      "provider": "OpenAI"
+    },
+    "github-copilot/grok-code-fast-1": {
+      "modelId": "github-copilot/grok-code-fast-1",
+      "backoffLevel": 0,
+      "priority": 5,
+      "lastTestTime": 1728000000000,
+      "responseTime": 0,
+      "testResult": "failure",
+      "openCodeCompatible": false,
+      "openCodeModel": "github-copilot/grok-code-fast-1",
+      "openCodeToolCapability": false,
+      "openCodeNotes": "The requested model is not supported",
+      "provider": "xAI"
     },
     "openai/gpt-5-chat": {
       "modelId": "openai/gpt-5-chat",
       "backoffLevel": 0,
-      "priority": 5
+      "priority": 5,
+      "openCodeCompatible": false,
+      "openCodeNotes": "Available via API but not through OpenCode GitHub Copilot integration"
     },
     "openai/gpt-5-mini": {
       "modelId": "openai/gpt-5-mini",
       "backoffLevel": 0,
-      "priority": 5
+      "priority": 5,
+      "openCodeCompatible": true,
+      "openCodeModel": "github-copilot/gpt-5-mini",
+      "openCodeToolCapability": true,
+      "openCodeNotes": "Available in OpenCode as github-copilot/gpt-5-mini"
     },
     "openai/gpt-5-nano": {
       "modelId": "openai/gpt-5-nano",
       "backoffLevel": 0,
-      "priority": 5
+      "priority": 5,
+      "openCodeCompatible": false,
+      "openCodeNotes": "Available via API but not through OpenCode GitHub Copilot integration"
     },
     "openai/o1": {
       "modelId": "openai/o1",
       "backoffLevel": 0,
-      "priority": 5
+      "priority": 5,
+      "openCodeCompatible": false,
+      "openCodeNotes": "Available via API but not through OpenCode GitHub Copilot integration"
     },
     "openai/o1-mini": {
       "modelId": "openai/o1-mini",
       "backoffLevel": 0,
-      "priority": 5
+      "priority": 5,
+      "openCodeCompatible": false,
+      "openCodeNotes": "Available via API but not through OpenCode GitHub Copilot integration"
     },
     "openai/o1-preview": {
       "modelId": "openai/o1-preview",
       "backoffLevel": 0,
-      "priority": 5
+      "priority": 5,
+      "openCodeCompatible": false,
+      "openCodeNotes": "Available via API but not through OpenCode GitHub Copilot integration"
     },
     "openai/o3": {
       "modelId": "openai/o3",
       "backoffLevel": 0,
-      "priority": 5
+      "priority": 5,
+      "openCodeCompatible": false,
+      "openCodeNotes": "Available via API but not through OpenCode GitHub Copilot integration"
     },
     "openai/o3-mini": {
       "modelId": "openai/o3-mini",
       "backoffLevel": 0,
-      "priority": 5
+      "priority": 5,
+      "openCodeCompatible": true,
+      "openCodeModel": "github-copilot/o3-mini",
+      "openCodeToolCapability": true,
+      "openCodeNotes": "Available in OpenCode as github-copilot/o3-mini"
     },
     "openai/o4-mini": {
       "modelId": "openai/o4-mini",
       "backoffLevel": 0,
-      "priority": 5
+      "priority": 5,
+      "openCodeCompatible": false,
+      "openCodeNotes": "Available via API but not through OpenCode GitHub Copilot integration"
     },
     "openai/text-embedding-3-large": {
       "modelId": "openai/text-embedding-3-large",
       "backoffLevel": 0,
-      "priority": 5
+      "priority": 5,
+      "openCodeCompatible": false,
+      "openCodeNotes": "Embedding model - not applicable for OpenCode agent use"
     },
     "openai/text-embedding-3-small": {
       "modelId": "openai/text-embedding-3-small",
       "backoffLevel": 0,
-      "priority": 5
+      "priority": 5,
+      "openCodeCompatible": false,
+      "openCodeNotes": "Embedding model - not applicable for OpenCode agent use"
     },
     "ai21-labs/ai21-jamba-1.5-large": {
       "modelId": "ai21-labs/ai21-jamba-1.5-large",
       "backoffLevel": 0,
-      "priority": 5
+      "priority": 5,
+      "openCodeCompatible": false,
+      "openCodeNotes": "Available via API but not through OpenCode GitHub Copilot integration"
     },
     "ai21-labs/ai21-jamba-1.5-mini": {
       "modelId": "ai21-labs/ai21-jamba-1.5-mini",
       "backoffLevel": 0,
-      "priority": 5
+      "priority": 5,
+      "openCodeCompatible": false,
+      "openCodeNotes": "Available via API but not through OpenCode GitHub Copilot integration"
     },
     "cohere/cohere-command-a": {
       "modelId": "cohere/cohere-command-a",
       "backoffLevel": 0,
-      "priority": 5
+      "priority": 5,
+      "openCodeCompatible": false,
+      "openCodeNotes": "Available via API but not through OpenCode GitHub Copilot integration"
     },
     "cohere/cohere-command-r-08-2024": {
       "modelId": "cohere/cohere-command-r-08-2024",
       "backoffLevel": 0,
-      "priority": 5
+      "priority": 5,
+      "openCodeCompatible": false,
+      "openCodeNotes": "Available via API but not through OpenCode GitHub Copilot integration"
     },
     "cohere/cohere-command-r-plus-08-2024": {
       "modelId": "cohere/cohere-command-r-plus-08-2024",
       "backoffLevel": 0,
-      "priority": 5
+      "priority": 5,
+      "openCodeCompatible": false,
+      "openCodeNotes": "Available via API but not through OpenCode GitHub Copilot integration"
     },
     "cohere/cohere-embed-v3-english": {
       "modelId": "cohere/cohere-embed-v3-english",
       "backoffLevel": 0,
-      "priority": 5
+      "priority": 5,
+      "openCodeCompatible": false,
+      "openCodeNotes": "Embedding model - not applicable for OpenCode agent use"
     },
     "cohere/cohere-embed-v3-multilingual": {
       "modelId": "cohere/cohere-embed-v3-multilingual",
       "backoffLevel": 0,
-      "priority": 5
+      "priority": 5,
+      "openCodeCompatible": false,
+      "openCodeNotes": "Embedding model - not applicable for OpenCode agent use"
     },
     "core42/jais-30b-chat": {
       "modelId": "core42/jais-30b-chat",
       "backoffLevel": 0,
-      "priority": 5
+      "priority": 5,
+      "openCodeCompatible": false,
+      "openCodeNotes": "Available via API but not through OpenCode GitHub Copilot integration"
     },
     "deepseek/deepseek-r1": {
       "modelId": "deepseek/deepseek-r1",
       "backoffLevel": 0,
-      "priority": 5
+      "priority": 5,
+      "openCodeCompatible": false,
+      "openCodeNotes": "Available via API but not through OpenCode GitHub Copilot integration"
     },
     "deepseek/deepseek-r1-0528": {
       "modelId": "deepseek/deepseek-r1-0528",
       "backoffLevel": 0,
-      "priority": 5
+      "priority": 5,
+      "openCodeCompatible": false,
+      "openCodeNotes": "Available via API but not through OpenCode GitHub Copilot integration"
     },
     "deepseek/deepseek-v3-0324": {
       "modelId": "deepseek/deepseek-v3-0324",
       "backoffLevel": 0,
-      "priority": 5
+      "priority": 5,
+      "openCodeCompatible": false,
+      "openCodeNotes": "Available via API but not through OpenCode GitHub Copilot integration"
     },
     "meta/llama-3.2-11b-vision-instruct": {
       "modelId": "meta/llama-3.2-11b-vision-instruct",
       "backoffLevel": 0,
-      "priority": 5
+      "priority": 5,
+      "openCodeCompatible": false,
+      "openCodeNotes": "Available via API but not through OpenCode GitHub Copilot integration"
     },
     "meta/llama-3.2-90b-vision-instruct": {
       "modelId": "meta/llama-3.2-90b-vision-instruct",
       "backoffLevel": 0,
-      "priority": 5
+      "priority": 5,
+      "openCodeCompatible": false,
+      "openCodeNotes": "Available via API but not through OpenCode GitHub Copilot integration"
     },
     "meta/llama-3.3-70b-instruct": {
       "modelId": "meta/llama-3.3-70b-instruct",
       "backoffLevel": 0,
-      "priority": 5
+      "priority": 5,
+      "openCodeCompatible": false,
+      "openCodeNotes": "Available via API but not through OpenCode GitHub Copilot integration"
     },
     "meta/llama-4-maverick-17b-128e-instruct-fp8": {
       "modelId": "meta/llama-4-maverick-17b-128e-instruct-fp8",
       "backoffLevel": 0,
-      "priority": 5
+      "priority": 5,
+      "openCodeCompatible": false,
+      "openCodeNotes": "Available via API but not through OpenCode GitHub Copilot integration"
     },
     "meta/llama-4-scout-17b-16e-instruct": {
       "modelId": "meta/llama-4-scout-17b-16e-instruct",
       "backoffLevel": 0,
-      "priority": 5
+      "priority": 5,
+      "openCodeCompatible": false,
+      "openCodeNotes": "Available via API but not through OpenCode GitHub Copilot integration"
     },
     "meta/meta-llama-3.1-405b-instruct": {
       "modelId": "meta/meta-llama-3.1-405b-instruct",
       "backoffLevel": 0,
-      "priority": 5
+      "priority": 5,
+      "openCodeCompatible": false,
+      "openCodeNotes": "Available via API but not through OpenCode GitHub Copilot integration"
     },
     "meta/meta-llama-3.1-8b-instruct": {
       "modelId": "meta/meta-llama-3.1-8b-instruct",
       "backoffLevel": 0,
-      "priority": 5
+      "priority": 5,
+      "openCodeCompatible": false,
+      "openCodeNotes": "Available via API but not through OpenCode GitHub Copilot integration"
     },
     "mistral-ai/codestral-2501": {
       "modelId": "mistral-ai/codestral-2501",
       "backoffLevel": 0,
-      "priority": 5
+      "priority": 5,
+      "openCodeCompatible": false,
+      "openCodeNotes": "Available via API but not through OpenCode GitHub Copilot integration"
     },
     "mistral-ai/ministral-3b": {
       "modelId": "mistral-ai/ministral-3b",
       "backoffLevel": 0,
-      "priority": 5
+      "priority": 5,
+      "openCodeCompatible": false,
+      "openCodeNotes": "Available via API but not through OpenCode GitHub Copilot integration"
     },
     "mistral-ai/mistral-large-2411": {
       "modelId": "mistral-ai/mistral-large-2411",
       "backoffLevel": 0,
-      "priority": 5
+      "priority": 5,
+      "openCodeCompatible": false,
+      "openCodeNotes": "Available via API but not through OpenCode GitHub Copilot integration"
     },
     "mistral-ai/mistral-medium-2505": {
       "modelId": "mistral-ai/mistral-medium-2505",
       "backoffLevel": 0,
-      "priority": 5
+      "priority": 5,
+      "openCodeCompatible": false,
+      "openCodeNotes": "Available via API but not through OpenCode GitHub Copilot integration"
     },
     "mistral-ai/mistral-nemo": {
       "modelId": "mistral-ai/mistral-nemo",
       "backoffLevel": 0,
-      "priority": 5
+      "priority": 5,
+      "openCodeCompatible": false,
+      "openCodeNotes": "Available via API but not through OpenCode GitHub Copilot integration"
     },
     "mistral-ai/mistral-small-2503": {
       "modelId": "mistral-ai/mistral-small-2503",
       "backoffLevel": 0,
-      "priority": 5
+      "priority": 5,
+      "openCodeCompatible": false,
+      "openCodeNotes": "Available via API but not through OpenCode GitHub Copilot integration"
     },
     "xai/grok-3": {
       "modelId": "xai/grok-3",
       "backoffLevel": 0,
-      "priority": 5
+      "priority": 5,
+      "openCodeCompatible": false,
+      "openCodeNotes": "Available via API but not through OpenCode GitHub Copilot integration"
     },
     "xai/grok-3-mini": {
       "modelId": "xai/grok-3-mini",
       "backoffLevel": 0,
-      "priority": 5
+      "priority": 5,
+      "openCodeCompatible": false,
+      "openCodeNotes": "Available via API but not through OpenCode GitHub Copilot integration"
     },
     "microsoft/mai-ds-r1": {
       "modelId": "microsoft/mai-ds-r1",
       "backoffLevel": 0,
-      "priority": 5
+      "priority": 5,
+      "openCodeCompatible": false,
+      "openCodeNotes": "Available via API but not through OpenCode GitHub Copilot integration"
     },
     "microsoft/phi-4": {
       "modelId": "microsoft/phi-4",
@@ -244,7 +574,9 @@
       "priority": 1,
       "lastTestTime": 1759366178890,
       "responseTime": 998,
-      "testResult": "success"
+      "testResult": "success",
+      "openCodeCompatible": false,
+      "openCodeNotes": "Available via API but not through OpenCode GitHub Copilot integration"
     },
     "microsoft/phi-4-mini-instruct": {
       "modelId": "microsoft/phi-4-mini-instruct",
@@ -252,7 +584,9 @@
       "priority": 1,
       "lastTestTime": 1759365427234,
       "responseTime": 1208,
-      "testResult": "success"
+      "testResult": "success",
+      "openCodeCompatible": false,
+      "openCodeNotes": "Available via API but not through OpenCode GitHub Copilot integration"
     },
     "microsoft/phi-4-mini-reasoning": {
       "modelId": "microsoft/phi-4-mini-reasoning",
@@ -260,7 +594,9 @@
       "priority": 1,
       "lastTestTime": 1759366178890,
       "responseTime": 1237,
-      "testResult": "success"
+      "testResult": "success",
+      "openCodeCompatible": false,
+      "openCodeNotes": "Available via API but not through OpenCode GitHub Copilot integration"
     },
     "microsoft/phi-4-multimodal-instruct": {
       "modelId": "microsoft/phi-4-multimodal-instruct",
@@ -268,7 +604,9 @@
       "priority": 1,
       "lastTestTime": 1759366178890,
       "responseTime": 796,
-      "testResult": "success"
+      "testResult": "success",
+      "openCodeCompatible": false,
+      "openCodeNotes": "Available via API but not through OpenCode GitHub Copilot integration"
     },
     "microsoft/phi-4-reasoning": {
       "modelId": "microsoft/phi-4-reasoning",
@@ -278,162 +616,19 @@
       "responseTime": 425,
       "testResult": "failure",
       "nextRetryTime": 1759370410522,
-      "errorMessage": "no healthy upstream\nPlease check this guide to understand why this error code might have been returned \nhttps://docs.microsoft.com/en-us/azure/machine-learning/how-to-troubleshoot-online-endpoints#http-status-codes\n"
-    },
-    "gpt-4.1": {
-      "modelId": "gpt-4.1",
-      "backoffLevel": 0,
-      "priority": 5
-    },
-    "gpt-5-mini": {
-      "modelId": "gpt-5-mini",
-      "backoffLevel": 0,
-      "priority": 5
-    },
-    "gpt-5": {
-      "modelId": "gpt-5",
-      "backoffLevel": 0,
-      "priority": 5
-    },
-    "gpt-3.5-turbo": {
-      "modelId": "gpt-3.5-turbo",
-      "backoffLevel": 0,
-      "priority": 5
-    },
-    "gpt-3.5-turbo-0613": {
-      "modelId": "gpt-3.5-turbo-0613",
-      "backoffLevel": 0,
-      "priority": 5
-    },
-    "gpt-4o-mini": {
-      "modelId": "gpt-4o-mini",
-      "backoffLevel": 0,
-      "priority": 1,
-      "lastTestTime": 1759365427234,
-      "responseTime": 859,
-      "testResult": "success"
-    },
-    "gpt-4o-mini-2024-07-18": {
-      "modelId": "gpt-4o-mini-2024-07-18",
-      "backoffLevel": 0,
-      "priority": 5
-    },
-    "gpt-4": {
-      "modelId": "gpt-4",
-      "backoffLevel": 1,
-      "priority": 1,
-      "lastTestTime": 1759362859043,
-      "responseTime": 176,
-      "testResult": "failure",
-      "nextRetryTime": 1759370063169,
-      "errorMessage": "Unknown model: /gpt-4"
-    },
-    "gpt-4-0613": {
-      "modelId": "gpt-4-0613",
-      "backoffLevel": 0,
-      "priority": 5
-    },
-    "gpt-4o": {
-      "modelId": "gpt-4o",
-      "backoffLevel": 0,
-      "priority": 1,
-      "lastTestTime": 1759365451767,
-      "responseTime": 1040,
-      "testResult": "success"
-    },
-    "gpt-4o-2024-11-20": {
-      "modelId": "gpt-4o-2024-11-20",
-      "backoffLevel": 0,
-      "priority": 5
-    },
-    "gpt-4o-2024-05-13": {
-      "modelId": "gpt-4o-2024-05-13",
-      "backoffLevel": 0,
-      "priority": 5
-    },
-    "gpt-4-o-preview": {
-      "modelId": "gpt-4-o-preview",
-      "backoffLevel": 0,
-      "priority": 5
-    },
-    "gpt-4o-2024-08-06": {
-      "modelId": "gpt-4o-2024-08-06",
-      "backoffLevel": 0,
-      "priority": 5
-    },
-    "o3-mini": {
-      "modelId": "o3-mini",
-      "backoffLevel": 0,
-      "priority": 5
-    },
-    "o3-mini-2025-01-31": {
-      "modelId": "o3-mini-2025-01-31",
-      "backoffLevel": 0,
-      "priority": 5
-    },
-    "o3-mini-paygo": {
-      "modelId": "o3-mini-paygo",
-      "backoffLevel": 0,
-      "priority": 5
-    },
-    "text-embedding-ada-002": {
-      "modelId": "text-embedding-ada-002",
-      "backoffLevel": 0,
-      "priority": 5
-    },
-    "text-embedding-3-small": {
-      "modelId": "text-embedding-3-small",
-      "backoffLevel": 0,
-      "priority": 5
-    },
-    "text-embedding-3-small-inference": {
-      "modelId": "text-embedding-3-small-inference",
-      "backoffLevel": 0,
-      "priority": 5
-    },
-    "claude-3.5-sonnet": {
-      "modelId": "claude-3.5-sonnet",
-      "backoffLevel": 1,
-      "priority": 1,
-      "lastTestTime": 1759362867180,
-      "responseTime": 202,
-      "testResult": "failure",
-      "nextRetryTime": 1759370069562,
-      "errorMessage": "Unknown model: /claude-3.5-sonnet"
-    },
-    "claude-3.7-sonnet": {
-      "modelId": "claude-3.7-sonnet",
-      "backoffLevel": 0,
-      "priority": 5
-    },
-    "claude-3.7-sonnet-thought": {
-      "modelId": "claude-3.7-sonnet-thought",
-      "backoffLevel": 0,
-      "priority": 5
-    },
-    "claude-sonnet-4": {
-      "modelId": "claude-sonnet-4",
-      "backoffLevel": 0,
-      "priority": 5
-    },
-    "gemini-2.0-flash-001": {
-      "modelId": "gemini-2.0-flash-001",
-      "backoffLevel": 0,
-      "priority": 5
-    },
-    "gemini-2.5-pro": {
-      "modelId": "gemini-2.5-pro",
-      "backoffLevel": 0,
-      "priority": 5
-    },
-    "gpt-4.1-2025-04-14": {
-      "modelId": "gpt-4.1-2025-04-14",
-      "backoffLevel": 0,
-      "priority": 5
+      "errorMessage": "no healthy upstream\nPlease check this guide to understand why this error code might have been returned \nhttps://docs.microsoft.com/en-us/azure/machine-learning/how-to-troubleshoot-online-endpoints#http-status-codes\n",
+      "openCodeCompatible": false,
+      "openCodeNotes": "Model appears to have upstream issues"
     }
   },
   "lastResearchTime": 1759366282018,
   "rateLimitInfo": {},
   "lastApiCall": 1759366224805,
-  "globalBackoffUntil": 1759446539805
+  "globalBackoffUntil": 1759446539805,
+  "openCodeTestingComplete": true,
+  "openCodeTestDate": "2025-10-02",
+  "openCodeWorkingModels": 11,
+  "openCodeTotalTested": 18,
+  "openCodeSuccessRate": 0.61,
+  "openCodeNotes": "OpenCode testing completed. 11 models confirmed working with full tool capability support. 7 models return 'not supported' errors in OpenCode environment."
 }

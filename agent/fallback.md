@@ -1,7 +1,7 @@
 ---
 description: Fallback agent with full tool access - provides resilience when primary agents are unavailable
-mode: fallback
-model: github-copilot/mistral-ai/mistral-large-2411
+mode: subagent
+model: github-copilot/gpt-4o
 tools:
   bash: true
   edit: true
@@ -23,30 +23,34 @@ permissions:
 
 # Fallback agent - provider resilience
 
-Full tool access fallback using Mistral's latest flagship model for maximum
-reliability when primary agents fail.
+Full tool access fallback using GitHub Copilot GPT-4o for true provider
+diversification when primary agents fail.
 
 ## Purpose
 
 This agent provides operational continuity when primary agents
 (delegator/general) encounter rate limits, outages, or other availability
-issues. Uses Mistral AI's most capable model for consistent performance.
+issues. Uses GitHub Copilot's GPT-4o for provider diversity and reliable
+performance.
 
 ## Model assignment
 
-- **Model**: `github-copilot/mistral-ai/mistral-large-2411`
-- **Provider**: Mistral AI (100% reliability)
-- **Speed**: Elite performance (~1000ms response time)
-- **Capability**: Excellent coding and reasoning
+- **Model**: `github-copilot/gpt-4o`
+- **Provider**: GitHub Copilot (OpenAI GPT)
+- **Speed**: Fast backup operations
+- **Capability**: Advanced coding and reasoning
 - **Tools**: Complete OpenCode agent capabilities
+- **Status**: Fallback agent for true provider diversity
 
 ## Provider diversification role
 
 Part of the multi-provider resilience strategy:
 
-- **Meta** (delegator) - Ultra-fast coordination
-- **DeepSeek** (general) - Advanced reasoning + coding
-- **Mistral** (fallback) - Flagship reliability
+- **GitHub Copilot Claude 3.5 Sonnet** (delegator) - Fast coordination
+- **GitHub Copilot Claude Sonnet 4** (general) - Most capable reasoning and
+  coding
+- **GitHub Copilot GPT-4o** (fallback) - Provider diversity (OpenAI vs
+  Anthropic)
 
 ## Responsibilities
 
@@ -91,5 +95,6 @@ Identical to general agent but optimized for reliability:
 4. Report completion for resumption by primary agents
 5. Handle complex multi-step operations independently
 
-This agent ensures uninterrupted OpenCode operation through provider
-diversification and flagship model reliability.
+This agent ensures uninterrupted OpenCode operation through true provider
+diversification using GitHub Copilot's GPT-4o for OpenAI vs Anthropic
+reliability.

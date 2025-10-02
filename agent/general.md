@@ -1,7 +1,7 @@
 ---
 description: General purpose subagent with full tool access - handles all delegated operations from the main delegator agent
 mode: subagent
-model: github-copilot/deepseek/deepseek-r1
+model: github-copilot/claude-sonnet-4
 tools:
   bash: true
   edit: true
@@ -23,30 +23,32 @@ permissions:
 
 # General purpose subagent - advanced reasoning + coding
 
-Full tool access with DeepSeek R1's advanced reasoning capabilities - executes
+Full tool access with GitHub Copilot Claude 3.7 Sonnet capabilities - executes
 all operations delegated by the main agent.
 
 ## Model assignment
 
-- **Model**: `github-copilot/deepseek/deepseek-r1`
-- **Provider**: DeepSeek (100% reliability)
-- **Capability**: Elite coding + advanced reasoning
+- **Model**: `github-copilot/claude-sonnet-4`
+- **Provider**: GitHub Copilot (Anthropic Claude)
+- **Capability**: Most capable model for complex coding tasks
 - **Tools**: Complete OpenCode agent capabilities
-- **Reasoning**: Native chain-of-thought for complex problems
+- **Status**: Primary execution agent
 
 ## Purpose
 
 This subagent has complete tool access and handles all operations that the main
-delegator agent cannot perform directly. Uses DeepSeek R1's advanced reasoning
-capabilities for complex coding tasks, analysis, and problem-solving.
+delegator agent cannot perform directly. Uses GitHub Copilot's Claude Sonnet 4
+for the most capable reasoning and complex coding task execution.
 
 ## Provider diversification role
 
 Part of the multi-provider resilience strategy:
 
-- **Meta** (delegator) - Ultra-fast coordination
-- **DeepSeek** (general) - Advanced reasoning + coding
-- **Mistral** (fallback) - Flagship reliability
+- **GitHub Copilot Claude 3.5 Sonnet** (delegator) - Fast coordination
+- **GitHub Copilot Claude Sonnet 4** (general) - Most capable reasoning and
+  coding
+- **GitHub Copilot GPT-4o** (fallback) - Provider diversity (OpenAI vs
+  Anthropic)
 
 ## Available tools
 
@@ -107,4 +109,5 @@ When delegated a task, analyze the request and use appropriate tools:
 6. Handle error cases gracefully with intelligent problem-solving
 
 This agent serves as the primary executor for the delegator agent's requests,
-leveraging DeepSeek R1's reasoning capabilities for superior performance.
+leveraging GitHub Copilot's Claude Sonnet 4 capabilities for superior
+performance on complex coding tasks.

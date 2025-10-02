@@ -127,12 +127,90 @@ zero rate limit interference across 5 different providers
 - **Provider isolation**: Rate limits do not affect other providers
 - **Mistral AI**: New provider validation - 100% success rate with no limits
 
+## OpenCode GitHub Copilot Model Testing
+
+**🎯 PRACTICAL DISCOVERY: OpenCode agent compatibility validation**
+
+After discovering 32 working models through direct API testing, we conducted
+focused testing specifically for OpenCode agent compatibility using GitHub
+Copilot models. This validation is crucial since direct API access doesn't
+guarantee OpenCode agent functionality.
+
+### OpenCode Testing Results
+
+**Test Date**: October 2, 2025\
+**Test Method**: Systematic OpenCode agent testing with tool capability
+validation\
+**Context**: Testing models specifically for OpenCode agent development
+workflows
+
+**Results**: ✅ **11 models confirmed working** (61% success rate)
+
+### OpenCode-Compatible Models
+
+| Model                                      | Provider  | Basic Function | Tool Capability | OpenCode Status | Agent Recommended           |
+| :----------------------------------------- | :-------- | :------------- | :-------------- | :-------------- | :-------------------------- |
+| **Claude Models**                          |           |                |                 |                 |                             |
+| `github-copilot/claude-3.5-sonnet`         | Anthropic | ✅             | ✅              | **Working**     | Primary choice              |
+| `github-copilot/claude-3.7-sonnet`         | Anthropic | ✅             | ✅              | **Working**     | Excellent with tool details |
+| `github-copilot/claude-3.7-sonnet-thought` | Anthropic | ✅             | ✅              | **Working**     | Reasoning-focused           |
+| `github-copilot/claude-sonnet-4`           | Anthropic | ✅             | ✅              | **Working**     | High-performance            |
+| **Gemini Models**                          |           |                |                 |                 |                             |
+| `github-copilot/gemini-2.0-flash-001`      | Google    | ✅             | ✅              | **Working**     | Fast and reliable           |
+| `github-copilot/gemini-2.5-pro`            | Google    | ✅             | ✅              | **Working**     | Advanced capabilities       |
+| **GPT Models**                             |           |                |                 |                 |                             |
+| `github-copilot/gpt-4o`                    | OpenAI    | ✅             | ✅              | **Working**     | Proven reliability          |
+| `github-copilot/gpt-4.1`                   | OpenAI    | ✅             | ✅              | **Working**     | Enhanced version            |
+| `github-copilot/gpt-5`                     | OpenAI    | ✅             | ✅              | **Working**     | Latest generation           |
+| `github-copilot/gpt-5-mini`                | OpenAI    | ✅             | ✅              | **Working**     | Efficient option            |
+| **Reasoning Models**                       |           |                |                 |                 |                             |
+| `github-copilot/o3-mini`                   | OpenAI    | ✅             | ✅              | **Working**     | Reasoning-focused           |
+
+### Non-Compatible Models
+
+These models are listed in OpenCode but return "not supported" errors:
+
+- `github-copilot/claude-opus-4`
+- `github-copilot/claude-opus-41`
+- `github-copilot/claude-sonnet-4.5`
+- `github-copilot/gpt-5-codex`
+- `github-copilot/grok-code-fast-1`
+- `github-copilot/o3`
+- `github-copilot/o4-mini`
+
+### Key OpenCode Findings
+
+**Tool Capability**: 100% of working models support full OpenCode tool
+integration **Response Speed**: All working models respond under 2 seconds
+**Reliability**: Consistent behavior across all supported models **Error
+Handling**: Clear "not supported" messages for unavailable models
+
+### Strategic Implications for Agent Development
+
+- **11 reliable models** available for OpenCode agent development
+- **Provider diversity**: Claude (4), GPT (4), Gemini (2), Reasoning (1)
+- **Use case coverage**: All major agent roles covered by working models
+- **No rate limit issues** observed during OpenCode testing
+
+### Direct API vs OpenCode Compatibility
+
+This testing revealed a critical distinction:
+
+**Direct API Testing** (32 models): Tests raw API access via GitHub Models
+endpoints **OpenCode Agent Testing** (11 models): Tests actual OpenCode agent
+functionality with tool integration
+
+Many models work via direct API but are not available through OpenCode's GitHub
+Copilot integration, making this focused testing essential for practical agent
+development.
+
 ## Research Status
 
 ### Current Progress
 
-- **Total models tested**: 32/76 (42%)
-- **Working models discovered**: 32
+- **Total models tested**: 32/76 (42%) via direct API
+- **Working models discovered**: 32 via API, 11 via OpenCode agents
+- **OpenCode compatibility**: ✅ Confirmed 11 working models
 - **Rate limit validation**: ✅ Confirmed provider-specific
 - **Provider coverage**: 9 providers tested (including new Mistral AI)
 

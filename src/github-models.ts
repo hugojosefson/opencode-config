@@ -1,5 +1,5 @@
 #!/bin/sh
-// 2>/dev/null;DENO_VERSION_RANGE="^2.5.2";DENO_RUN_ARGS="--allow-net --allow-run=gh";set -e;V="$DENO_VERSION_RANGE";A="$DENO_RUN_ARGS";h(){ [ -x "$(command -v "$1" 2>&1)" ];};n(){ [ "$(id -u)" != 0 ];};g(){ if n && ! h;then return;fi;u="$(n&&echo sudo||:)";if h brew;then echo "brew install $1";elif h apt;then echo "($u apt update && $u DEBIAN_FRONTEND=noninteractive apt install -y $1)";elif h yum;then echo "$u yum install -y $1";elif h pacman;then echo "$u pacman -yS --noconfirm $1";elif h opkg-install;then echo "$u opkg-install $1";fi;};p(){ q="$(g "$1")";if [ -z "$q" ];then echo "Please install '$1' manually, then try again.">&2;exit 1;fi;eval "o=\"\$(set +o)\";set -x;$q;set +x;eval \"\$o\"">&2;};f(){ h "$1"||p "$1";};w(){ [ -n "$1" ] && "$1" -V >/dev/null 2>&1;};U="$(l=$(printf "%s" "$V"|wc -c);for i in $(seq 1 $l);do c=$(printf "%s" "$V"|cut -c $i);printf '%%%02X' "'$c";done)";D="$(w "$(command -v deno||:)"||:)";t(){ i="$(if h findmnt;then findmnt -Ononoexec,noro -ttmpfs -nboAVAIL,TARGET|sort -rn|while IFS=$'\n\t ' read -r a m;do [ "$a" -ge 150000000 ]&&[ -d "$m" ]&&printf %s "$m"&&break||:;done;fi)";printf %s "${i:-"${TMPDIR:-/tmp}"}";};s(){ deno eval "import{satisfies as e}from'https://deno.land/x/semver@v1.4.1/mod.ts';Deno.exit(e(Deno.version.deno,'$V')?0:1);">/dev/null 2>&1;};e(){ R="$(t)/deno-range-$V/bin";mkdir -p "$R";export PATH="$R:$PATH";s&&return;f curl;v="$(curl -sSfL "https://semver-version.deno.dev/api/github/denoland/deno/$U")";i="$(t)/deno-$v";ln -sf "$i/bin/deno" "$R/deno";s && return;f unzip;([ "${A#*-q}" != "$A" ]&&exec 2>/dev/null;curl -fsSL https://deno.land/install.sh|DENO_INSTALL="$i" sh -s $DENO_INSTALL_ARGS "$v"|grep -iv discord>&2);};e;exec deno run $A "$0" "$@"
+// 2>/dev/null;DENO_VERSION_RANGE="^2.5.2";DENO_RUN_ARGS="--allow-net --allow-run=gh --allow-read=.";set -e;V="$DENO_VERSION_RANGE";A="$DENO_RUN_ARGS";h(){ [ -x "$(command -v "$1" 2>&1)" ];};n(){ [ "$(id -u)" != 0 ];};g(){ if n && ! h;then return;fi;u="$(n&&echo sudo||:)";if h brew;then echo "brew install $1";elif h apt;then echo "($u apt update && $u DEBIAN_FRONTEND=noninteractive apt install -y $1)";elif h yum;then echo "$u yum install -y $1";elif h pacman;then echo "$u pacman -yS --noconfirm $1";elif h opkg-install;then echo "$u opkg-install $1";fi;};p(){ q="$(g "$1")";if [ -z "$q" ];then echo "Please install '$1' manually, then try again.">&2;exit 1;fi;eval "o=\"\$(set +o)\";set -x;$q;set +x;eval \"\$o\"">&2;};f(){ h "$1"||p "$1";};w(){ [ -n "$1" ] && "$1" -V >/dev/null 2>&1;};U="$(l=$(printf "%s" "$V"|wc -c);for i in $(seq 1 $l);do c=$(printf "%s" "$V"|cut -c $i);printf '%%%02X' "'$c";done)";D="$(w "$(command -v deno||:)"||:)";t(){ i="$(if h findmnt;then findmnt -Ononoexec,noro -ttmpfs -nboAVAIL,TARGET|sort -rn|while IFS=$'\n\t ' read -r a m;do [ "$a" -ge 150000000 ]&&[ -d "$m" ]&&printf %s "$m"&&break||:;done;fi)";printf %s "${i:-"${TMPDIR:-/tmp}"}";};s(){ deno eval "import{satisfies as e}from'https://deno.land/x/semver@v1.4.1/mod.ts';Deno.exit(e(Deno.version.deno,'$V')?0:1);">/dev/null 2>&1;};e(){ R="$(t)/deno-range-$V/bin";mkdir -p "$R";export PATH="$R:$PATH";s&&return;f curl;v="$(curl -sSfL "https://semver-version.deno.dev/api/github/denoland/deno/$U")";i="$(t)/deno-$v";ln -sf "$i/bin/deno" "$R/deno";s && return;f unzip;([ "${A#*-q}" != "$A" ]&&exec 2>/dev/null;curl -fsSL https://deno.land/install.sh|DENO_INSTALL="$i" sh -s $DENO_INSTALL_ARGS "$v"|grep -iv discord>&2);};e;exec deno run $A "$0" "$@"
 
 /**
  * GitHub Models API CLI tool
@@ -15,6 +15,23 @@ interface GitHubModel {
   description?: string;
   model_family?: string;
   tasks?: string[];
+  openCodeCompatible?: boolean;
+  openCodeNotes?: string;
+  openCodeToolCapability?: boolean;
+}
+
+interface OpenCodeModelTestState {
+  models: Record<string, {
+    modelId: string;
+    openCodeCompatible?: boolean;
+    openCodeModel?: string;
+    openCodeToolCapability?: boolean;
+    openCodeNotes?: string;
+    provider?: string;
+  }>;
+  openCodeWorkingModels?: number;
+  openCodeTotalTested?: number;
+  openCodeSuccessRate?: number;
 }
 
 interface CliOptions {
@@ -23,6 +40,8 @@ interface CliOptions {
   json: boolean;
   help: boolean;
   accessibleOnly: boolean;
+  openCodeOnly: boolean;
+  showOpenCodeStatus: boolean;
 }
 
 /** Parse command line arguments */
@@ -32,6 +51,8 @@ function parseArgs(args: string[]): CliOptions {
     json: false,
     help: false,
     accessibleOnly: false,
+    openCodeOnly: false,
+    showOpenCodeStatus: false,
   };
 
   for (let i = 0; i < args.length; i++) {
@@ -53,6 +74,12 @@ function parseArgs(args: string[]): CliOptions {
         break;
       case "--accessible-only":
         options.accessibleOnly = true;
+        break;
+      case "--opencode-only":
+        options.openCodeOnly = true;
+        break;
+      case "--show-opencode-status":
+        options.showOpenCodeStatus = true;
         break;
       case "--help":
       case "-h":
@@ -81,6 +108,8 @@ OPTIONS:
   --ids-only             Output only model IDs (for direct config use)
   --publisher <name>     Filter by publisher (openai, meta, microsoft, anthropic, etc.)
   --accessible-only      Show only models you have access to (tests via inference)
+  --opencode-only        Show only models confirmed working in OpenCode environment
+  --show-opencode-status Show OpenCode compatibility status for all models
   --json                 Output raw JSON response
   --help, -h             Show this help message
 
@@ -88,6 +117,8 @@ EXAMPLES:
   ./src/github-models.ts --ids-only
   ./src/github-models.ts --publisher anthropic
   ./src/github-models.ts --accessible-only --ids-only
+  ./src/github-models.ts --opencode-only --ids-only
+  ./src/github-models.ts --show-opencode-status
   ./src/github-models.ts --json | jq '.models[].id'
   ./src/github-models.ts --publisher meta --accessible-only
 
@@ -100,6 +131,10 @@ MODEL DISCOVERY:
   - GitHub Copilot endpoints (including Claude models not in catalog)
   
   Claude models like 'claude-sonnet-4' are only available via Copilot endpoints.
+
+OPENCODE COMPATIBILITY:
+  OpenCode compatibility data is read from model-test-state.json when available.
+  Only 11 out of 18 tested models work in OpenCode's GitHub Copilot integration.
 `);
 }
 
@@ -281,6 +316,11 @@ async function fetchAllModels(token: string): Promise<GitHubModel[]> {
   return allModels;
 }
 
+/** Filter models to only OpenCode-compatible ones */
+function filterOpenCodeOnly(models: GitHubModel[]): GitHubModel[] {
+  return models.filter((model) => model.openCodeCompatible === true);
+}
+
 /** Filter models by publisher */
 function filterByPublisher(
   models: GitHubModel[],
@@ -292,7 +332,58 @@ function filterByPublisher(
   );
 }
 
-/** Debug request details with redacted auth token */
+/** Load OpenCode compatibility data from model-test-state.json */
+async function loadOpenCodeCompatibility(): Promise<
+  OpenCodeModelTestState | null
+> {
+  try {
+    const jsonPath = "./model-test-state.json";
+    const content = await Deno.readTextFile(jsonPath);
+    const data: OpenCodeModelTestState = JSON.parse(content);
+
+    console.error(
+      `✅ Loaded OpenCode compatibility data: ${
+        data.openCodeWorkingModels || 0
+      }/${data.openCodeTotalTested || 0} working models`,
+    );
+    return data;
+  } catch (_error) {
+    console.error(
+      "⚠️ Could not load OpenCode compatibility data from model-test-state.json",
+    );
+    console.error("   OpenCode-specific filtering will not be available");
+    return null;
+  }
+}
+
+/** Enhance models with OpenCode compatibility information */
+function enhanceWithOpenCodeData(
+  models: GitHubModel[],
+  openCodeData: OpenCodeModelTestState | null,
+): GitHubModel[] {
+  if (!openCodeData) {
+    return models;
+  }
+
+  return models.map((model) => {
+    // Look for matching OpenCode data by model ID
+    // Handle both direct matches and github-copilot/ prefixed matches
+    const directMatch = openCodeData.models[model.id];
+    const copilotMatch = openCodeData.models[`github-copilot/${model.id}`];
+    const testData = directMatch || copilotMatch;
+
+    if (testData) {
+      return {
+        ...model,
+        openCodeCompatible: testData.openCodeCompatible || false,
+        openCodeNotes: testData.openCodeNotes,
+        openCodeToolCapability: testData.openCodeToolCapability || false,
+      };
+    }
+
+    return model;
+  });
+}
 function debugRequest(
   url: string,
   headers: Record<string, string>,
@@ -635,11 +726,41 @@ function outputModels(models: GitHubModel[], options: CliOptions): void {
   if (options.idsOnly) {
     // Output model IDs in OpenCode config format
     models.forEach((model) => console.log(`github-copilot/${model.id}`));
+  } else if (options.showOpenCodeStatus) {
+    // Show detailed OpenCode compatibility status
+    models.forEach((model) => {
+      const compatible = model.openCodeCompatible === true
+        ? "✅ WORKS"
+        : model.openCodeCompatible === false
+        ? "❌ FAILS"
+        : "❓ UNKNOWN";
+      const tools = model.openCodeToolCapability === true
+        ? "🔧 TOOLS"
+        : model.openCodeToolCapability === false
+        ? "🚫 NO-TOOLS"
+        : "";
+      const status = tools ? `${compatible} ${tools}` : compatible;
+
+      console.log(
+        `${
+          status.padEnd(20)
+        } github-copilot/${model.id} - ${model.name} (${model.publisher})`,
+      );
+      if (model.openCodeNotes) {
+        console.log(`${"".padEnd(20)} Note: ${model.openCodeNotes}`);
+      }
+    });
   } else {
     // Output formatted list with names and publishers in OpenCode config format
     models.forEach((model) => {
+      const compatible = model.openCodeCompatible === true
+        ? "✅"
+        : model.openCodeCompatible === false
+        ? "❌"
+        : "";
+      const prefix = compatible ? `${compatible} ` : "";
       console.log(
-        `github-copilot/${model.id} - ${model.name} (${model.publisher})`,
+        `${prefix}github-copilot/${model.id} - ${model.name} (${model.publisher})`,
       );
     });
   }
@@ -658,15 +779,25 @@ async function main(): Promise<void> {
   // Get GitHub auth token
   const token = await getGhToken();
 
+  // Load OpenCode compatibility data
+  const openCodeData = await loadOpenCodeCompatibility();
+
   // Fetch models from API
-  const models = await fetchAllModels(token);
+  const rawModels = await fetchAllModels(token);
+
+  // Enhance models with OpenCode compatibility information
+  const models = enhanceWithOpenCodeData(rawModels, openCodeData);
 
   if (options.json) {
     // For JSON output with accessible-only, we need to filter first
     let outputModels = models;
 
+    if (options.openCodeOnly) {
+      outputModels = filterOpenCodeOnly(outputModels);
+    }
+
     if (options.accessibleOnly) {
-      outputModels = await filterAccessibleModels(models, token);
+      outputModels = await filterAccessibleModels(outputModels, token);
     }
 
     if (options.publisher) {
@@ -679,7 +810,21 @@ async function main(): Promise<void> {
 
   let filteredModels = models;
 
-  // Filter by publisher first if specified (to reduce number of models to test)
+  // Filter by OpenCode compatibility first if specified
+  if (options.openCodeOnly) {
+    filteredModels = filterOpenCodeOnly(filteredModels);
+
+    if (filteredModels.length === 0) {
+      console.error("No OpenCode-compatible models found.");
+      console.error(
+        "This means model-test-state.json has no models marked as working,",
+      );
+      console.error("or the file could not be loaded.");
+      Deno.exit(1);
+    }
+  }
+
+  // Filter by publisher next if specified (to reduce number of models to test)
   if (options.publisher) {
     filteredModels = filterByPublisher(filteredModels, options.publisher);
 
@@ -694,7 +839,7 @@ async function main(): Promise<void> {
     }
   }
 
-  // Filter by accessibility if requested (do this after publisher filtering to reduce workload)
+  // Filter by accessibility if requested (do this last to reduce workload)
   if (options.accessibleOnly) {
     try {
       filteredModels = await filterAccessibleModels(filteredModels, token);
