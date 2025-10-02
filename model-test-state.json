@@ -1,0 +1,430 @@
+{
+  "models": {
+    "openai/gpt-4.1": {
+      "modelId": "openai/gpt-4.1",
+      "backoffLevel": 0,
+      "priority": 3,
+      "lastTestTime": 1759363019640,
+      "responseTime": 1217,
+      "testResult": "success"
+    },
+    "openai/gpt-4.1-mini": {
+      "modelId": "openai/gpt-4.1-mini",
+      "backoffLevel": 0,
+      "priority": 3
+    },
+    "openai/gpt-4.1-nano": {
+      "modelId": "openai/gpt-4.1-nano",
+      "backoffLevel": 0,
+      "priority": 3
+    },
+    "openai/gpt-4o": {
+      "modelId": "openai/gpt-4o",
+      "backoffLevel": 0,
+      "priority": 1,
+      "lastTestTime": 1759363222958,
+      "responseTime": 719,
+      "testResult": "success"
+    },
+    "openai/gpt-4o-mini": {
+      "modelId": "openai/gpt-4o-mini",
+      "backoffLevel": 0,
+      "priority": 1,
+      "lastTestTime": 1759363222958,
+      "responseTime": 466,
+      "testResult": "success"
+    },
+    "openai/gpt-5": {
+      "modelId": "openai/gpt-5",
+      "backoffLevel": 0,
+      "priority": 5
+    },
+    "openai/gpt-5-chat": {
+      "modelId": "openai/gpt-5-chat",
+      "backoffLevel": 0,
+      "priority": 5
+    },
+    "openai/gpt-5-mini": {
+      "modelId": "openai/gpt-5-mini",
+      "backoffLevel": 0,
+      "priority": 5
+    },
+    "openai/gpt-5-nano": {
+      "modelId": "openai/gpt-5-nano",
+      "backoffLevel": 0,
+      "priority": 5
+    },
+    "openai/o1": {
+      "modelId": "openai/o1",
+      "backoffLevel": 0,
+      "priority": 5
+    },
+    "openai/o1-mini": {
+      "modelId": "openai/o1-mini",
+      "backoffLevel": 0,
+      "priority": 5
+    },
+    "openai/o1-preview": {
+      "modelId": "openai/o1-preview",
+      "backoffLevel": 0,
+      "priority": 5
+    },
+    "openai/o3": {
+      "modelId": "openai/o3",
+      "backoffLevel": 0,
+      "priority": 5
+    },
+    "openai/o3-mini": {
+      "modelId": "openai/o3-mini",
+      "backoffLevel": 0,
+      "priority": 5
+    },
+    "openai/o4-mini": {
+      "modelId": "openai/o4-mini",
+      "backoffLevel": 0,
+      "priority": 5
+    },
+    "openai/text-embedding-3-large": {
+      "modelId": "openai/text-embedding-3-large",
+      "backoffLevel": 0,
+      "priority": 5
+    },
+    "openai/text-embedding-3-small": {
+      "modelId": "openai/text-embedding-3-small",
+      "backoffLevel": 0,
+      "priority": 5
+    },
+    "ai21-labs/ai21-jamba-1.5-large": {
+      "modelId": "ai21-labs/ai21-jamba-1.5-large",
+      "backoffLevel": 0,
+      "priority": 5
+    },
+    "ai21-labs/ai21-jamba-1.5-mini": {
+      "modelId": "ai21-labs/ai21-jamba-1.5-mini",
+      "backoffLevel": 0,
+      "priority": 5
+    },
+    "cohere/cohere-command-a": {
+      "modelId": "cohere/cohere-command-a",
+      "backoffLevel": 0,
+      "priority": 5
+    },
+    "cohere/cohere-command-r-08-2024": {
+      "modelId": "cohere/cohere-command-r-08-2024",
+      "backoffLevel": 0,
+      "priority": 5
+    },
+    "cohere/cohere-command-r-plus-08-2024": {
+      "modelId": "cohere/cohere-command-r-plus-08-2024",
+      "backoffLevel": 0,
+      "priority": 5
+    },
+    "cohere/cohere-embed-v3-english": {
+      "modelId": "cohere/cohere-embed-v3-english",
+      "backoffLevel": 0,
+      "priority": 5
+    },
+    "cohere/cohere-embed-v3-multilingual": {
+      "modelId": "cohere/cohere-embed-v3-multilingual",
+      "backoffLevel": 0,
+      "priority": 5
+    },
+    "core42/jais-30b-chat": {
+      "modelId": "core42/jais-30b-chat",
+      "backoffLevel": 0,
+      "priority": 5
+    },
+    "deepseek/deepseek-r1": {
+      "modelId": "deepseek/deepseek-r1",
+      "backoffLevel": 0,
+      "priority": 5
+    },
+    "deepseek/deepseek-r1-0528": {
+      "modelId": "deepseek/deepseek-r1-0528",
+      "backoffLevel": 0,
+      "priority": 5
+    },
+    "deepseek/deepseek-v3-0324": {
+      "modelId": "deepseek/deepseek-v3-0324",
+      "backoffLevel": 0,
+      "priority": 5
+    },
+    "meta/llama-3.2-11b-vision-instruct": {
+      "modelId": "meta/llama-3.2-11b-vision-instruct",
+      "backoffLevel": 0,
+      "priority": 5
+    },
+    "meta/llama-3.2-90b-vision-instruct": {
+      "modelId": "meta/llama-3.2-90b-vision-instruct",
+      "backoffLevel": 0,
+      "priority": 5
+    },
+    "meta/llama-3.3-70b-instruct": {
+      "modelId": "meta/llama-3.3-70b-instruct",
+      "backoffLevel": 0,
+      "priority": 5
+    },
+    "meta/llama-4-maverick-17b-128e-instruct-fp8": {
+      "modelId": "meta/llama-4-maverick-17b-128e-instruct-fp8",
+      "backoffLevel": 0,
+      "priority": 5
+    },
+    "meta/llama-4-scout-17b-16e-instruct": {
+      "modelId": "meta/llama-4-scout-17b-16e-instruct",
+      "backoffLevel": 0,
+      "priority": 5
+    },
+    "meta/meta-llama-3.1-405b-instruct": {
+      "modelId": "meta/meta-llama-3.1-405b-instruct",
+      "backoffLevel": 0,
+      "priority": 5
+    },
+    "meta/meta-llama-3.1-8b-instruct": {
+      "modelId": "meta/meta-llama-3.1-8b-instruct",
+      "backoffLevel": 0,
+      "priority": 5
+    },
+    "mistral-ai/codestral-2501": {
+      "modelId": "mistral-ai/codestral-2501",
+      "backoffLevel": 0,
+      "priority": 5
+    },
+    "mistral-ai/ministral-3b": {
+      "modelId": "mistral-ai/ministral-3b",
+      "backoffLevel": 0,
+      "priority": 5
+    },
+    "mistral-ai/mistral-large-2411": {
+      "modelId": "mistral-ai/mistral-large-2411",
+      "backoffLevel": 0,
+      "priority": 5
+    },
+    "mistral-ai/mistral-medium-2505": {
+      "modelId": "mistral-ai/mistral-medium-2505",
+      "backoffLevel": 0,
+      "priority": 5
+    },
+    "mistral-ai/mistral-nemo": {
+      "modelId": "mistral-ai/mistral-nemo",
+      "backoffLevel": 0,
+      "priority": 5
+    },
+    "mistral-ai/mistral-small-2503": {
+      "modelId": "mistral-ai/mistral-small-2503",
+      "backoffLevel": 0,
+      "priority": 5
+    },
+    "xai/grok-3": {
+      "modelId": "xai/grok-3",
+      "backoffLevel": 0,
+      "priority": 5
+    },
+    "xai/grok-3-mini": {
+      "modelId": "xai/grok-3-mini",
+      "backoffLevel": 0,
+      "priority": 5
+    },
+    "microsoft/mai-ds-r1": {
+      "modelId": "microsoft/mai-ds-r1",
+      "backoffLevel": 0,
+      "priority": 5
+    },
+    "microsoft/phi-4": {
+      "modelId": "microsoft/phi-4",
+      "backoffLevel": 0,
+      "priority": 1,
+      "lastTestTime": 1759364665581,
+      "responseTime": 1315,
+      "testResult": "success"
+    },
+    "microsoft/phi-4-mini-instruct": {
+      "modelId": "microsoft/phi-4-mini-instruct",
+      "backoffLevel": 0,
+      "priority": 1,
+      "lastTestTime": 1759363222958,
+      "responseTime": 810,
+      "testResult": "success"
+    },
+    "microsoft/phi-4-mini-reasoning": {
+      "modelId": "microsoft/phi-4-mini-reasoning",
+      "backoffLevel": 0,
+      "priority": 1,
+      "lastTestTime": 1759364660317,
+      "responseTime": 1093,
+      "testResult": "success"
+    },
+    "microsoft/phi-4-multimodal-instruct": {
+      "modelId": "microsoft/phi-4-multimodal-instruct",
+      "backoffLevel": 0,
+      "priority": 1,
+      "lastTestTime": 1759364665581,
+      "responseTime": 797,
+      "testResult": "success"
+    },
+    "microsoft/phi-4-reasoning": {
+      "modelId": "microsoft/phi-4-reasoning",
+      "backoffLevel": 1,
+      "priority": 1,
+      "lastTestTime": 1759363205937,
+      "responseTime": 425,
+      "testResult": "failure",
+      "nextRetryTime": 1759370410522,
+      "errorMessage": "no healthy upstream\nPlease check this guide to understand why this error code might have been returned \nhttps://docs.microsoft.com/en-us/azure/machine-learning/how-to-troubleshoot-online-endpoints#http-status-codes\n"
+    },
+    "gpt-4.1": {
+      "modelId": "gpt-4.1",
+      "backoffLevel": 0,
+      "priority": 5
+    },
+    "gpt-5-mini": {
+      "modelId": "gpt-5-mini",
+      "backoffLevel": 0,
+      "priority": 5
+    },
+    "gpt-5": {
+      "modelId": "gpt-5",
+      "backoffLevel": 0,
+      "priority": 5
+    },
+    "gpt-3.5-turbo": {
+      "modelId": "gpt-3.5-turbo",
+      "backoffLevel": 0,
+      "priority": 5
+    },
+    "gpt-3.5-turbo-0613": {
+      "modelId": "gpt-3.5-turbo-0613",
+      "backoffLevel": 0,
+      "priority": 5
+    },
+    "gpt-4o-mini": {
+      "modelId": "gpt-4o-mini",
+      "backoffLevel": 0,
+      "priority": 1,
+      "lastTestTime": 1759363222958,
+      "responseTime": 975,
+      "testResult": "success"
+    },
+    "gpt-4o-mini-2024-07-18": {
+      "modelId": "gpt-4o-mini-2024-07-18",
+      "backoffLevel": 0,
+      "priority": 5
+    },
+    "gpt-4": {
+      "modelId": "gpt-4",
+      "backoffLevel": 1,
+      "priority": 1,
+      "lastTestTime": 1759362859043,
+      "responseTime": 176,
+      "testResult": "failure",
+      "nextRetryTime": 1759370063169,
+      "errorMessage": "Unknown model: /gpt-4"
+    },
+    "gpt-4-0613": {
+      "modelId": "gpt-4-0613",
+      "backoffLevel": 0,
+      "priority": 5
+    },
+    "gpt-4o": {
+      "modelId": "gpt-4o",
+      "backoffLevel": 0,
+      "priority": 1,
+      "lastTestTime": 1759363222958,
+      "responseTime": 718,
+      "testResult": "success"
+    },
+    "gpt-4o-2024-11-20": {
+      "modelId": "gpt-4o-2024-11-20",
+      "backoffLevel": 0,
+      "priority": 5
+    },
+    "gpt-4o-2024-05-13": {
+      "modelId": "gpt-4o-2024-05-13",
+      "backoffLevel": 0,
+      "priority": 5
+    },
+    "gpt-4-o-preview": {
+      "modelId": "gpt-4-o-preview",
+      "backoffLevel": 0,
+      "priority": 5
+    },
+    "gpt-4o-2024-08-06": {
+      "modelId": "gpt-4o-2024-08-06",
+      "backoffLevel": 0,
+      "priority": 5
+    },
+    "o3-mini": {
+      "modelId": "o3-mini",
+      "backoffLevel": 0,
+      "priority": 5
+    },
+    "o3-mini-2025-01-31": {
+      "modelId": "o3-mini-2025-01-31",
+      "backoffLevel": 0,
+      "priority": 5
+    },
+    "o3-mini-paygo": {
+      "modelId": "o3-mini-paygo",
+      "backoffLevel": 0,
+      "priority": 5
+    },
+    "text-embedding-ada-002": {
+      "modelId": "text-embedding-ada-002",
+      "backoffLevel": 0,
+      "priority": 5
+    },
+    "text-embedding-3-small": {
+      "modelId": "text-embedding-3-small",
+      "backoffLevel": 0,
+      "priority": 5
+    },
+    "text-embedding-3-small-inference": {
+      "modelId": "text-embedding-3-small-inference",
+      "backoffLevel": 0,
+      "priority": 5
+    },
+    "claude-3.5-sonnet": {
+      "modelId": "claude-3.5-sonnet",
+      "backoffLevel": 1,
+      "priority": 1,
+      "lastTestTime": 1759362867180,
+      "responseTime": 202,
+      "testResult": "failure",
+      "nextRetryTime": 1759370069562,
+      "errorMessage": "Unknown model: /claude-3.5-sonnet"
+    },
+    "claude-3.7-sonnet": {
+      "modelId": "claude-3.7-sonnet",
+      "backoffLevel": 0,
+      "priority": 5
+    },
+    "claude-3.7-sonnet-thought": {
+      "modelId": "claude-3.7-sonnet-thought",
+      "backoffLevel": 0,
+      "priority": 5
+    },
+    "claude-sonnet-4": {
+      "modelId": "claude-sonnet-4",
+      "backoffLevel": 0,
+      "priority": 5
+    },
+    "gemini-2.0-flash-001": {
+      "modelId": "gemini-2.0-flash-001",
+      "backoffLevel": 0,
+      "priority": 5
+    },
+    "gemini-2.5-pro": {
+      "modelId": "gemini-2.5-pro",
+      "backoffLevel": 0,
+      "priority": 5
+    },
+    "gpt-4.1-2025-04-14": {
+      "modelId": "gpt-4.1-2025-04-14",
+      "backoffLevel": 0,
+      "priority": 5
+    }
+  },
+  "lastResearchTime": 1759363253991,
+  "rateLimitInfo": {},
+  "lastApiCall": 1759364665581,
+  "globalBackoffUntil": 1759363060813
+}
