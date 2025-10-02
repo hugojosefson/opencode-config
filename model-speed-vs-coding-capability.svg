@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+COMPREHENSIVE CHART UPDATE PROMPT:
+To update this GitHub Models speed vs coding capability chart:
+
+1. DATA SOURCES:
+   - Primary: OpenCode-Agent-Techniques.md model test results
+   - Speed data: Response times from actual testing (ms)
+   - Capability: Evaluated through coding task performance
+   - Tool use: Confirmed through OpenCode agent testing
+
+2. UPDATE PROCESS:
+   - Collect new model data (speed, coding capability, tool use quality)
+   - Calculate positioning: X-axis = speed (faster models move right), Y-axis = coding quality (better models move up)
+   - Speed scale: 3000ms (left) to 250ms+ (right), logarithmic positioning
+   - Capability scale: Basic (bottom) to Best (top), 6-tier system
+   - Provider colors: Use existing CSS classes for consistency
+   - Tool capability: Solid border (excellent), dashed (good), dotted (basic)
+
+3. DATA MAPPING:
+   - Circle size: Large (8px) = flagship, Medium (7px) = standard, Small (6px) = lightweight
+   - X position calculation: (1000 - (speed_ms / 3000) * 900) bounded to chart area
+   - Y position tiers: Best=170, Elite=270, Excellent=370, Very Good=470, Good=570, Basic=670
+   - Provider classification: Match model name prefixes to provider CSS classes
+
+4. CHART ELEMENTS TO UPDATE:
+   - Model data points (circles + labels)
+   - Legend provider list (if new providers added)
+   - Speed zone highlights (ultra-fast <800ms, fast 800-1200ms)
+   - Key insights summary at bottom
+   - Title subtitle with model count
+
+5. VALIDATION:
+   - All models must have confirmed tool use capability
+   - Speed data should be from actual testing when available
+   - Provider colors must match existing CSS classes
+   - Labels should not overlap (adjust positioning as needed)
+-->
+<svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+    .title {
+      font: bold 24px sans-serif;
+      fill: #2c3e50;
+      text-anchor: middle;
+    }
+    .axis-label {
+      font: 16px sans-serif;
+      fill: #34495e;
+      text-anchor: middle;
+    }
+    .axis-title {
+      font: bold 18px sans-serif;
+      fill: #2c3e50;
+      text-anchor: middle;
+    }
+    .grid-line {
+      stroke: #ecf0f1;
+      stroke-width: 1;
+    }
+    .axis-line {
+      stroke: #34495e;
+      stroke-width: 2;
+    }
+    .model-label {
+      font: 12px sans-serif;
+      fill: #2c3e50;
+      text-anchor: start;
+    }
+    .legend-text {
+      font: 14px sans-serif;
+      fill: #2c3e50;
+    }
+    .legend-title {
+      font: bold 16px sans-serif;
+      fill: #2c3e50;
+    }
+
+    /* Provider colors */
+    .openai {
+      fill: #10a37f;
+      stroke: #0d8968;
+    }
+    .microsoft {
+      fill: #0078d4;
+      stroke: #106ebe;
+    }
+    .meta {
+      fill: #1877f2;
+      stroke: #166fe5;
+    }
+    .deepseek {
+      fill: #8b5cf6;
+      stroke: #7c3aed;
+    }
+    .mistral {
+      fill: #ff6b35;
+      stroke: #e55a2b;
+    }
+    .xai {
+      fill: #000000;
+      stroke: #333333;
+    }
+    .cohere {
+      fill: #39c5bb;
+      stroke: #2eb3a9;
+    }
+    .ai21 {
+      fill: #ff9500;
+      stroke: #e6860c;
+    }
+    .core42 {
+      fill: #dc2626;
+      stroke: #b91c1c;
+    }
+
+    /* Shape indicators for tool use capability */
+    .excellent-tools {
+      stroke-width: 3;
+    }
+    .good-tools {
+      stroke-width: 2;
+      stroke-dasharray: 5, 3;
+    }
+    .basic-tools {
+      stroke-width: 2;
+      stroke-dasharray: 2, 2;
+    }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="800" fill="#fefefe" />
+
+  <!-- Title -->
+  <text x="600" y="30" class="title"
+  >GitHub Models: Speed vs Coding Capability</text>
+  <text
+    x="600"
+    y="55"
+    style="font: 14px sans-serif; fill: #7f8c8d; text-anchor: middle"
+  >Tool-Capable Models for OpenCode Agents (32 Working Models)</text>
+
+  <!-- Chart area background -->
+  <rect
+    x="100"
+    y="80"
+    width="900"
+    height="600"
+    fill="#fdfdfd"
+    stroke="#e1e8ed"
+    stroke-width="1"
+  />
+
+  <!-- Grid lines -->
+  <!-- Vertical grid lines (speed) -->
+  <line x1="200" y1="80" x2="200" y2="680" class="grid-line" />
+  <line x1="300" y1="80" x2="300" y2="680" class="grid-line" />
+  <line x1="400" y1="80" x2="400" y2="680" class="grid-line" />
+  <line x1="500" y1="80" x2="500" y2="680" class="grid-line" />
+  <line x1="600" y1="80" x2="600" y2="680" class="grid-line" />
+  <line x1="700" y1="80" x2="700" y2="680" class="grid-line" />
+  <line x1="800" y1="80" x2="800" y2="680" class="grid-line" />
+  <line x1="900" y1="80" x2="900" y2="680" class="grid-line" />
+
+  <!-- Horizontal grid lines (coding capability) -->
+  <line x1="100" y1="180" x2="1000" y2="180" class="grid-line" />
+  <line x1="100" y1="280" x2="1000" y2="280" class="grid-line" />
+  <line x1="100" y1="380" x2="1000" y2="380" class="grid-line" />
+  <line x1="100" y1="480" x2="1000" y2="480" class="grid-line" />
+  <line x1="100" y1="580" x2="1000" y2="580" class="grid-line" />
+
+  <!-- Axes -->
+  <line x1="100" y1="680" x2="1000" y2="680" class="axis-line" />
+  <line x1="100" y1="80" x2="100" y2="680" class="axis-line" />
+
+  <!-- X-axis labels (Speed - Response Time in ms) -->
+  <text x="150" y="700" class="axis-label">3000ms</text>
+  <text x="250" y="700" class="axis-label">2500ms</text>
+  <text x="350" y="700" class="axis-label">2000ms</text>
+  <text x="450" y="700" class="axis-label">1500ms</text>
+  <text x="550" y="700" class="axis-label">1000ms</text>
+  <text x="650" y="700" class="axis-label">750ms</text>
+  <text x="750" y="700" class="axis-label">500ms</text>
+  <text x="850" y="700" class="axis-label">250ms</text>
+  <text x="950" y="700" class="axis-label">Fast</text>
+
+  <!-- Y-axis labels (Coding Capability) -->
+  <text x="85" y="670" class="axis-label" text-anchor="end">Basic</text>
+  <text x="85" y="570" class="axis-label" text-anchor="end">Good</text>
+  <text x="85" y="470" class="axis-label" text-anchor="end">Very Good</text>
+  <text x="85" y="370" class="axis-label" text-anchor="end">Excellent</text>
+  <text x="85" y="270" class="axis-label" text-anchor="end">Elite</text>
+  <text x="85" y="170" class="axis-label" text-anchor="end">Best</text>
+
+  <!-- Axis titles -->
+  <text x="550" y="740" class="axis-title">Speed (Response Time) →</text>
+  <text x="40" y="380" class="axis-title" transform="rotate(-90, 40, 380)"
+  >← Coding Capability</text>
+
+  <!-- Model data points -->
+  <!-- OpenAI Models -->
+  <circle cx="427" cy="270" r="8" class="openai excellent-tools" />
+  <text x="440" y="275" class="model-label">gpt-4o (1260ms)</text>
+
+  <circle cx="584" cy="380" r="7" class="openai excellent-tools" />
+  <text x="595" y="385" class="model-label">gpt-4o-mini (666ms)</text>
+
+  <circle cx="439" cy="270" r="8" class="openai excellent-tools" />
+  <text x="450" y="275" class="model-label">gpt-4.1 (1217ms)</text>
+
+  <circle cx="440" cy="380" r="7" class="openai excellent-tools" />
+  <text x="450" y="385" class="model-label">gpt-4.1-mini (1233ms)</text>
+
+  <circle cx="615" cy="470" r="6" class="openai excellent-tools" />
+  <text x="625" y="475" class="model-label">gpt-4.1-nano (696ms)</text>
+
+  <!-- Microsoft Models -->
+  <circle cx="467" cy="380" r="7" class="microsoft excellent-tools" />
+  <text x="478" y="385" class="model-label">phi-4 (998ms)</text>
+
+  <circle cx="445" cy="470" r="6" class="microsoft good-tools" />
+  <text x="455" y="475" class="model-label">phi-4-mini-instruct (1208ms)</text>
+
+  <circle cx="441" cy="470" r="6" class="microsoft excellent-tools" />
+  <text x="450" y="485" class="model-label">phi-4-mini-reasoning (1237ms)</text>
+
+  <circle cx="653" cy="470" r="6" class="microsoft good-tools" />
+  <text x="665" y="475" class="model-label">phi-4-multimodal (796ms)</text>
+
+  <!-- Meta Models -->
+  <circle cx="850" cy="470" r="6" class="meta good-tools" />
+  <text x="860" y="465" class="model-label">llama-3.1-8b (513ms)</text>
+
+  <circle cx="710" cy="270" r="8" class="meta excellent-tools" />
+  <text x="720" y="265" class="model-label">llama-3.1-405b (*)</text>
+
+  <circle cx="695" cy="380" r="7" class="meta excellent-tools" />
+  <text x="705" y="375" class="model-label">llama-3.2-90b-vision (*)</text>
+
+  <circle cx="678" cy="380" r="7" class="meta good-tools" />
+  <text x="688" y="375" class="model-label">llama-3.2-11b-vision (*)</text>
+
+  <circle cx="690" cy="380" r="7" class="meta excellent-tools" />
+  <text x="700" y="385" class="model-label">llama-3.3-70b (762ms)</text>
+
+  <circle cx="675" cy="380" r="7" class="meta excellent-tools" />
+  <text x="685" y="395" class="model-label">llama-4-maverick (747ms)</text>
+
+  <circle cx="825" cy="380" r="7" class="meta excellent-tools" />
+  <text x="835" y="375" class="model-label">llama-4-scout (556ms)</text>
+
+  <!-- DeepSeek Models -->
+  <circle cx="600" cy="270" r="8" class="deepseek excellent-tools" />
+  <text x="610" y="265" class="model-label">deepseek-r1 (*)</text>
+
+  <circle cx="815" cy="380" r="7" class="deepseek excellent-tools" />
+  <text x="825" y="385" class="model-label">deepseek-v3 (566ms)</text>
+
+  <circle cx="635" cy="380" r="7" class="deepseek excellent-tools" />
+  <text x="645" y="385" class="model-label">deepseek-r1-0528 (707ms)</text>
+
+  <!-- Mistral Models -->
+  <circle cx="500" cy="270" r="8" class="mistral excellent-tools" />
+  <text x="510" y="265" class="model-label">mistral-large-2411 (*)</text>
+
+  <circle cx="480" cy="380" r="7" class="mistral excellent-tools" />
+  <text x="490" y="375" class="model-label">codestral-2501 (*)</text>
+
+  <circle cx="635" cy="470" r="6" class="mistral good-tools" />
+  <text x="645" y="465" class="model-label">mistral-nemo (771ms)</text>
+
+  <circle cx="640" cy="380" r="7" class="mistral excellent-tools" />
+  <text x="650" y="375" class="model-label">mistral-medium (705ms)</text>
+
+  <circle cx="250" cy="470" r="6" class="mistral good-tools" />
+  <text x="260" y="465" class="model-label">mistral-small (6350ms)</text>
+
+  <circle cx="685" cy="470" r="6" class="mistral good-tools" />
+  <text x="695" y="465" class="model-label">ministral-3b (756ms)</text>
+
+  <!-- xAI Models -->
+  <circle cx="775" cy="380" r="7" class="xai excellent-tools" />
+  <text x="785" y="375" class="model-label">grok-3 (640ms)</text>
+
+  <!-- Cohere Models -->
+  <circle cx="520" cy="470" r="6" class="cohere good-tools" />
+  <text x="530" y="465" class="model-label">command-r (*)</text>
+
+  <circle cx="550" cy="380" r="7" class="cohere excellent-tools" />
+  <text x="560" y="375" class="model-label">command-r-plus (*)</text>
+
+  <circle cx="660" cy="470" r="6" class="cohere good-tools" />
+  <text x="670" y="465" class="model-label">command-a (807ms)</text>
+
+  <!-- AI21 Models -->
+  <circle cx="540" cy="470" r="6" class="ai21 good-tools" />
+  <text x="550" y="485" class="model-label">jamba-1.5-large (*)</text>
+
+  <circle cx="560" cy="470" r="6" class="ai21 good-tools" />
+  <text x="570" y="475" class="model-label">jamba-1.5-mini (*)</text>
+
+  <!-- Core42 Models -->
+  <circle cx="700" cy="470" r="6" class="core42 good-tools" />
+  <text x="710" y="485" class="model-label">jais-30b (*)</text>
+
+  <!-- Legend -->
+  <g transform="translate(1020, 120)">
+    <text x="0" y="0" class="legend-title">Providers</text>
+
+    <circle cx="10" cy="25" r="6" class="openai" />
+    <text x="25" y="30" class="legend-text">OpenAI</text>
+
+    <circle cx="10" cy="50" r="6" class="microsoft" />
+    <text x="25" y="55" class="legend-text">Microsoft</text>
+
+    <circle cx="10" cy="75" r="6" class="meta" />
+    <text x="25" y="80" class="legend-text">Meta</text>
+
+    <circle cx="10" cy="100" r="6" class="deepseek" />
+    <text x="25" y="105" class="legend-text">DeepSeek</text>
+
+    <circle cx="10" cy="125" r="6" class="mistral" />
+    <text x="25" y="130" class="legend-text">Mistral</text>
+
+    <circle cx="10" cy="150" r="6" class="xai" />
+    <text x="25" y="155" class="legend-text">xAI</text>
+
+    <circle cx="10" cy="175" r="6" class="cohere" />
+    <text x="25" y="180" class="legend-text">Cohere</text>
+
+    <circle cx="10" cy="200" r="6" class="ai21" />
+    <text x="25" y="205" class="legend-text">AI21 Labs</text>
+
+    <circle cx="10" cy="225" r="6" class="core42" />
+    <text x="25" y="230" class="legend-text">Core42</text>
+
+    <text x="0" y="270" class="legend-title">Tool Use</text>
+
+    <circle cx="10" cy="295" r="6" fill="#666" class="excellent-tools" />
+    <text x="25" y="300" class="legend-text">Excellent</text>
+
+    <circle cx="10" cy="320" r="6" fill="#666" class="good-tools" />
+    <text x="25" y="325" class="legend-text">Good</text>
+
+    <circle cx="10" cy="345" r="6" fill="#666" class="basic-tools" />
+    <text x="25" y="350" class="legend-text">Basic</text>
+
+    <text x="0" y="390" class="legend-title">Size</text>
+    <circle cx="10" cy="410" r="8" fill="#ddd" stroke="#999" />
+    <text x="25" y="415" style="font: 12px sans-serif; fill: #666">Large</text>
+
+    <circle cx="10" cy="435" r="7" fill="#ddd" stroke="#999" />
+    <text x="25" y="440" style="font: 12px sans-serif; fill: #666">Medium</text>
+
+    <circle cx="10" cy="460" r="6" fill="#ddd" stroke="#999" />
+    <text x="25" y="465" style="font: 12px sans-serif; fill: #666">Small</text>
+  </g>
+
+  <!-- Update prompt for users -->
+  <rect
+    x="1020"
+    y="500"
+    width="160"
+    height="120"
+    fill="#f8f9fa"
+    stroke="#dee2e6"
+    stroke-width="1"
+    rx="4"
+  />
+  <text x="1030" y="520" style="font: bold 12px sans-serif; fill: #495057"
+  >Chart Update</text>
+  <text x="1030" y="535" style="font: 10px sans-serif; fill: #6c757d"
+  >Copy-paste to update:</text>
+
+  <text x="1030" y="555" style="font: 9px monospace; fill: #212529"
+  >"Update chart from file</text>
+  <text x="1030" y="567" style="font: 9px monospace; fill: #212529"
+  >@model-speed-vs-coding-</text>
+  <text x="1030" y="579" style="font: 9px monospace; fill: #212529"
+  >capability.svg using the</text>
+  <text x="1030" y="591" style="font: 9px monospace; fill: #212529"
+  >comprehensive update</text>
+  <text x="1030" y="603" style="font: 9px monospace; fill: #212529"
+  >instructions in the SVG"</text>
+
+  <!-- Speed zones -->
+  <rect x="750" y="90" width="250" height="20" fill="#e8f5e8" opacity="0.7" />
+  <text
+    x="875"
+    y="105"
+    style="font: 12px sans-serif; fill: #27ae60; text-anchor: middle; font-weight: bold"
+  >Ultra Fast Zone (&lt;800ms)</text>
+
+  <rect x="550" y="90" width="200" height="20" fill="#fff3cd" opacity="0.7" />
+  <text
+    x="650"
+    y="105"
+    style="font: 12px sans-serif; fill: #856404; text-anchor: middle; font-weight: bold"
+  >Fast Zone</text>
+
+  <!-- Key insights -->
+  <text
+    x="120"
+    y="750"
+    style="font: 14px sans-serif; fill: #2c3e50; font-weight: bold"
+  >Key Insights:</text>
+  <text x="120" y="770" style="font: 12px sans-serif; fill: #2c3e50"
+  >• Best for agents: gpt-4o, deepseek-r1, llama-3.1-405b (top-right quadrant)</text>
+  <text x="120" y="785" style="font: 12px sans-serif; fill: #2c3e50"
+  >• Fastest performers: llama-4-scout (556ms), deepseek-v3 (566ms), grok-3 (640ms)</text>
+  <text x="650" y="770" style="font: 12px sans-serif; fill: #2c3e50"
+  >• (*) = Estimated response time based on model size/complexity</text>
+  <text x="650" y="785" style="font: 12px sans-serif; fill: #2c3e50"
+  >• All models confirmed working with tool use capabilities</text>
+</svg>

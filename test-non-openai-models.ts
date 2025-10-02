@@ -31,20 +31,30 @@ async function getGhToken(): Promise<string> {
 
     return new TextDecoder().decode(stdout).trim();
   } catch (error) {
-    throw new Error(`Authentication failed: ${error instanceof Error ? error.message : String(error)}`);
+    throw new Error(
+      `Authentication failed: ${
+        error instanceof Error ? error.message : String(error)
+      }`,
+    );
   }
 }
 
-async function testModelAccess(modelId: string, token: string): Promise<TestResult> {
+async function testModelAccess(
+  modelId: string,
+  token: string,
+): Promise<TestResult> {
   const startTime = Date.now();
   const url = "https://models.github.ai/inference/chat/completions";
 
   try {
     console.log(`🧪 Testing ${modelId}...`);
-    
+
     const requestBody = {
       model: modelId,
-      messages: [{ role: "user", content: "What is 2+2? Answer with just the number." }],
+      messages: [{
+        role: "user",
+        content: "What is 2+2? Answer with just the number.",
+      }],
       max_tokens: 10,
       temperature: 0,
     };
@@ -76,7 +86,7 @@ async function testModelAccess(modelId: string, token: string): Promise<TestResu
     if (!response.ok) {
       const errorText = await response.text();
       let errorMessage = "";
-      
+
       try {
         const errorData = JSON.parse(errorText);
         errorMessage = errorData.error?.message || errorText;
@@ -85,8 +95,8 @@ async function testModelAccess(modelId: string, token: string): Promise<TestResu
       }
 
       const isRateLimit = errorMessage.toLowerCase().includes("rate limit") ||
-                         errorMessage.toLowerCase().includes("quota") ||
-                         retryAfter !== null;
+        errorMessage.toLowerCase().includes("quota") ||
+        retryAfter !== null;
 
       return {
         modelId,
@@ -98,11 +108,11 @@ async function testModelAccess(modelId: string, token: string): Promise<TestResu
     }
 
     const responseData = await response.json();
-    const hasValidContent = responseData.choices && 
-                           responseData.choices[0] && 
-                           responseData.choices[0].message &&
-                           typeof responseData.choices[0].message.content === "string" &&
-                           responseData.choices[0].message.content.trim().length > 0;
+    const hasValidContent = responseData.choices &&
+      responseData.choices[0] &&
+      responseData.choices[0].message &&
+      typeof responseData.choices[0].message.content === "string" &&
+      responseData.choices[0].message.content.trim().length > 0;
 
     return {
       modelId,
@@ -110,7 +120,6 @@ async function testModelAccess(modelId: string, token: string): Promise<TestResu
       responseTime,
       errorMessage: hasValidContent ? undefined : "No valid response content",
     };
-
   } catch (error) {
     return {
       modelId,
@@ -127,17 +136,17 @@ async function main(): Promise<void> {
 
   // High-priority non-OpenAI models to test
   const testModels = [
-    "cohere/cohere-command-r-08-2024",             // Cohere provider (variant)
-    "cohere/cohere-embed-v3-english",              // Cohere embedding model
-    "deepseek/deepseek-r1",                        // DeepSeek provider
-    "deepseek/deepseek-v3-0324",                   // DeepSeek variant
-    "meta/llama-3.2-11b-vision-instruct",          // Meta provider (vision)
-    "meta/llama-3.2-90b-vision-instruct",          // Meta provider (large vision)
-    "meta/meta-llama-3.1-405b-instruct",           // Meta provider (largest)
-    "meta/meta-llama-3.1-8b-instruct",             // Meta provider (small)
-    "xai/grok-3",                                  // xAI provider
-    "xai/grok-3-mini",                             // xAI provider (mini)
-    "core42/jais-30b-chat",                        // Core42 provider
+    "cohere/cohere-command-r-08-2024", // Cohere provider (variant)
+    "cohere/cohere-embed-v3-english", // Cohere embedding model
+    "deepseek/deepseek-r1", // DeepSeek provider
+    "deepseek/deepseek-v3-0324", // DeepSeek variant
+    "meta/llama-3.2-11b-vision-instruct", // Meta provider (vision)
+    "meta/llama-3.2-90b-vision-instruct", // Meta provider (large vision)
+    "meta/meta-llama-3.1-405b-instruct", // Meta provider (largest)
+    "meta/meta-llama-3.1-8b-instruct", // Meta provider (small)
+    "xai/grok-3", // xAI provider
+    "xai/grok-3-mini", // xAI provider (mini)
+    "core42/jais-30b-chat", // Core42 provider
   ];
 
   try {
@@ -148,9 +157,9 @@ async function main(): Promise<void> {
 
     for (let i = 0; i < testModels.length; i++) {
       const modelId = testModels[i];
-      
+
       console.log(`[${i + 1}/${testModels.length}] Testing ${modelId}`);
-      
+
       const result = await testModelAccess(modelId, token);
       results.push(result);
 
@@ -161,13 +170,15 @@ async function main(): Promise<void> {
         console.log("   🛑 Stopping tests due to rate limit");
         break;
       } else {
-        console.log(`   ❌ FAILED - ${result.errorMessage} (${result.responseTime}ms)`);
+        console.log(
+          `   ❌ FAILED - ${result.errorMessage} (${result.responseTime}ms)`,
+        );
       }
 
       // Add delay between tests to be respectful
       if (i < testModels.length - 1) {
         console.log("   ⏱️  Waiting 2 seconds...\n");
-        await new Promise(resolve => setTimeout(resolve, 2000));
+        await new Promise((resolve) => setTimeout(resolve, 2000));
       } else {
         console.log("");
       }
@@ -176,10 +187,10 @@ async function main(): Promise<void> {
     // Summary
     console.log("📊 Test Results Summary");
     console.log("=====================");
-    
-    const successful = results.filter(r => r.success);
-    const rateLimited = results.filter(r => r.rateLimited);
-    const failed = results.filter(r => !r.success && !r.rateLimited);
+
+    const successful = results.filter((r) => r.success);
+    const rateLimited = results.filter((r) => r.rateLimited);
+    const failed = results.filter((r) => !r.success && !r.rateLimited);
 
     console.log(`✅ Successful: ${successful.length}`);
     console.log(`⚠️  Rate Limited: ${rateLimited.length}`);
@@ -188,30 +199,35 @@ async function main(): Promise<void> {
 
     if (successful.length > 0) {
       console.log("🎉 HYPOTHESIS VALIDATED!");
-      console.log("Non-OpenAI models CAN be tested during OpenAI backoff periods!");
+      console.log(
+        "Non-OpenAI models CAN be tested during OpenAI backoff periods!",
+      );
       console.log("");
       console.log("✅ Successfully tested models:");
-      successful.forEach(result => {
+      successful.forEach((result) => {
         console.log(`   • ${result.modelId} (${result.responseTime}ms)`);
       });
     }
 
     if (rateLimited.length > 0) {
       console.log("⚠️  Models that hit rate limits:");
-      rateLimited.forEach(result => {
+      rateLimited.forEach((result) => {
         console.log(`   • ${result.modelId}: ${result.errorMessage}`);
       });
     }
 
     if (failed.length > 0) {
       console.log("❌ Models with other failures:");
-      failed.forEach(result => {
+      failed.forEach((result) => {
         console.log(`   • ${result.modelId}: ${result.errorMessage}`);
       });
     }
-
   } catch (error) {
-    console.error(`❌ Test failed: ${error instanceof Error ? error.message : String(error)}`);
+    console.error(
+      `❌ Test failed: ${
+        error instanceof Error ? error.message : String(error)
+      }`,
+    );
     Deno.exit(1);
   }
 }

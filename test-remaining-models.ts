@@ -31,20 +31,30 @@ async function getGhToken(): Promise<string> {
 
     return new TextDecoder().decode(stdout).trim();
   } catch (error) {
-    throw new Error(`Authentication failed: ${error instanceof Error ? error.message : String(error)}`);
+    throw new Error(
+      `Authentication failed: ${
+        error instanceof Error ? error.message : String(error)
+      }`,
+    );
   }
 }
 
-async function testModelAccess(modelId: string, token: string): Promise<TestResult> {
+async function testModelAccess(
+  modelId: string,
+  token: string,
+): Promise<TestResult> {
   const startTime = Date.now();
   const url = "https://models.github.ai/inference/chat/completions";
 
   try {
     console.log(`🧪 Testing ${modelId}...`);
-    
+
     const requestBody = {
       model: modelId,
-      messages: [{ role: "user", content: "What is 2+2? Answer with just the number." }],
+      messages: [{
+        role: "user",
+        content: "What is 2+2? Answer with just the number.",
+      }],
       max_tokens: 10,
       temperature: 0,
     };
@@ -76,7 +86,7 @@ async function testModelAccess(modelId: string, token: string): Promise<TestResu
     if (!response.ok) {
       const errorText = await response.text();
       let errorMessage = "";
-      
+
       try {
         const errorData = JSON.parse(errorText);
         errorMessage = errorData.error?.message || errorText;
@@ -85,8 +95,8 @@ async function testModelAccess(modelId: string, token: string): Promise<TestResu
       }
 
       const isRateLimit = errorMessage.toLowerCase().includes("rate limit") ||
-                         errorMessage.toLowerCase().includes("quota") ||
-                         retryAfter !== null;
+        errorMessage.toLowerCase().includes("quota") ||
+        retryAfter !== null;
 
       return {
         modelId,
@@ -98,11 +108,11 @@ async function testModelAccess(modelId: string, token: string): Promise<TestResu
     }
 
     const responseData = await response.json();
-    const hasValidContent = responseData.choices && 
-                           responseData.choices[0] && 
-                           responseData.choices[0].message &&
-                           typeof responseData.choices[0].message.content === "string" &&
-                           responseData.choices[0].message.content.trim().length > 0;
+    const hasValidContent = responseData.choices &&
+      responseData.choices[0] &&
+      responseData.choices[0].message &&
+      typeof responseData.choices[0].message.content === "string" &&
+      responseData.choices[0].message.content.trim().length > 0;
 
     return {
       modelId,
@@ -110,7 +120,6 @@ async function testModelAccess(modelId: string, token: string): Promise<TestResu
       responseTime,
       errorMessage: hasValidContent ? undefined : "No valid response content",
     };
-
   } catch (error) {
     return {
       modelId,
@@ -129,30 +138,30 @@ async function main(): Promise<void> {
   const testModels = [
     // Mistral AI models (highest priority - new provider)
     "mistral-ai/mistral-large-2411",
-    "mistral-ai/codestral-2501", 
+    "mistral-ai/codestral-2501",
     "mistral-ai/mistral-nemo",
     "mistral-ai/mistral-small-2503",
     "mistral-ai/ministral-3b",
     "mistral-ai/mistral-medium-2505",
-    
+
     // Additional DeepSeek variants
     "deepseek/deepseek-r1-0528",
-    
-    // Additional Meta variants  
+
+    // Additional Meta variants
     "meta/llama-3.3-70b-instruct",
     "meta/llama-4-maverick-17b-128e-instruct-fp8",
     "meta/llama-4-scout-17b-16e-instruct",
-    
+
     // Additional AI21 models
     "ai21-labs/ai21-jamba-1.5-mini",
-    
+
     // Additional Cohere models (test embedding model again)
     "cohere/cohere-command-a",
-    
+
     // Test a few non-provider-prefixed models that might work
     "gpt-4o-mini",
     "gpt-4o",
-    
+
     // Microsoft variants we haven't fully explored
     "microsoft/mai-ds-r1",
   ];
@@ -166,9 +175,9 @@ async function main(): Promise<void> {
 
     for (let i = 0; i < testModels.length; i++) {
       const modelId = testModels[i];
-      
+
       console.log(`[${i + 1}/${testModels.length}] Testing ${modelId}`);
-      
+
       const result = await testModelAccess(modelId, token);
       results.push(result);
 
@@ -180,13 +189,15 @@ async function main(): Promise<void> {
         rateLimitEncountered = true;
         break;
       } else {
-        console.log(`   ❌ FAILED - ${result.errorMessage} (${result.responseTime}ms)`);
+        console.log(
+          `   ❌ FAILED - ${result.errorMessage} (${result.responseTime}ms)`,
+        );
       }
 
       // Add delay between tests to be respectful
       if (i < testModels.length - 1) {
         console.log("   ⏱️  Waiting 2 seconds...\n");
-        await new Promise(resolve => setTimeout(resolve, 2000));
+        await new Promise((resolve) => setTimeout(resolve, 2000));
       } else {
         console.log("");
       }
@@ -195,10 +206,10 @@ async function main(): Promise<void> {
     // Summary
     console.log("📊 Test Results Summary");
     console.log("=====================");
-    
-    const successful = results.filter(r => r.success);
-    const rateLimited = results.filter(r => r.rateLimited);
-    const failed = results.filter(r => !r.success && !r.rateLimited);
+
+    const successful = results.filter((r) => r.success);
+    const rateLimited = results.filter((r) => r.rateLimited);
+    const failed = results.filter((r) => !r.success && !r.rateLimited);
 
     console.log(`✅ Successful: ${successful.length}`);
     console.log(`⚠️  Rate Limited: ${rateLimited.length}`);
@@ -208,7 +219,7 @@ async function main(): Promise<void> {
     if (successful.length > 0) {
       console.log("🎉 NEW DISCOVERIES!");
       console.log("✅ Successfully tested models:");
-      successful.forEach(result => {
+      successful.forEach((result) => {
         console.log(`   • ${result.modelId} (${result.responseTime}ms)`);
       });
       console.log("");
@@ -216,7 +227,7 @@ async function main(): Promise<void> {
 
     if (rateLimited.length > 0) {
       console.log("⚠️  Models that hit rate limits:");
-      rateLimited.forEach(result => {
+      rateLimited.forEach((result) => {
         console.log(`   • ${result.modelId}: ${result.errorMessage}`);
       });
       console.log("");
@@ -224,8 +235,10 @@ async function main(): Promise<void> {
 
     if (failed.length > 0) {
       console.log("❌ Models with other failures:");
-      failed.forEach(result => {
-        console.log(`   • ${result.modelId}: ${result.errorMessage} (${result.responseTime}ms)`);
+      failed.forEach((result) => {
+        console.log(
+          `   • ${result.modelId}: ${result.errorMessage} (${result.responseTime}ms)`,
+        );
       });
       console.log("");
     }
@@ -233,11 +246,16 @@ async function main(): Promise<void> {
     // Provider analysis
     console.log("📈 Provider Analysis");
     console.log("==================");
-    
-    const providerStats = new Map<string, { tested: number; successful: number }>();
-    
-    results.forEach(result => {
-      const provider = result.modelId.includes('/') ? result.modelId.split('/')[0] : 'unknown';
+
+    const providerStats = new Map<
+      string,
+      { tested: number; successful: number }
+    >();
+
+    results.forEach((result) => {
+      const provider = result.modelId.includes("/")
+        ? result.modelId.split("/")[0]
+        : "unknown";
       const stats = providerStats.get(provider) || { tested: 0, successful: 0 };
       stats.tested++;
       if (result.success) stats.successful++;
@@ -246,7 +264,9 @@ async function main(): Promise<void> {
 
     providerStats.forEach((stats, provider) => {
       const successRate = Math.round((stats.successful / stats.tested) * 100);
-      console.log(`${provider}: ${stats.successful}/${stats.tested} (${successRate}% success rate)`);
+      console.log(
+        `${provider}: ${stats.successful}/${stats.tested} (${successRate}% success rate)`,
+      );
     });
 
     console.log("");
@@ -254,14 +274,19 @@ async function main(): Promise<void> {
     console.log("========================");
     console.log(`Total models tested this session: ${results.length}`);
     console.log(`New working models discovered: ${successful.length}`);
-    console.log(`Rate limits encountered: ${rateLimitEncountered ? 'Yes' : 'No'}`);
-    
+    console.log(
+      `Rate limits encountered: ${rateLimitEncountered ? "Yes" : "No"}`,
+    );
+
     if (!rateLimitEncountered && successful.length > 0) {
       console.log("🚀 Ready for next testing round!");
     }
-
   } catch (error) {
-    console.error(`❌ Test failed: ${error instanceof Error ? error.message : String(error)}`);
+    console.error(
+      `❌ Test failed: ${
+        error instanceof Error ? error.message : String(error)
+      }`,
+    );
     Deno.exit(1);
   }
 }
