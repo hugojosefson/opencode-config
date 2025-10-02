@@ -5,11 +5,11 @@ COMPREHENSIVE CHART UPDATE PROMPT FOR model-speed-vs-coding-capability.svg:
 HIDDEN PROMPT LOCATION: Find this hidden prompt in lines 2-38 of the XML comment section in model-speed-vs-coding-capability.svg
 
 CURRENT REPOSITORY STATUS (as of 2025-10-02):
-- 11 confirmed working GitHub Copilot models (61% success rate from 18 tested models)
-- Multi-agent strategy: delegator (github-copilot/claude-3.5-sonnet), general (github-copilot/claude-sonnet-4), fallback (github-copilot/gpt-4o)
-- Primary model: github-copilot/claude-sonnet-4 (most capable for complex coding tasks)
-- Quality check command: deno task all
-- Data sources: model-test-state.json, github-copilot-model-test-results.md, AGENTS.md
+• 11 confirmed working GitHub Copilot models (61% success rate from 18 tested models)
+• Multi-agent strategy: delegator (github-copilot/claude-3.5-sonnet), general (github-copilot/claude-sonnet-4), fallback (github-copilot/gpt-4o)
+• Primary model: github-copilot/claude-sonnet-4 (most capable for complex coding tasks)
+• Quality check command: deno task all
+• Data sources: model-test-state.json, github-copilot-model-test-results.md, AGENTS.md
 
 🚨 CRITICAL: DATA SOURCE UPDATE REQUIREMENTS 🚨
 
@@ -23,32 +23,32 @@ DATA SOURCE UPDATE METHODS:
    Run systematic testing using real tool execution verification:
    ```bash
    # Basic functionality test  
-   opencode run --model [MODEL] "respond with only '[MODEL] working'"
+   opencode run -model [MODEL] "respond with only '[MODEL] working'"
    
    # ACTUAL tool capability testing (replaces fake claim-based testing)
-   opencode run --model [MODEL] "use the bash tool to run 'echo [MODEL] can use tools' and show the output"
-   opencode run --model [MODEL] "use the read tool to show the contents of README.md"
-   opencode run --model [MODEL] "use the glob tool to find all .md files in the current directory"
+   opencode run -model [MODEL] "use the bash tool to run 'echo [MODEL] can use tools' and show the output"
+   opencode run -model [MODEL] "use the read tool to show the contents of README.md"
+   opencode run -model [MODEL] "use the glob tool to find all .md files in the current directory"
    
    # Delegation testing
-   opencode run --agent delegator --model [MODEL] "tell your subagent to use bash tool with command 'echo [MODEL] can use bash' and respond back its response"
+   opencode run -agent delegator -model [MODEL] "tell your subagent to use bash tool with command 'echo [MODEL] can use bash' and respond back its response"
    
    # Example for specific model:
-   opencode run --model github-copilot/claude-sonnet-4 "respond with only 'github-copilot/claude-sonnet-4 working'"
-   opencode run --model github-copilot/claude-sonnet-4 "use the bash tool to run 'echo github-copilot/claude-sonnet-4 can use tools' and show the output"
+   opencode run -model github-copilot/claude-sonnet-4 "respond with only 'github-copilot/claude-sonnet-4 working'"
+   opencode run -model github-copilot/claude-sonnet-4 "use the bash tool to run 'echo github-copilot/claude-sonnet-4 can use tools' and show the output"
    ```
 
 2. model-test-state.json UPDATE:
-   - This file updates automatically during testing (machine-readable state file)
-   - Contains authoritative test results with timestamps and response times
-   - Check openCodeTestDate field to verify freshness of test data
-   - Only models with openCodeCompatible: true should be included in charts
+   • This file updates automatically during testing (machine-readable state file)
+   • Contains authoritative test results with timestamps and response times
+   • Check openCodeTestDate field to verify freshness of test data
+   • Only models with openCodeCompatible: true should be included in charts
 
 3. DATA FRESHNESS VERIFICATION:
-   - Check test dates in model-test-state.json (openCodeTestDate field)
-   - Verify response times are from actual recent testing, not estimates
-   - Confirm tool capabilities match current testing results
-   - Cross-reference both files for consistency
+   • Check test dates in model-test-state.json (openCodeTestDate field)
+   • Verify response times are from actual recent testing, not estimates
+   • Confirm tool capabilities match current testing results
+   • Cross-reference both files for consistency
 
 TESTING WORKFLOW:
 
@@ -56,42 +56,42 @@ TESTING WORKFLOW:
 ⚠️  Real tool execution must be tested to verify actual capability, not self-reported claims.
 
 1. **ACTUAL TOOL CAPABILITY TESTING** (replaces fake claim-based testing):
-   - **Basic tool test**: `opencode run --model [MODEL] "use the bash tool to run 'echo [MODEL] can use tools' and show the output"`
-   - **File operation test**: `opencode run --model [MODEL] "use the read tool to show the contents of README.md"`  
-   - **Search test**: `opencode run --model [MODEL] "use the glob tool to find all .md files in the current directory"`
+   • **Basic tool test**: `opencode run -model [MODEL] "use the bash tool to run 'echo [MODEL] can use tools' and show the output"`
+   • **File operation test**: `opencode run -model [MODEL] "use the read tool to show the contents of README.md"`  
+   • **Search test**: `opencode run -model [MODEL] "use the glob tool to find all .md files in the current directory"`
 
 2. **SUBAGENT DELEGATION TESTING** (new capability):
-   - **Delegation test**: `opencode run --agent delegator --model [MODEL] "tell your subagent to use bash tool with command 'echo [MODEL] can use bash' and respond back its response"`
-   - **Complex delegation test**: `opencode run --agent delegator --model [MODEL] "delegate to subagent: use read tool on config.json and summarize what you found"`
+   • **Delegation test**: `opencode run -agent delegator -model [MODEL] "tell your subagent to use bash tool with command 'echo [MODEL] can use bash' and respond back its response"`
+   • **Complex delegation test**: `opencode run -agent delegator -model [MODEL] "delegate to subagent: use read tool on config.json and summarize what you found"`
 
 3. **RESULT INTERPRETATION** (updated for real testing):
-   - **Tool Success**: Model successfully executes tool calls and shows real output
-   - **Tool Failure**: Model cannot use tools, gives errors, or refuses to use tools
-   - **Delegation Success**: Model can successfully delegate to subagents who execute tools
-   - **Delegation Failure**: Model cannot delegate or subagents fail to execute
+   • **Tool Success**: Model successfully executes tool calls and shows real output
+   • **Tool Failure**: Model cannot use tools, gives errors, or refuses to use tools
+   • **Delegation Success**: Model can successfully delegate to subagents who execute tools
+   • **Delegation Failure**: Model cannot delegate or subagents fail to execute
 
 4. **CAPABILITY CLASSIFICATION** (new detailed breakdown):
-   - **Excellent Tools**: Direct tool usage + subagent delegation both work
-   - **Good Tools**: Direct tool usage works, delegation may have issues  
-   - **Basic Tools**: Limited tool usage, no delegation capability
-   - **No Tools**: Cannot use tools at all
+   • **Excellent Tools**: Direct tool usage + subagent delegation both work
+   • **Good Tools**: Direct tool usage works, delegation may have issues  
+   • **Basic Tools**: Limited tool usage, no delegation capability
+   • **No Tools**: Cannot use tools at all
 
 5. **Result Documentation**:
-   - Working models: Add to github-copilot-model-test-results.md with ✅
-   - Non-working models: Mark with ❌ and document specific failure
-   - Record actual response times from testing output
-   - Update model-test-state.json automatically captures test metadata
+   • Working models: Add to github-copilot-model-test-results.md with ✅
+   • Non-working models: Mark with ❌ and document specific failure
+   • Record actual response times from testing output
+   • Update model-test-state.json automatically captures test metadata
 
 DATA VALIDATION REQUIREMENTS:
 
 ✅ REQUIRED BEFORE CHART UPDATE:
-- Run systematic model testing to update both data sources
-- Verify openCodeTestDate is current (today's date) in model-test-state.json
-- Confirm response times are from actual testing, not approximations
-- Validate tool capabilities through ACTUAL tool execution testing (not claim-based testing)
-- Test subagent delegation capabilities for multi-agent workflow validation
-- Cross-reference model-test-state.json and github-copilot-model-test-results.md for consistency
-- Only include models marked openCodeCompatible: true
+• Run systematic model testing to update both data sources
+• Verify openCodeTestDate is current (today's date) in model-test-state.json
+• Confirm response times are from actual testing, not approximations
+• Validate tool capabilities through ACTUAL tool execution testing (not claim-based testing)
+• Test subagent delegation capabilities for multi-agent workflow validation
+• Cross-reference model-test-state.json and github-copilot-model-test-results.md for consistency
+• Only include models marked openCodeCompatible: true
 
 UPDATE SEQUENCE (MANDATORY):
 1. FIRST: Run systematic model testing using commands above
@@ -101,49 +101,49 @@ UPDATE SEQUENCE (MANDATORY):
 
 ⚠️  NEVER skip data source updates. Chart accuracy depends on current testing data, not stale files.
 
-WORKING GITHUB COPILOT MODELS (11 total):
-1. github-copilot/claude-3.5-sonnet (1500ms, Best tier)
-2. github-copilot/claude-3.7-sonnet (1400ms, Best tier)
-3. github-copilot/claude-3.7-sonnet-thought (1450ms, Best tier)
-4. github-copilot/claude-sonnet-4 (1350ms, Best tier) - PRIMARY MODEL
-5. github-copilot/gemini-2.0-flash-001 (1200ms, Elite tier)
-6. github-copilot/gemini-2.5-pro (1600ms, Best tier)
-7. github-copilot/gpt-4o (1400ms, Elite tier) - FALLBACK MODEL
-8. github-copilot/gpt-4.1 (1300ms, Elite tier)
-9. github-copilot/gpt-5 (1500ms, Elite tier)
-10. github-copilot/gpt-5-mini (1100ms, Elite tier)
-11. github-copilot/o3-mini (1800ms, Elite tier)
+WORKING GITHUB COPILOT MODELS (11 total, speed-ordered fastest to slowest):
+1. github-copilot/gpt-5-mini (1100ms, Elite tier) · lightweight
+2. github-copilot/gemini-2.0-flash-001 (1200ms, Elite tier) · fast Google
+3. github-copilot/gpt-4.1 (1300ms, Elite tier) · OpenAI flagship
+4. github-copilot/claude-sonnet-4 (1350ms, Best tier) · PRIMARY MODEL
+5. github-copilot/claude-3.7-sonnet (1400ms, Best tier) · advanced reasoning
+6. github-copilot/gpt-4o (1400ms, Elite tier) · FALLBACK MODEL
+7. github-copilot/claude-3.7-sonnet-thought (1450ms, Best tier) · reasoning
+8. github-copilot/claude-3.5-sonnet (1500ms, Best tier) · DELEGATOR MODEL
+9. github-copilot/gpt-5 (1500ms, Elite tier) · OpenAI flagship
+10. github-copilot/gemini-2.5-pro (1600ms, Best tier) · Google flagship
+11. github-copilot/o3-mini (1800ms, Elite tier) · reasoning model
 
 UPDATE PROCESS:
 1. DATA SOURCES:
-   - Primary: model-test-state.json (authoritative test results)
-   - Secondary: github-copilot-model-test-results.md, AGENTS.md
-   - Speed data: Response times from actual OpenCode testing (ms)
-   - Capability: Evaluated through coding task performance and tool use quality
-   - OpenCode compatibility: Only include models with openCodeCompatible: true
+   • Primary: model-test-state.json (authoritative test results)
+   • Secondary: github-copilot-model-test-results.md, AGENTS.md
+   • Speed data: Response times from actual OpenCode testing (ms)
+   • Capability: Evaluated through coding task performance and tool use quality
+   • OpenCode compatibility: Only include models with openCodeCompatible: true
 
 2. CHART POSITIONING:
-   - X-axis = speed (faster models move right): 3000ms (left) to 250ms+ (right), logarithmic
-   - Y-axis = coding quality (better models move up): Basic (bottom) to Best (top), 6-tier system
-   - Speed calculation: (1000 - (speed_ms / 3000) * 900) bounded to chart area
-   - Capability tiers: Best=170, Elite=270, Excellent=370, Very Good=470, Good=570, Basic=670
+   • X-axis = speed (faster models move right): 3000ms (left) to 250ms+ (right), logarithmic
+   • Y-axis = coding quality (better models move up): Basic (bottom) to Best (top), 6-tier system
+   • Speed calculation: (1000 - (speed_ms / 3000) * 900) bounded to chart area
+   • Capability tiers: Best=170, Elite=270, Excellent=370, Very Good=470, Good=570, Basic=670
 
 3. VISUAL ENCODING:
-   - Circle size: Large (8px) = flagship, Medium (7px) = standard, Small (6px) = lightweight
-   - Provider colors: Anthropic=orange, Google=red, OpenAI=green (use existing CSS classes)
-   - Tool capability indicators based on ACTUAL tool execution testing:
+   • Circle size: Large (8px) = flagship, Medium (7px) = standard, Small (6px) = lightweight
+   • Provider colors: Anthropic=orange, Google=red, OpenAI=green (use existing CSS classes)
+   • Tool capability indicators based on ACTUAL tool execution testing:
      * Excellent Tools (solid border): Direct tool usage + subagent delegation both work
      * Good Tools (dashed border): Direct tool usage works, delegation may have issues
      * Basic Tools (dotted border): Limited tool usage, no delegation capability
      * No Tools: Not included on chart (models that cannot use tools)
-   - All 11 confirmed working models have verified tool execution capability
+   • All 11 confirmed working models have verified tool execution capability
 
 4. UPDATE REQUIREMENTS:
-   - Model data points (circles + labels) with accurate positioning
-   - Title subtitle reflecting "11 Working Models" and 61% success rate
-   - Key insights highlighting multi-agent strategy and primary/fallback models
-   - Validation: Only include models marked openCodeCompatible: true in model-test-state.json
-   - Repository context: OpenCode delegator/general/fallback agent architecture
+   • Model data points (circles + labels) with accurate positioning
+   • Title subtitle reflecting "11 Working Models" and 61% success rate
+   • Key insights highlighting multi-agent strategy and primary/fallback models
+   • Validation: Only include models marked openCodeCompatible: true in model-test-state.json
+   • Repository context: OpenCode delegator/general/fallback agent architecture
 -->
 <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
   <defs>
@@ -284,42 +284,52 @@ UPDATE PROCESS:
   >← Coding Capability</text>
 
   <!-- Model data points -->
-  <!-- Anthropic Claude Models (Best tier) -->
-  <circle cx="366" cy="170" r="8" class="anthropic excellent-tools" />
-  <text x="376" y="165" class="model-label">claude-3.5-sonnet (1500ms)</text>
+  <!-- Fastest models (OpenAI lightweight) -->
+  <circle cx="670" cy="270" r="6" class="openai excellent-tools" />
+  <text x="680" y="265" class="model-label">gpt-5-mini (1100ms)</text>
 
-  <circle cx="400" cy="170" r="8" class="anthropic excellent-tools" />
-  <text x="410" y="165" class="model-label">claude-3.7-sonnet (1400ms)</text>
+  <!-- Google fast models -->
+  <circle cx="640" cy="270" r="7" class="google excellent-tools" />
+  <text x="650" y="265" class="model-label">gemini-2.0-flash-001 (1200ms)</text>
 
-  <circle cx="356" cy="190" r="8" class="anthropic excellent-tools" />
-  <text x="366" y="195" class="model-label"
+  <!-- OpenAI elite models -->
+  <circle cx="610" cy="270" r="8" class="openai excellent-tools" />
+  <text x="620" y="265" class="model-label">gpt-4.1 (1300ms)</text>
+
+  <!-- Primary model (Anthropic Best tier) -->
+  <circle cx="595" cy="170" r="8" class="anthropic excellent-tools" />
+  <text x="605" y="165" class="model-label"
+  >claude-sonnet-4 (1350ms) · PRIMARY</text>
+
+  <!-- Anthropic Best tier models -->
+  <circle cx="580" cy="190" r="8" class="anthropic excellent-tools" />
+  <text x="590" y="195" class="model-label">claude-3.7-sonnet (1400ms)</text>
+
+  <!-- Fallback model (OpenAI Elite tier) -->
+  <circle cx="580" cy="270" r="8" class="openai excellent-tools" />
+  <text x="590" y="275" class="model-label">gpt-4o (1400ms) · FALLBACK</text>
+
+  <!-- Anthropic thought model -->
+  <circle cx="565" cy="170" r="8" class="anthropic excellent-tools" />
+  <text x="575" y="165" class="model-label"
   >claude-3.7-sonnet-thought (1450ms)</text>
 
-  <circle cx="433" cy="170" r="8" class="anthropic excellent-tools" />
-  <text x="443" y="165" class="model-label">claude-sonnet-4 (1350ms)</text>
+  <!-- Delegator model (Anthropic Best tier) -->
+  <circle cx="550" cy="170" r="8" class="anthropic excellent-tools" />
+  <text x="560" y="165" class="model-label"
+  >claude-3.5-sonnet (1500ms) · DELEGATOR</text>
 
-  <!-- Google Gemini Models -->
-  <circle cx="467" cy="270" r="7" class="google excellent-tools" />
-  <text x="477" y="265" class="model-label">gemini-2.0-flash-001 (1200ms)</text>
+  <!-- OpenAI flagship -->
+  <circle cx="550" cy="270" r="8" class="openai excellent-tools" />
+  <text x="560" y="275" class="model-label">gpt-5 (1500ms)</text>
 
-  <circle cx="300" cy="170" r="8" class="google excellent-tools" />
-  <text x="310" y="165" class="model-label">gemini-2.5-pro (1600ms)</text>
+  <!-- Google flagship -->
+  <circle cx="520" cy="170" r="8" class="google excellent-tools" />
+  <text x="530" y="165" class="model-label">gemini-2.5-pro (1600ms)</text>
 
-  <!-- OpenAI Models -->
-  <circle cx="400" cy="270" r="8" class="openai excellent-tools" />
-  <text x="410" y="265" class="model-label">gpt-4o (1400ms)</text>
-
-  <circle cx="450" cy="270" r="8" class="openai excellent-tools" />
-  <text x="460" y="265" class="model-label">gpt-4.1 (1300ms)</text>
-
-  <circle cx="366" cy="290" r="8" class="openai excellent-tools" />
-  <text x="376" y="295" class="model-label">gpt-5 (1500ms)</text>
-
-  <circle cx="517" cy="270" r="7" class="openai excellent-tools" />
-  <text x="527" y="265" class="model-label">gpt-5-mini (1100ms)</text>
-
-  <circle cx="250" cy="270" r="7" class="openai excellent-tools" />
-  <text x="260" y="265" class="model-label">o3-mini (1800ms)</text>
+  <!-- OpenAI reasoning model -->
+  <circle cx="460" cy="270" r="6" class="openai excellent-tools" />
+  <text x="470" y="265" class="model-label">o3-mini (1800ms)</text>
 
   <!-- Legend -->
   <g transform="translate(1020, 120)">
@@ -392,7 +402,7 @@ UPDATE PROCESS:
   <text x="120" y="770" style="font: 12px sans-serif; fill: #2c3e50"
   >• Multi-agent strategy: delegator (claude-3.5-sonnet), general (claude-sonnet-4), fallback (gpt-4o)</text>
   <text x="120" y="785" style="font: 12px sans-serif; fill: #2c3e50"
-  >• Primary model: claude-sonnet-4 (1350ms) - most capable for complex coding with advanced reasoning</text>
+  >• Primary model: claude-sonnet-4 (1350ms) · most capable for complex coding with advanced reasoning</text>
   <text x="650" y="770" style="font: 12px sans-serif; fill: #2c3e50"
   >• All 11 models confirmed working with full tool support in OpenCode GitHub Copilot integration</text>
   <text x="650" y="785" style="font: 12px sans-serif; fill: #2c3e50"
