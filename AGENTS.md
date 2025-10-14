@@ -1,7 +1,6 @@
 # Agent instructions
 
-Critical instructions for all OpenCode agents. This is the complete standalone
-reference that gets copied to other projects.
+Critical instructions for all OpenCode agents.
 
 When reporting information to me, be extremely concise, and sacrifice grammar
 for the sake of concision.
@@ -188,7 +187,7 @@ Follow the "Mandatory pre-commit workflows" section to discover the right
 validation commands for each project:
 
 - Look for `deno task all` in `deno.json` or `deno.jsonc`
-- Check for documented quality check commands in `README.md` or `AGENTS.md`
+- Check for documented quality check commands in project documentation
 - Fall back to individual Deno commands if no comprehensive task exists
 - When in doubt, ask the user for the project's preferred validation workflow
 
@@ -232,8 +231,7 @@ Discovery strategy:
 - Fall back to `Makefile` targets like `make all`, `make test`, `make check`
 - Check `package.json` scripts for `npm run all`, `npm test`, `npm run lint`
 - Look for common patterns: `cargo check && cargo test`, `go test ./...`
-- Quality check command should be documented in `README.md`, `CONTRIBUTING.md`,
-  or `AGENTS.md`
+- Quality check command should be documented in project documentation
 - If not documented, add it to whichever file exists and is most relevant
 - When in doubt, ask user for the project's quality check command
 
@@ -433,7 +431,7 @@ Follow these conservative principles to avoid data loss:
 Protected file categories - NEVER delete without explicit permission:
 
 1. **Core documentation files**:
-   - `AGENTS.md` (most critical - contains all agent guidance)
+   - Agent instruction files (critical - contains all agent guidance)
    - `README.md`
    - `CONTRIBUTING.md`
    - `SECURITY.md`
