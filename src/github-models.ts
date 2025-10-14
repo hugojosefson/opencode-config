@@ -130,7 +130,7 @@ MODEL DISCOVERY:
   - GitHub Models catalog (https://models.github.ai/catalog/models)
   - GitHub Copilot endpoints (including Claude models not in catalog)
   
-  Claude models like 'claude-sonnet-4' are only available via Copilot endpoints.
+  Claude models like 'claude-sonnet-4.5' are only available via Copilot endpoints.
 
 OPENCODE COMPATIBILITY:
   OpenCode compatibility data is read from model-test-state.json when available.

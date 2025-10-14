@@ -8,7 +8,7 @@ flawed testing methodology
 
 ### ✅ PROVEN WORKING MODEL
 
-- **`github-copilot/claude-sonnet-4`** - Confirmed working across all agent
+- **`github-copilot/claude-sonnet-4.5`** - Confirmed working across all agent
   types
 
 ### ❌ CONFIRMED FAILING MODELS
@@ -20,12 +20,12 @@ flawed testing methodology
 
 All agents now use the proven reliable model:
 
-| Agent             | Model                          | Status     |
-| ----------------- | ------------------------------ | ---------- |
-| delegator         | github-copilot/claude-sonnet-4 | ✅ Working |
-| general           | github-copilot/claude-sonnet-4 | ✅ Working |
-| fallback          | github-copilot/claude-sonnet-4 | ✅ Working |
-| fallback-ultimate | github-copilot/claude-sonnet-4 | ✅ Working |
+| Agent             | Model                            | Status     |
+| ----------------- | -------------------------------- | ---------- |
+| delegator         | github-copilot/claude-sonnet-4.5 | ✅ Working |
+| general           | github-copilot/claude-sonnet-4.5 | ✅ Working |
+| fallback          | github-copilot/claude-sonnet-4.5 | ✅ Working |
+| fallback-ultimate | github-copilot/claude-sonnet-4.5 | ✅ Working |
 
 **Success rate**: 4/4 agents working (100%)
 
@@ -42,8 +42,8 @@ specific agent rather than the flawed previous methodology.
 
 ## Key Discoveries
 
-1. **`github-copilot/claude-sonnet-4` is highly reliable** - Works consistently
-   across all agent configurations
+1. **`github-copilot/claude-sonnet-4.5` is highly reliable** - Works
+   consistently across all agent configurations
 2. **Alternative models are currently problematic** - Both DeepSeek R1 and
    Mistral Large 2411 cause errors
 3. **Proper agent testing requires direct agent targeting** - Using `--agent`
@@ -55,7 +55,7 @@ specific agent rather than the flawed previous methodology.
 
 **Chose reliability over diversity**: While the original goal was to test
 different models for diversity, the testing revealed that only
-`github-copilot/claude-sonnet-4` works reliably. The multi-agent architecture
+`github-copilot/claude-sonnet-4.5` works reliably. The multi-agent architecture
 still provides benefits through:
 
 - **Task specialization** - Different agents optimized for different roles
@@ -65,7 +65,7 @@ still provides benefits through:
 
 ## Recommendations
 
-1. **Use `github-copilot/claude-sonnet-4` for all production agents** until
+1. **Use `github-copilot/claude-sonnet-4.5` for all production agents** until
    other models are confirmed working
 2. **Implement regular model testing** to identify when new models become
    reliable

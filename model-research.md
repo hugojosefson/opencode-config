@@ -155,6 +155,7 @@ workflows
 | `github-copilot/claude-3.7-sonnet`         | Anthropic | ✅             | ✅              | **Working**     | Excellent with tool details |
 | `github-copilot/claude-3.7-sonnet-thought` | Anthropic | ✅             | ✅              | **Working**     | Reasoning-focused           |
 | `github-copilot/claude-sonnet-4`           | Anthropic | ✅             | ✅              | **Working**     | High-performance            |
+| `github-copilot/claude-sonnet-4.5`         | Anthropic | ✅             | ✅              | **Working**     | High-performance            |
 | **Gemini Models**                          |           |                |                 |                 |                             |
 | `github-copilot/gemini-2.0-flash-001`      | Google    | ✅             | ✅              | **Working**     | Fast and reliable           |
 | `github-copilot/gemini-2.5-pro`            | Google    | ✅             | ✅              | **Working**     | Advanced capabilities       |
@@ -172,7 +173,6 @@ These models are listed in OpenCode but return "not supported" errors:
 
 - `github-copilot/claude-opus-4`
 - `github-copilot/claude-opus-41`
-- `github-copilot/claude-sonnet-4.5`
 - `github-copilot/gpt-5-codex`
 - `github-copilot/grok-code-fast-1`
 - `github-copilot/o3`
@@ -187,8 +187,8 @@ Handling**: Clear "not supported" messages for unavailable models
 
 ### Strategic Implications for Agent Development
 
-- **11 reliable models** available for OpenCode agent development
-- **Provider diversity**: Claude (4), GPT (4), Gemini (2), Reasoning (1)
+- **12 reliable models** available for OpenCode agent development
+- **Provider diversity**: Claude (5), GPT (4), Gemini (2), Reasoning (1)
 - **Use case coverage**: All major agent roles covered by working models
 - **No rate limit issues** observed during OpenCode testing
 
@@ -197,7 +197,7 @@ Handling**: Clear "not supported" messages for unavailable models
 This testing revealed a critical distinction:
 
 **Direct API Testing** (32 models): Tests raw API access via GitHub Models
-endpoints **OpenCode Agent Testing** (11 models): Tests actual OpenCode agent
+endpoints **OpenCode Agent Testing** (12 models): Tests actual OpenCode agent
 functionality with tool integration
 
 Many models work via direct API but are not available through OpenCode's GitHub
@@ -209,7 +209,7 @@ development.
 ### Current Progress
 
 - **Total models tested**: 32/76 (42%) via direct API
-- **Working models discovered**: 32 via API, 11 via OpenCode agents
+- **Working models discovered**: 32 via API, 12 via OpenCode agents
 - **OpenCode compatibility**: ✅ Confirmed 11 working models
 - **Rate limit validation**: ✅ Confirmed provider-specific
 - **Provider coverage**: 9 providers tested (including new Mistral AI)

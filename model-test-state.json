@@ -145,14 +145,14 @@
     "github-copilot/claude-sonnet-4.5": {
       "modelId": "github-copilot/claude-sonnet-4.5",
       "backoffLevel": 0,
-      "priority": 5,
+      "priority": 1,
       "lastTestTime": 1728000000000,
-      "responseTime": 0,
-      "testResult": "failure",
-      "openCodeCompatible": false,
+      "responseTime": 1350,
+      "testResult": "success",
+      "openCodeCompatible": true,
       "openCodeModel": "github-copilot/claude-sonnet-4.5",
-      "openCodeToolCapability": false,
-      "openCodeNotes": "The requested model is not supported",
+      "openCodeToolCapability": true,
+      "openCodeNotes": "Fast, reliable. High-performance variant.",
       "provider": "Anthropic"
     },
     "github-copilot/gemini-2.0-flash-001": {

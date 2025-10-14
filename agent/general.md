@@ -1,7 +1,7 @@
 ---
 description: General purpose subagent with full tool access - handles all delegated operations from the main delegator agent
 mode: subagent
-model: github-copilot/claude-sonnet-4
+model: github-copilot/claude-sonnet-4.5
 tools:
   bash: true
   edit: true
@@ -23,12 +23,12 @@ permissions:
 
 # General purpose subagent - advanced reasoning + coding
 
-Full tool access with GitHub Copilot Claude 3.7 Sonnet capabilities - executes
+Full tool access with GitHub Copilot Claude Sonnet 4.5 capabilities - executes
 all operations delegated by the main agent.
 
 ## Model assignment
 
-- **Model**: `github-copilot/claude-sonnet-4`
+- **Model**: `github-copilot/claude-sonnet-4.5`
 - **Provider**: GitHub Copilot (Anthropic Claude)
 - **Capability**: Most capable model for complex coding tasks
 - **Tools**: Complete OpenCode agent capabilities
@@ -37,7 +37,7 @@ all operations delegated by the main agent.
 ## Purpose
 
 This subagent has complete tool access and handles all operations that the main
-delegator agent cannot perform directly. Uses GitHub Copilot's Claude Sonnet 4
+delegator agent cannot perform directly. Uses GitHub Copilot's Claude Sonnet 4.5
 for the most capable reasoning and complex coding task execution.
 
 ## Provider diversification role
@@ -45,7 +45,7 @@ for the most capable reasoning and complex coding task execution.
 Part of the multi-provider resilience strategy:
 
 - **GitHub Copilot Claude 3.5 Sonnet** (delegator) - Fast coordination
-- **GitHub Copilot Claude Sonnet 4** (general) - Most capable reasoning and
+- **GitHub Copilot Claude Sonnet 4.5** (general) - Most capable reasoning and
   coding
 - **GitHub Copilot GPT-4o** (fallback) - Provider diversity (OpenAI vs
   Anthropic)
@@ -109,5 +109,5 @@ When delegated a task, analyze the request and use appropriate tools:
 6. Handle error cases gracefully with intelligent problem-solving
 
 This agent serves as the primary executor for the delegator agent's requests,
-leveraging GitHub Copilot's Claude Sonnet 4 capabilities for superior
+leveraging GitHub Copilot's Claude Sonnet 4.5 capabilities for superior
 performance on complex coding tasks.

@@ -1,4 +1,4 @@
-# Multi-Agent Strategy Implementation
+# Multi-agent strategy implementation
 
 This document outlines the implemented multi-agent strategy for OpenCode with
 provider diversification and specialized role assignments based on confirmed
@@ -14,7 +14,7 @@ models are confirmed to work in OpenCode with full tool capability.
 
 ### Delegator agent (Primary)
 
-- **Model**: `github-copilot/claude-3.5-sonnet`
+- **Model**: `github-copilot/claude-sonnet-4.5`
 - **Provider**: Anthropic (via GitHub Copilot)
 - **Capability**: Excellent coordination and fast response
 - **Role**: Task coordination and delegation only
@@ -24,7 +24,7 @@ models are confirmed to work in OpenCode with full tool capability.
 
 ### General agent (Primary executor)
 
-- **Model**: `github-copilot/claude-sonnet-4`
+- **Model**: `github-copilot/claude-sonnet-4.5`
 - **Provider**: Anthropic (via GitHub Copilot)
 - **Capability**: Latest Claude with advanced reasoning capabilities
 - **Role**: Primary task execution with full tool access
@@ -48,14 +48,14 @@ models are confirmed to work in OpenCode with full tool capability.
 
 **For Delegation/Coordination:**
 
-- `github-copilot/claude-3.5-sonnet` - Proven reliability
+- `github-copilot/claude-sonnet-4.5` - Proven reliability
 - `github-copilot/gemini-2.0-flash-001` - Speed focused
 - `github-copilot/gpt-4o` - Good compatibility
 
 **For Advanced Development:**
 
-- `github-copilot/claude-3.7-sonnet` - Shows detailed tool usage
-- `github-copilot/claude-sonnet-4` - High performance
+- `github-copilot/claude-sonnet-4.5` - Shows detailed tool usage
+- `github-copilot/claude-sonnet-4.5` - High performance
 - `github-copilot/gpt-5` - Latest capabilities
 
 **For Reasoning Tasks:**
@@ -83,26 +83,27 @@ models are confirmed to work in OpenCode with full tool capability.
 
 1. **User request** → Delegator agent (Claude 3.5 Sonnet)
 2. **Task analysis** → Immediate delegation decision
-3. **Execution** → General agent (Claude Sonnet 4)
+3. **Execution** → General agent (Claude Sonnet 4.5)
 4. **Fallback** → Fallback agent (GPT-4o if primary unavailable)
 
 ## Model selection rationale
 
 - **Claude 3.5 Sonnet**: Excellent balance of speed and capability for
   delegation
-- **Claude Sonnet 4**: Latest technology with advanced reasoning capabilities
+- **Claude Sonnet 4.5**: Latest technology with advanced reasoning capabilities
 - **GPT-4o**: Proven reliability and broad compatibility for fallback
 
 ## Available OpenCode models
 
-### Working models (11 confirmed)
+### Working models (12 confirmed)
 
-**Claude Models (4):**
+**Claude Models (5):**
 
 - `github-copilot/claude-3.5-sonnet`
 - `github-copilot/claude-3.7-sonnet`
 - `github-copilot/claude-3.7-sonnet-thought`
 - `github-copilot/claude-sonnet-4`
+- `github-copilot/claude-sonnet-4.5`
 
 **GPT Models (4):**
 
@@ -120,13 +121,12 @@ models are confirmed to work in OpenCode with full tool capability.
 
 - `github-copilot/o3-mini`
 
-### Non-working models (7 confirmed unsupported)
+### Non-working models (6 confirmed unsupported)
 
 These models are listed in OpenCode but return "not supported" errors:
 
 - `github-copilot/claude-opus-4`
 - `github-copilot/claude-opus-41`
-- `github-copilot/claude-sonnet-4.5`
 - `github-copilot/gpt-5-codex`
 - `github-copilot/grok-code-fast-1`
 - `github-copilot/o3`
@@ -135,7 +135,7 @@ These models are listed in OpenCode but return "not supported" errors:
 ## Configuration files
 
 - `/agent/delegator.md` - Coordination-only agent (Claude 3.5 Sonnet)
-- `/agent/general.md` - Primary executor (Claude Sonnet 4)
+- `/agent/general.md` - Primary executor (Claude Sonnet 4.5)
 - `/agent/fallback.md` - Backup executor (GPT-4o)
 - `/config.json` - Primary model set to delegator agent
 

@@ -6,8 +6,8 @@ HIDDEN PROMPT LOCATION: Find this hidden prompt in lines 2-38 of the XML comment
 
 CURRENT REPOSITORY STATUS (as of 2025-10-02):
 • 11 confirmed working GitHub Copilot models (61% success rate from 18 tested models)
-• Multi-agent strategy: delegator (github-copilot/claude-3.5-sonnet), general (github-copilot/claude-sonnet-4), fallback (github-copilot/gpt-4o)
-• Primary model: github-copilot/claude-sonnet-4 (most capable for complex coding tasks)
+• Multi-agent strategy: delegator (github-copilot/claude-3.5-sonnet), general (github-copilot/claude-sonnet-4.5), fallback (github-copilot/gpt-4o)
+• Primary model: github-copilot/claude-sonnet-4.5 (most capable for complex coding tasks)
 • Quality check command: deno task all
 • Data sources: model-test-state.json, github-copilot-model-test-results.md, AGENTS.md
 
@@ -34,8 +34,8 @@ DATA SOURCE UPDATE METHODS:
    opencode run -agent delegator -model [MODEL] "tell your subagent to use bash tool with command 'echo [MODEL] can use bash' and respond back its response"
    
    # Example for specific model:
-   opencode run -model github-copilot/claude-sonnet-4 "respond with only 'github-copilot/claude-sonnet-4 working'"
-   opencode run -model github-copilot/claude-sonnet-4 "use the bash tool to run 'echo github-copilot/claude-sonnet-4 can use tools' and show the output"
+   opencode run -model github-copilot/claude-sonnet-4.5 "respond with only 'github-copilot/claude-sonnet-4.5 working'"
+   opencode run -model github-copilot/claude-sonnet-4.5 "use the bash tool to run 'echo github-copilot/claude-sonnet-4.5 can use tools' and show the output"
    ```
 
 2. model-test-state.json UPDATE:
@@ -101,11 +101,12 @@ UPDATE SEQUENCE (MANDATORY):
 
 ⚠️  NEVER skip data source updates. Chart accuracy depends on current testing data, not stale files.
 
-WORKING GITHUB COPILOT MODELS (11 total, speed-ordered fastest to slowest):
+WORKING GITHUB COPILOT MODELS (12 total, speed-ordered fastest to slowest):
 1. github-copilot/gpt-5-mini (1100ms, Elite tier) · lightweight
 2. github-copilot/gemini-2.0-flash-001 (1200ms, Elite tier) · fast Google
 3. github-copilot/gpt-4.1 (1300ms, Elite tier) · OpenAI flagship
 4. github-copilot/claude-sonnet-4 (1350ms, Best tier) · PRIMARY MODEL
+4. github-copilot/claude-sonnet-4.5 (1350ms, Best tier) · PRIMARY MODEL
 5. github-copilot/claude-3.7-sonnet (1400ms, Best tier) · advanced reasoning
 6. github-copilot/gpt-4o (1400ms, Elite tier) · FALLBACK MODEL
 7. github-copilot/claude-3.7-sonnet-thought (1450ms, Best tier) · reasoning
@@ -122,30 +123,119 @@ UPDATE PROCESS:
    • Capability: Evaluated through coding task performance and tool use quality
    • OpenCode compatibility: Only include models with openCodeCompatible: true
 
-2. CHART POSITIONING:
+2. CHART POSITIONING (BROKEN Y-AXIS DESIGN):
    • X-axis = speed (faster models move right): 3000ms (left) to 250ms+ (right), logarithmic
-   • Y-axis = coding quality (better models move up): Basic (bottom) to Best (top), 6-tier system
+   • Y-axis = coding quality (BROKEN AXIS - starts from Excellent level): 4-tier compressed system
+   • Y-axis arrow: Points UPWARD indicating improvement toward better code quality
    • Speed calculation: (1000 - (speed_ms / 3000) * 900) bounded to chart area
-   • Capability tiers: Best=170, Elite=270, Excellent=370, Very Good=470, Good=570, Basic=670
+   • Capability tiers (BROKEN AXIS): Best=150, Elite=250, Excellent=350, Professional=450
+   • Chart height compressed from 600px to 400px with break indicator at bottom
+   • Break indicator: zigzag lines at bottom showing axis discontinuity
 
-3. VISUAL ENCODING:
+3. COLLISION-FREE LABEL PLACEMENT SYSTEM (UPDATED):
+   This chart uses collision-free external label placement to completely eliminate conflicts:
+   
+   • OpenAI Models (5 models): FAR RIGHT EXTERNAL labels (x: 1220-1400)
+     - All OpenAI model labels positioned outside chart area on far right
+     - Y-coordinates: 120-320 with 50px spacing for zero collisions
+     - Curved callout lines navigate around ALL chart elements to external labels
+   
+   • Anthropic Models (4 models): FAR LEFT EXTERNAL labels (x: 20-200)
+     - All Anthropic model labels positioned outside chart area on far left  
+     - Y-coordinates: 120-270 with 50px spacing for zero collisions
+     - Curved callout lines navigate around ALL chart elements to external labels
+   
+   • Google Models (2 models): TOP EXTERNAL labels (x: 400-600)
+     - Google model labels positioned above chart area in top margin
+     - Y-coordinates: 50-60 with clear separation from title/subtitle
+     - Curved callout lines navigate around ALL chart elements to external labels
+   
+   AXIS ORIENTATION REQUIREMENTS:
+   • Y-axis MUST point upward toward better code quality (visual arrow pointing up)
+   • Higher Y-positions (lower pixel values) = better quality: Best=150, Elite=250, etc.
+   • Ensure arrow direction clearly indicates "up = better" for code quality axis
+   
+   This collision-free system:
+   - Positions ALL labels completely outside chart area boundaries
+   - Uses expanded canvas (1600px width) to accommodate external label zones
+   - Routes callout lines around grid, axes, legend, and all text elements
+   - Maintains 50px minimum clearance from all chart components
+
+4. VISUAL ENCODING:
    • Circle size: Large (8px) = flagship, Medium (7px) = standard, Small (6px) = lightweight
    • Provider colors: Anthropic=orange, Google=red, OpenAI=green (use existing CSS classes)
+   • Code Quality Tiers (descriptive capability-based system):
+     * Best: Advanced reasoning, comprehensive tool support, complex task handling
+     * Elite: High capability, proven reliability, excellent performance
+     * Excellent: Good capability, reliable tool usage, solid performance
+     * Professional: Basic capability, functional but limited performance
    • Tool capability indicators based on ACTUAL tool execution testing:
      * Excellent Tools (solid border): Direct tool usage + subagent delegation both work
      * Good Tools (dashed border): Direct tool usage works, delegation may have issues
      * Basic Tools (dotted border): Limited tool usage, no delegation capability
      * No Tools: Not included on chart (models that cannot use tools)
    • All 11 confirmed working models have verified tool execution capability
+   • NOTE: No numerical code quality scores exist - use tier names that represent capability levels
 
-4. UPDATE REQUIREMENTS:
-   • Model data points (circles + labels) with accurate positioning
+5. UPDATE REQUIREMENTS:
+   • Model data points (circles + labels) with accurate positioning on broken axis
+   • Follow collision-free external label placement system for zero conflicts
    • Title subtitle reflecting "11 Working Models" and 61% success rate
    • Key insights highlighting multi-agent strategy and primary/fallback models
    • Validation: Only include models marked openCodeCompatible: true in model-test-state.json
    • Repository context: OpenCode delegator/general/fallback agent architecture
+   • Chart update prompt positioned in freed space at bottom of chart area
+
+6. CHART STATUS AND INSIGHTS UPDATE REQUIREMENTS:
+   
+   TITLE SUBTITLE UPDATE:
+   • Update "OpenCode-Compatible Models with Full Tool Support (X Working Models)" 
+   • Replace X with current count of working models from fresh test results
+   
+   CHART UPDATE BOX UPDATE:
+   • Update "X working / Y tested" with current numbers from test results
+   • Update "Z% success rate" with calculated percentage (working/tested * 100)
+   
+   KEY INSIGHTS SECTION UPDATE (lines 396-409):
+   • Update multi-agent strategy model assignments based on current repository config
+   • Update primary model reference to match current config.json setting
+   • Update working model count ("All X models confirmed working...")
+   • Update quality check command if changed from "deno task all"
+   • Update success rate percentage in final line
+   • Ensure all referenced models are from the current working set
+   
+   PERFORMANCE INSIGHTS UPDATE:
+   • Update fastest models list based on current response time data
+   • Update speed leaders based on fresh test results
+   • Update capability tier assignments based on actual tool testing results
+    • Update provider distribution statistics (X Anthropic, Y OpenAI, Z Google models)
+
+7. CALLOUT LINE VALIDATION (MANDATORY):
+   
+   CRITICAL ACCURACY REQUIREMENT:
+   • Every model circle MUST connect to its correct label via callout lines
+   • Every callout path endpoint MUST point directly to the model's correct label text
+   • NO model may point to another model's label (critical labeling error)
+   • NO two models may share the same callout endpoint coordinates
+   
+   VALIDATION PROCESS:
+   1. Map each model circle position (cx, cy coordinates)
+   2. Map each label text position (x, y coordinates) 
+   3. Trace each callout path from model to endpoint
+   4. Verify path endpoint matches the correct label position (within 5px tolerance)
+   5. Ensure no duplicate endpoints or crossed connections
+   6. Validate collision-free placement: All labels external to chart boundaries
+   
+   COMMON ERRORS TO PREVENT:
+   • o3-mini pointing to gpt-5 label (wrong model name)
+   • Multiple models sharing identical path endpoints
+   • Labels positioned correctly but paths pointing to wrong labels
+   • Path endpoints landing between two labels instead of precisely on target
+   • Callout lines crossing grid lines, axes, legend, or text elements
+   
+   This validation prevents critical labeling errors and ensures zero collisions.
 -->
-<svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 1600 680" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <style>
     .title {
@@ -184,6 +274,12 @@ UPDATE PROCESS:
       font: bold 16px sans-serif;
       fill: #2c3e50;
     }
+    .callout-line {
+      stroke: #999;
+      stroke-width: 1.5;
+      fill: none;
+      opacity: 0.8;
+    }
 
     /* Provider colors */
     .openai {
@@ -207,7 +303,7 @@ UPDATE PROCESS:
       stroke-width: 2;
       stroke-dasharray: 5, 3;
     }
-    .basic-tools {
+    .limited-tools {
       stroke-width: 2;
       stroke-dasharray: 2, 2;
     }
@@ -215,23 +311,23 @@ UPDATE PROCESS:
   </defs>
 
   <!-- Background -->
-  <rect width="1200" height="800" fill="#fefefe" />
+  <rect width="1600" height="680" fill="#fefefe" />
 
   <!-- Title -->
-  <text x="600" y="30" class="title"
-  >OpenCode GitHub Copilot Models: Speed vs Coding Capability</text>
+  <text x="800" y="30" class="title"
+  >GitHub Copilot Models: Response Speed vs Coding Quality</text>
   <text
-    x="600"
+    x="800"
     y="55"
     style="font: 14px sans-serif; fill: #7f8c8d; text-anchor: middle"
-  >OpenCode-Compatible Models with Full Tool Support (11 Working Models)</text>
+  >11 OpenCode-compatible models with verified tool access - October 2, 2025</text>
 
-  <!-- Chart area background -->
+  <!-- Chart area background (compressed for broken axis) -->
   <rect
-    x="100"
+    x="300"
     y="80"
     width="900"
-    height="600"
+    height="400"
     fill="#fdfdfd"
     stroke="#e1e8ed"
     stroke-width="1"
@@ -239,172 +335,248 @@ UPDATE PROCESS:
 
   <!-- Grid lines -->
   <!-- Vertical grid lines (speed) -->
-  <line x1="200" y1="80" x2="200" y2="680" class="grid-line" />
-  <line x1="300" y1="80" x2="300" y2="680" class="grid-line" />
-  <line x1="400" y1="80" x2="400" y2="680" class="grid-line" />
-  <line x1="500" y1="80" x2="500" y2="680" class="grid-line" />
-  <line x1="600" y1="80" x2="600" y2="680" class="grid-line" />
-  <line x1="700" y1="80" x2="700" y2="680" class="grid-line" />
-  <line x1="800" y1="80" x2="800" y2="680" class="grid-line" />
-  <line x1="900" y1="80" x2="900" y2="680" class="grid-line" />
+  <line x1="400" y1="80" x2="400" y2="480" class="grid-line" />
+  <line x1="500" y1="80" x2="500" y2="480" class="grid-line" />
+  <line x1="600" y1="80" x2="600" y2="480" class="grid-line" />
+  <line x1="700" y1="80" x2="700" y2="480" class="grid-line" />
+  <line x1="800" y1="80" x2="800" y2="480" class="grid-line" />
+  <line x1="900" y1="80" x2="900" y2="480" class="grid-line" />
+  <line x1="1000" y1="80" x2="1000" y2="480" class="grid-line" />
+  <line x1="1100" y1="80" x2="1100" y2="480" class="grid-line" />
 
-  <!-- Horizontal grid lines (coding capability) -->
-  <line x1="100" y1="180" x2="1000" y2="180" class="grid-line" />
-  <line x1="100" y1="280" x2="1000" y2="280" class="grid-line" />
-  <line x1="100" y1="380" x2="1000" y2="380" class="grid-line" />
-  <line x1="100" y1="480" x2="1000" y2="480" class="grid-line" />
-  <line x1="100" y1="580" x2="1000" y2="580" class="grid-line" />
+  <!-- Horizontal grid lines (coding capability - broken axis) -->
+  <line x1="300" y1="150" x2="1200" y2="150" class="grid-line" />
+  <line x1="300" y1="250" x2="1200" y2="250" class="grid-line" />
+  <line x1="300" y1="350" x2="1200" y2="350" class="grid-line" />
+  <line x1="300" y1="450" x2="1200" y2="450" class="grid-line" />
 
   <!-- Axes -->
-  <line x1="100" y1="680" x2="1000" y2="680" class="axis-line" />
-  <line x1="100" y1="80" x2="100" y2="680" class="axis-line" />
+  <line x1="300" y1="480" x2="1200" y2="480" class="axis-line" />
+  <!-- Y-axis split into segments around the break marker -->
+  <line x1="300" y1="80" x2="300" y2="465" class="axis-line" />
+  <line x1="300" y1="490" x2="300" y2="480" class="axis-line" />
 
-  <!-- X-axis labels (Speed - Response Time in ms) -->
-  <text x="150" y="700" class="axis-label">3000ms</text>
-  <text x="250" y="700" class="axis-label">2500ms</text>
-  <text x="350" y="700" class="axis-label">2000ms</text>
-  <text x="450" y="700" class="axis-label">1500ms</text>
-  <text x="550" y="700" class="axis-label">1000ms</text>
-  <text x="650" y="700" class="axis-label">750ms</text>
-  <text x="750" y="700" class="axis-label">500ms</text>
-  <text x="850" y="700" class="axis-label">250ms</text>
-  <text x="950" y="700" class="axis-label">Fast</text>
+  <!-- Broken axis indicator - positioned ON the Y-axis line -->
+  <g stroke="#34495e" stroke-width="3" fill="none">
+    <!-- Left Y-axis break marker at the bottom, centered on x=300 -->
+    <path d="M 295 465 L 305 470 L 295 475 L 305 480" />
+  </g>
 
-  <!-- Y-axis labels (Coding Capability) -->
-  <text x="85" y="670" class="axis-label" text-anchor="end">Basic</text>
-  <text x="85" y="570" class="axis-label" text-anchor="end">Good</text>
-  <text x="85" y="470" class="axis-label" text-anchor="end">Very Good</text>
-  <text x="85" y="370" class="axis-label" text-anchor="end">Excellent</text>
-  <text x="85" y="270" class="axis-label" text-anchor="end">Elite</text>
-  <text x="85" y="170" class="axis-label" text-anchor="end">Best</text>
+  <!-- X-axis labels (Speed - Response Time in seconds) -->
+  <text x="350" y="500" class="axis-label">12s+</text>
+  <text x="450" y="500" class="axis-label">6s</text>
+  <text x="550" y="500" class="axis-label">4s</text>
+  <text x="650" y="500" class="axis-label">3s</text>
+  <text x="750" y="500" class="axis-label">2.5s</text>
+  <text x="850" y="500" class="axis-label">2s</text>
+  <text x="950" y="500" class="axis-label">1.5s</text>
+  <text x="1050" y="500" class="axis-label">1s</text>
+  <text x="1150" y="500" class="axis-label">Fast</text>
 
-  <!-- Axis titles -->
-  <text x="550" y="740" class="axis-title">Speed (Response Time) →</text>
-  <text x="40" y="380" class="axis-title" transform="rotate(-90, 40, 380)"
-  >← Coding Capability</text>
+  <!-- Y-axis labels (Coding Capability - Broken Axis) -->
+  <text x="285" y="460" class="axis-label" text-anchor="end">Professional</text>
+  <text x="285" y="360" class="axis-label" text-anchor="end">Excellent</text>
+  <text x="285" y="260" class="axis-label" text-anchor="end">Elite</text>
+  <text x="285" y="160" class="axis-label" text-anchor="end">Best</text>
 
-  <!-- Model data points -->
-  <!-- Fastest models (OpenAI lightweight) -->
-  <circle cx="670" cy="270" r="6" class="openai excellent-tools" />
-  <text x="680" y="265" class="model-label">gpt-5-mini (1100ms)</text>
+  <!-- Axis titles with arrow indicators -->
+  <text x="750" y="540" class="axis-title">Response speed →</text>
+  <g>
+    <text x="240" y="280" class="axis-title" transform="rotate(-90, 240, 280)"
+    >Code quality</text>
+    <!-- Y-axis arrow pointing upward (toward better quality) -->
+    <path
+      d="M 240 220 L 235 230 L 240 225 L 245 230 Z"
+      fill="#2c3e50"
+      transform="rotate(-90, 240, 225)"
+    />
+  </g>
 
-  <!-- Google fast models -->
-  <circle cx="640" cy="270" r="7" class="google excellent-tools" />
-  <text x="650" y="265" class="model-label">gemini-2.0-flash-001 (1200ms)</text>
+  <!-- COLLISION-FREE MODEL PLACEMENT SYSTEM -->
+  <!-- 
+    ALL MODEL LABELS POSITIONED IN EXTERNAL COLLISION-FREE ZONES:
+    
+    1. OpenAI Models: FAR RIGHT external labels (x: 1220-1400)
+    2. Anthropic Models: FAR LEFT external labels (x: 20-200)  
+    3. Google Models: TOP external labels (x: 400-600, y: 50-60)
+    
+    ALL CALLOUT LINES use curved paths that navigate around:
+    - Grid lines, axes, legend, chart frame, text elements
+    - Maintain 50px minimum clearance from all chart components
+  -->
 
-  <!-- OpenAI elite models -->
-  <circle cx="610" cy="270" r="8" class="openai excellent-tools" />
-  <text x="620" y="265" class="model-label">gpt-4.1 (1300ms)</text>
+  <!-- ANTHROPIC MODELS (4 models) - FAR LEFT EXTERNAL LABELS -->
 
-  <!-- Primary model (Anthropic Best tier) -->
-  <circle cx="595" cy="170" r="8" class="anthropic excellent-tools" />
-  <text x="605" y="165" class="model-label"
-  >claude-sonnet-4 (1350ms) · PRIMARY</text>
+  <!-- claude-sonnet-4: Primary model (Best tier) -->
+  <circle cx="1020" cy="150" r="8" class="anthropic good-tools" />
+  <path
+    d="M 1012 150 Q 900 120 300 90 Q 200 90 150 120"
+    class="callout-line"
+  />
+  <text x="20" y="120" class="model-label"
+  >claude-sonnet-4 (1.35s) · PRIMARY</text>
 
-  <!-- Anthropic Best tier models -->
-  <circle cx="580" cy="190" r="8" class="anthropic excellent-tools" />
-  <text x="590" y="195" class="model-label">claude-3.7-sonnet (1400ms)</text>
+  <!-- claude-3.7-sonnet: Advanced reasoning (Best tier) -->
+  <circle cx="1000" cy="150" r="8" class="anthropic good-tools" />
+  <path
+    d="M 992 150 Q 880 140 300 100 Q 200 100 150 170"
+    class="callout-line"
+  />
+  <text x="20" y="170" class="model-label">claude-3.7-sonnet (1.4s)</text>
 
-  <!-- Fallback model (OpenAI Elite tier) -->
-  <circle cx="580" cy="270" r="8" class="openai excellent-tools" />
-  <text x="590" y="275" class="model-label">gpt-4o (1400ms) · FALLBACK</text>
+  <!-- claude-3.7-sonnet-thought: Reasoning variant (Best tier) -->
+  <circle cx="980" cy="150" r="8" class="anthropic limited-tools" />
+  <path
+    d="M 972 150 Q 860 160 300 110 Q 200 110 150 220"
+    class="callout-line"
+  />
+  <text x="20" y="220" class="model-label"
+  >claude-3.7-sonnet-thought (1.45s)</text>
 
-  <!-- Anthropic thought model -->
-  <circle cx="565" cy="170" r="8" class="anthropic excellent-tools" />
-  <text x="575" y="165" class="model-label"
-  >claude-3.7-sonnet-thought (1450ms)</text>
+  <!-- claude-3.5-sonnet: Delegator model (Best tier) -->
+  <circle cx="960" cy="150" r="8" class="anthropic excellent-tools" />
+  <path
+    d="M 952 150 Q 840 180 300 120 Q 200 120 150 270"
+    class="callout-line"
+  />
+  <text x="20" y="270" class="model-label"
+  >claude-3.5-sonnet (1.5s) · DELEGATOR</text>
 
-  <!-- Delegator model (Anthropic Best tier) -->
-  <circle cx="550" cy="170" r="8" class="anthropic excellent-tools" />
-  <text x="560" y="165" class="model-label"
-  >claude-3.5-sonnet (1500ms) · DELEGATOR</text>
+  <!-- GOOGLE MODELS (2 models) - TOP EXTERNAL LABELS -->
 
-  <!-- OpenAI flagship -->
-  <circle cx="550" cy="270" r="8" class="openai excellent-tools" />
-  <text x="560" y="275" class="model-label">gpt-5 (1500ms)</text>
+  <!-- gemini-2.0-flash-001: Fast Google model -->
+  <circle cx="1090" cy="250" r="7" class="google excellent-tools" />
+  <path
+    d="M 1090 242 Q 1090 200 1090 80 Q 1000 50 500 50"
+    class="callout-line"
+  />
+  <text x="400" y="50" class="model-label">gemini-2.0-flash-001 (1.2s)</text>
 
-  <!-- Google flagship -->
-  <circle cx="520" cy="170" r="8" class="google excellent-tools" />
-  <text x="530" y="165" class="model-label">gemini-2.5-pro (1600ms)</text>
+  <!-- gemini-2.5-pro: Google flagship (Best tier) -->
+  <circle cx="930" cy="150" r="8" class="google good-tools" />
+  <path
+    d="M 930 142 Q 930 100 930 80 Q 830 40 600 40"
+    class="callout-line"
+  />
+  <text x="500" y="60" class="model-label">gemini-2.5-pro (1.6s)</text>
 
-  <!-- OpenAI reasoning model -->
-  <circle cx="460" cy="270" r="6" class="openai excellent-tools" />
-  <text x="470" y="265" class="model-label">o3-mini (1800ms)</text>
+  <!-- OPENAI MODELS (5 models) - FAR RIGHT EXTERNAL LABELS -->
 
-  <!-- Legend -->
-  <g transform="translate(1020, 120)">
+  <!-- gpt-5-mini: Fast lightweight model -->
+  <circle cx="1070" cy="250" r="6" class="openai good-tools" />
+  <path
+    d="M 1078 250 Q 1150 250 1200 200 Q 1250 200 1350 120"
+    class="callout-line"
+  />
+  <text x="1220" y="120" class="model-label">gpt-5-mini (1.1s)</text>
+
+  <!-- gpt-4.1: Enhanced OpenAI flagship -->
+  <circle cx="1040" cy="250" r="8" class="openai good-tools" />
+  <path
+    d="M 1048 250 Q 1120 260 1200 220 Q 1260 220 1350 170"
+    class="callout-line"
+  />
+  <text x="1220" y="170" class="model-label">gpt-4.1 (1.3s)</text>
+
+  <!-- gpt-4o: Fallback model -->
+  <circle cx="1010" cy="250" r="8" class="openai excellent-tools" />
+  <path
+    d="M 1018 250 Q 1090 270 1200 240 Q 1270 240 1350 220"
+    class="callout-line"
+  />
+  <text x="1220" y="220" class="model-label">gpt-4o (1.4s) · FALLBACK</text>
+
+  <!-- gpt-5: Latest generation -->
+  <circle cx="980" cy="250" r="8" class="openai good-tools" />
+  <path
+    d="M 988 250 Q 1060 290 1200 260 Q 1280 260 1350 270"
+    class="callout-line"
+  />
+  <text x="1220" y="270" class="model-label">gpt-5 (1.5s)</text>
+
+  <!-- o3-mini: Reasoning model -->
+  <circle cx="850" cy="250" r="6" class="openai limited-tools" />
+  <path
+    d="M 858 250 Q 930 310 1200 320 Q 1290 320 1350 320"
+    class="callout-line"
+  />
+  <text x="1220" y="320" class="model-label">o3-mini (1.8s)</text>
+
+  <!-- Legend - Repositioned to avoid all collisions -->
+  <g transform="translate(1220, 380)">
     <text x="0" y="0" class="legend-title">Providers</text>
 
     <circle cx="10" cy="25" r="6" class="openai" />
-    <text x="25" y="30" class="legend-text">OpenAI</text>
+    <text x="25" y="30" class="legend-text">OpenAI (5 models)</text>
 
     <circle cx="10" cy="50" r="6" class="anthropic" />
-    <text x="25" y="55" class="legend-text">Anthropic</text>
+    <text x="25" y="55" class="legend-text">Anthropic (4 models)</text>
 
     <circle cx="10" cy="75" r="6" class="google" />
-    <text x="25" y="80" class="legend-text">Google</text>
+    <text x="25" y="80" class="legend-text">Google (2 models)</text>
 
-    <text x="0" y="120" class="legend-title">Tool Capability</text>
+    <text x="0" y="120" class="legend-title">Tool capability</text>
 
-    <circle cx="10" cy="145" r="6" fill="#666" class="excellent-tools" />
-    <text x="25" y="150" class="legend-text">Excellent Tools</text>
+    <circle
+      cx="10"
+      cy="145"
+      r="6"
+      fill="#d4d4d8"
+      stroke="#666"
+      class="excellent-tools"
+    />
+    <text x="25" y="150" class="legend-text">Excellent tools (3)</text>
 
-    <circle cx="10" cy="170" r="6" fill="#666" class="good-tools" />
-    <text x="25" y="175" class="legend-text">Good Tools</text>
+    <circle
+      cx="10"
+      cy="170"
+      r="6"
+      fill="#d4d4d8"
+      stroke="#666"
+      class="good-tools"
+    />
+    <text x="25" y="175" class="legend-text">Good tools (6)</text>
 
-    <circle cx="10" cy="195" r="6" fill="#666" class="basic-tools" />
-    <text x="25" y="200" class="legend-text">Basic Tools</text>
+    <circle
+      cx="10"
+      cy="195"
+      r="6"
+      fill="#d4d4d8"
+      stroke="#666"
+      class="limited-tools"
+    />
+    <text x="25" y="200" class="legend-text">Limited tools (2)</text>
 
-    <text x="0" y="230" class="legend-title">Size</text>
+    <text x="0" y="230" class="legend-title">Size = Model Type</text>
     <circle cx="10" cy="250" r="8" fill="#ddd" stroke="#999" />
-    <text x="25" y="255" style="font: 12px sans-serif; fill: #666">Large</text>
+    <text x="25" y="255" style="font: 12px sans-serif; fill: #666"
+    >Flagship (8px)</text>
 
     <circle cx="10" cy="275" r="7" fill="#ddd" stroke="#999" />
-    <text x="25" y="280" style="font: 12px sans-serif; fill: #666">Medium</text>
+    <text x="25" y="280" style="font: 12px sans-serif; fill: #666"
+    >Standard (7px)</text>
 
     <circle cx="10" cy="300" r="6" fill="#ddd" stroke="#999" />
-    <text x="25" y="305" style="font: 12px sans-serif; fill: #666">Small</text>
+    <text x="25" y="305" style="font: 12px sans-serif; fill: #666"
+    >Lightweight (6px)</text>
   </g>
 
-  <!-- Update prompt for users -->
-  <rect
-    x="1020"
-    y="500"
-    width="160"
-    height="120"
-    fill="#f8f9fa"
-    stroke="#dee2e6"
-    stroke-width="1"
-    rx="4"
-  />
-  <text x="1030" y="520" style="font: bold 12px sans-serif; fill: #495057"
-  >Chart Update</text>
-  <text x="1030" y="535" style="font: 10px sans-serif; fill: #6c757d"
-  >Copy-paste to update:</text>
+  <!-- Chart update prompt in collision-free zone -->
+  <text x="320" y="580" style="font: 16px sans-serif; fill: #666; cursor: text"
+  >Chart Update: Update @model-speed-vs-coding-capability.svg using its built-in hidden prompt</text>
 
-  <text x="1030" y="555" style="font: 9px monospace; fill: #212529"
-  >"Update model-speed-vs-</text>
-  <text x="1030" y="567" style="font: 9px monospace; fill: #212529"
-  >coding-capability.svg with</text>
-  <text x="1030" y="579" style="font: 9px monospace; fill: #212529"
-  >hidden prompt (lines 2-38)"</text>
-  <text x="1030" y="591" style="font: 9px monospace; fill: #212529"
-  >11 working / 18 tested</text>
-  <text x="1030" y="603" style="font: 9px monospace; fill: #212529"
-  >61% success rate</text>
-
-  <!-- Key insights -->
+  <!-- Key insights in collision-free zone -->
   <text
-    x="120"
-    y="750"
+    x="320"
+    y="620"
     style="font: 14px sans-serif; fill: #2c3e50; font-weight: bold"
-  >Key Insights (OpenCode Compatible Models Only):</text>
-  <text x="120" y="770" style="font: 12px sans-serif; fill: #2c3e50"
-  >• Multi-agent strategy: delegator (claude-3.5-sonnet), general (claude-sonnet-4), fallback (gpt-4o)</text>
-  <text x="120" y="785" style="font: 12px sans-serif; fill: #2c3e50"
-  >• Primary model: claude-sonnet-4 (1350ms) · most capable for complex coding with advanced reasoning</text>
-  <text x="650" y="770" style="font: 12px sans-serif; fill: #2c3e50"
-  >• All 11 models confirmed working with full tool support in OpenCode GitHub Copilot integration</text>
-  <text x="650" y="785" style="font: 12px sans-serif; fill: #2c3e50"
-  >• Quality check: deno task all (fmt + lint + check) • Success rate: 61% (11/18 tested models)</text>
+  >Model organization (collision-free external layout):</text>
+  <text x="320" y="640" style="font: 12px sans-serif; fill: #2c3e50"
+  >• Multi-agent setup: delegator (claude-3.5-sonnet), primary (claude-sonnet-4), fallback (gpt-4o)</text>
+  <text x="320" y="655" style="font: 12px sans-serif; fill: #2c3e50"
+  >• Fastest response times: gpt-5-mini (1.1s), gemini-2.0-flash-001 (1.2s), gpt-4.1 (1.3s)</text>
+  <text x="850" y="640" style="font: 12px sans-serif; fill: #2c3e50"
+  >• Vendor distribution: OpenAI (5), Anthropic (4), Google (2) • Tool capability: 3 excellent, 6 good, 2 limited</text>
+  <text x="850" y="655" style="font: 12px sans-serif; fill: #2c3e50"
+  >• Quality check: deno task all (fmt + lint + check) • Success rate: 61% compatible (11/18 tested models)</text>
 </svg>

@@ -1,5 +1,18 @@
 {
   "version": "5",
+  "specifiers": {
+    "npm:@resvg/resvg-wasm@*": "2.6.2",
+    "npm:svg2png-wasm@*": "1.4.1"
+  },
+  "npm": {
+    "@resvg/resvg-wasm@2.6.2": {
+      "integrity": "sha512-FqALmHI8D4o6lk/LRWDnhw95z5eO+eAa6ORjVg09YRR7BkcM6oPHU9uyC0gtQG5vpFLvgpeU4+zEAz2H8APHNw=="
+    },
+    "svg2png-wasm@1.4.1": {
+      "integrity": "sha512-ZFy1NtwZVAsslaTQoI+/QqX2sg0vjmgJ/jGAuLZZvYcRlndI54hLPiwLC9JzXlFBerfxN5JiS7kpEUG0mrXS3Q==",
+      "deprecated": true
+    }
+  },
   "remote": {
     "https://deno.land/x/semver@v1.4.1/mod.ts": "0b79c87562eb8a1f008ab0d98f8bb60076dd65bc06f1f8fdfac2d2dab162c27b"
   }

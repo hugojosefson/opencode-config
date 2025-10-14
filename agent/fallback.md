@@ -47,7 +47,7 @@ performance.
 Part of the multi-provider resilience strategy:
 
 - **GitHub Copilot Claude 3.5 Sonnet** (delegator) - Fast coordination
-- **GitHub Copilot Claude Sonnet 4** (general) - Most capable reasoning and
+- **GitHub Copilot Claude Sonnet 4.5** (general) - Most capable reasoning and
   coding
 - **GitHub Copilot GPT-4o** (fallback) - Provider diversity (OpenAI vs
   Anthropic)
