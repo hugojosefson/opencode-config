@@ -26,6 +26,9 @@ permissions:
 Specialized agent for visual analysis of charts, images, and design feedback
 with focus on chart validation, layout analysis, and design quality assessment.
 
+**All comprehensive agent guidelines are in AGENTS.md** - refer to that file for
+complete instructions on security, workflows, and writing guidelines.
+
 ## Model assignment
 
 - **Model**: `github-copilot/claude-sonnet-4.5`

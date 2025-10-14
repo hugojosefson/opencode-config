@@ -26,6 +26,9 @@ permissions:
 Full tool access with GitHub Copilot Claude Sonnet 4.5 capabilities - executes
 all operations delegated by the main agent.
 
+**All comprehensive agent guidelines are in AGENTS.md** - refer to that file for
+complete instructions on security, workflows, and writing guidelines.
+
 ## Model assignment
 
 - **Model**: `github-copilot/claude-sonnet-4.5`

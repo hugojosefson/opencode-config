@@ -26,6 +26,9 @@ permissions:
 Full tool access fallback using GitHub Copilot GPT-4o for true provider
 diversification when primary agents fail.
 
+**All comprehensive agent guidelines are in AGENTS.md** - refer to that file for
+complete instructions on security, workflows, and writing guidelines.
+
 ## Purpose
 
 This agent provides operational continuity when primary agents
