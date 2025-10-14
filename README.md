@@ -7,13 +7,13 @@ Clone this repository as `~/.config/opencode` to use these configurations.
 
 ## What's here
 
-| File/Directory                                               | Description                                          |
-| :----------------------------------------------------------- | :--------------------------------------------------- |
-| [AGENTS.md](AGENTS.md)                                       | Global agent instructions loaded for all projects    |
-| [OpenCode-Agent-Techniques.md](OpenCode-Agent-Techniques.md) | Global agent instructions loaded for all projects    |
-| [config.json](config.json)                                   | OpenCode configuration (ignore the provider section) |
-| [agent/](agent/)                                             | Custom agent definitions for efficient token usage   |
-| [tool/](tool/)                                               | Custom tool implementations                          |
+| File/Directory                                               | Description                                        |
+| :----------------------------------------------------------- | :------------------------------------------------- |
+| [AGENTS.md](AGENTS.md)                                       | Global agent instructions loaded for all projects  |
+| [OpenCode-Agent-Techniques.md](OpenCode-Agent-Techniques.md) | Global agent instructions loaded for all projects  |
+| [config.json](config.json)                                   | OpenCode configuration                             |
+| [agent/](agent/)                                             | Custom agent definitions for efficient token usage |
+| [tool/](tool/)                                               | Custom tool implementations                        |
 
 ## Custom agents
 
