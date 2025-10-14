@@ -1,20 +1,20 @@
 # GitHub Copilot Models - Fresh Test Results
 
-**Test Date:** October 2, 2025\
+**Test Date:** October 14, 2025\
 **Test Environment:** OpenCode CLI\
-**Testing Methodology:** Systematic testing of basic functionality, tool
-capabilities, and subagent delegation
+**Testing Methodology:** Actual tool execution testing with bash tool - not
+claim-based testing
 
 ## Summary
 
-Out of 18 tested GitHub Copilot models, **11 models are working** and **7 models
-are not supported** by the current GitHub Copilot API.
+Out of 12 tested GitHub Copilot models, **11 models are fully working** with
+verified tool execution and **1 model has partial functionality** (tool works
+but API errors).
 
-### Working models (12/18)
+### Working models (11/12)
 
 - github-copilot/claude-3.5-sonnet ✅
 - github-copilot/claude-3.7-sonnet ✅
-- github-copilot/claude-3.7-sonnet-thought ✅ (bash tool issues)
 - github-copilot/claude-sonnet-4 ✅
 - github-copilot/claude-sonnet-4.5 ✅
 - github-copilot/gemini-2.0-flash-001 ✅
@@ -25,214 +25,134 @@ are not supported** by the current GitHub Copilot API.
 - github-copilot/gpt-5-mini ✅
 - github-copilot/o3-mini ✅
 
-### Unsupported models (6/18)
+### Partial support (1/12)
 
-- github-copilot/claude-opus-4 ❌ (Not supported)
-- github-copilot/claude-opus-41 ❌ (Not supported)
-- github-copilot/gpt-5-codex ❌ (Not supported)
-- github-copilot/o3 ❌ (Not supported)
-- github-copilot/o4-mini ❌ (Not supported)
-- github-copilot/grok-code-fast-1 ❌ (Not supported)
+- github-copilot/claude-3.7-sonnet-thought ⚠️ (Tool execution works but returns
+  Bad Request API error)
 
 ## Detailed test results
 
-### Basic functionality tests
+### Bash Tool Execution Tests (2025-10-14)
 
-All working models successfully responded with their model name confirmation.
+All tests used actual bash tool execution:
+`opencode run --model [MODEL] 'use the bash tool to run "echo [MODEL] can use tools" and show the output'`
 
-| Model                                    | Status | Response Time |
-| ---------------------------------------- | ------ | ------------- |
-| github-copilot/claude-3.5-sonnet         | ✅     | 4.4s          |
-| github-copilot/claude-3.7-sonnet         | ✅     | 5.3s          |
-| github-copilot/claude-3.7-sonnet-thought | ✅     | 5.0s          |
-| github-copilot/claude-sonnet-4           | ✅     | 5.1s          |
-| github-copilot/claude-sonnet-4.5         | ✅     | N/A           |
-| github-copilot/claude-opus-4             | ❌     | N/A           |
-| github-copilot/claude-opus-41            | ❌     | N/A           |
-| github-copilot/gemini-2.0-flash-001      | ✅     | 2.2s          |
-| github-copilot/gemini-2.5-pro            | ✅     | 3.1s          |
-| github-copilot/gpt-4o                    | ✅     | 2.9s          |
-| github-copilot/gpt-4.1                   | ✅     | 2.3s          |
-| github-copilot/gpt-5                     | ✅     | 11.0s         |
-| github-copilot/gpt-5-mini                | ✅     | 3.9s          |
-| github-copilot/gpt-5-codex               | ❌     | N/A           |
-| github-copilot/o3-mini                   | ✅     | 5.8s          |
-| github-copilot/o3                        | ❌     | N/A           |
-| github-copilot/o4-mini                   | ❌     | N/A           |
-| github-copilot/grok-code-fast-1          | ❌     | N/A           |
-
-### Tool Capability Classifications
-
-#### Excellent Tools (Direct tools + Delegation working)
-
-- **github-copilot/claude-3.5-sonnet**
-  - Bash: ✅ (8.8s)
-  - Read: ✅ (7.2s)
-  - Glob: ✅ (8.9s)
-  - Delegation: ✅ (15.2s)
-
-- **github-copilot/gpt-4o**
-  - Bash: ✅ (3.6s)
-  - Read: ✅ (6.2s)
-  - Glob: ✅ (5.2s)
-  - Delegation: ✅ (9.1s)
-
-- **github-copilot/gemini-2.0-flash-001**
-  - Bash: ✅ (3.7s)
-  - Read: Not tested (likely works)
-  - Glob: Not tested (likely works)
-  - Delegation: ✅ (9.3s)
-
-#### Good Tools (Direct tools working, delegation likely works)
-
-- **github-copilot/claude-3.7-sonnet**
-  - Bash: ✅ (8.3s)
-  - Read: Not tested
-  - Glob: Not tested
-  - Delegation: Not tested
-
-- **github-copilot/claude-sonnet-4**
-  - Bash: ✅ (6.5s)
-  - Read: Not tested
-  - Glob: Not tested
-  - Delegation: Not tested
-
-- **github-copilot/claude-sonnet-4.5**
-  - Bash: ✅
-  - Read: Not tested
-  - Glob: Not tested
-  - Delegation: Not tested
-
-- **github-copilot/gemini-2.5-pro**
-  - Bash: ✅ (3.5s)
-  - Read: Not tested
-  - Glob: Not tested
-  - Delegation: Not tested
-
-- **github-copilot/gpt-4.1**
-  - Bash: ✅ (3.4s)
-  - Read: Not tested
-  - Glob: Not tested
-  - Delegation: Not tested
-
-- **github-copilot/gpt-5**
-  - Bash: ✅ (4.0s)
-  - Read: Not tested
-  - Glob: Not tested
-  - Delegation: Not tested
-
-- **github-copilot/gpt-5-mini**
-  - Bash: ✅ (7.6s)
-  - Read: Not tested
-  - Glob: Not tested
-  - Delegation: Not tested
-
-#### Limited Tools (Tool issues identified)
-
-- **github-copilot/claude-3.7-sonnet-thought**
-  - Bash: ⚠️ (6.2s) - Tool executed but got "Bad Request" error
-  - Read: Not tested
-  - Glob: Not tested
-  - Delegation: Not tested
-
-#### Basic Tools (Possibly limited capabilities)
-
-- **github-copilot/o3-mini**
-  - Bash: ⚠️ (5.0s) - Model claims to execute but may not have actual tool
-    access
-  - Read: Not tested
-  - Glob: Not tested
-  - Delegation: Not tested
+| Model                                    | Status | Response Time | Verified Tool Execution |
+| ---------------------------------------- | ------ | ------------- | ----------------------- |
+| github-copilot/gemini-2.0-flash-001      | ✅     | 3.2s          | ✅                      |
+| github-copilot/gpt-4o                    | ✅     | 3.2s          | ✅                      |
+| github-copilot/o3-mini                   | ✅     | 3.3s          | ✅                      |
+| github-copilot/gpt-4.1                   | ✅     | 3.9s          | ✅                      |
+| github-copilot/gemini-2.5-pro            | ✅     | 5.6s          | ✅                      |
+| github-copilot/claude-sonnet-4           | ✅     | 5.8s          | ✅                      |
+| github-copilot/gpt-5                     | ✅     | 5.8s          | ✅                      |
+| github-copilot/claude-sonnet-4.5         | ✅     | 7.5s          | ✅                      |
+| github-copilot/gpt-5-mini                | ✅     | 7.5s          | ✅                      |
+| github-copilot/claude-3.5-sonnet         | ✅     | 7.8s          | ✅                      |
+| github-copilot/claude-3.7-sonnet         | ✅     | 8.3s          | ✅                      |
+| github-copilot/claude-3.7-sonnet-thought | ⚠️     | 13.0s         | ✅ (+ API error)        |
 
 ## Performance Analysis
 
-### Response Time Rankings (Basic Functionality)
+### Response Time Rankings (Bash Tool Execution - 2025-10-14)
 
 **Fastest to Slowest:**
 
-1. github-copilot/gemini-2.0-flash-001 - 2.2s
-2. github-copilot/gpt-4.1 - 2.3s
-3. github-copilot/gpt-4o - 2.9s
-4. github-copilot/gemini-2.5-pro - 3.1s
-5. github-copilot/gpt-5-mini - 3.9s
-6. github-copilot/claude-3.5-sonnet - 4.4s
-7. github-copilot/claude-3.7-sonnet-thought - 5.0s
-8. github-copilot/claude-sonnet-4 - 5.1s
-9. github-copilot/claude-sonnet-4.5 - 5.1s
-10. github-copilot/claude-3.7-sonnet - 5.3s
-11. github-copilot/o3-mini - 5.8s
-12. github-copilot/gpt-5 - 11.0s
+1. github-copilot/gemini-2.0-flash-001 - 3.2s
+2. github-copilot/gpt-4o - 3.2s
+3. github-copilot/o3-mini - 3.3s
+4. github-copilot/gpt-4.1 - 3.9s
+5. github-copilot/gemini-2.5-pro - 5.6s
+6. github-copilot/claude-sonnet-4 - 5.8s
+7. github-copilot/gpt-5 - 5.8s
+8. github-copilot/claude-sonnet-4.5 - 7.5s
+9. github-copilot/gpt-5-mini - 7.5s
+10. github-copilot/claude-3.5-sonnet - 7.8s
+11. github-copilot/claude-3.7-sonnet - 8.3s
+12. github-copilot/claude-3.7-sonnet-thought - 13.0s (with API error)
 
-### Tool Response Times
+### Provider Performance Summary
 
-**Bash Tool Performance:**
+**Google Gemini Models:**
 
-- github-copilot/gemini-2.5-pro - 3.5s (fastest)
-- github-copilot/gpt-4o - 3.6s
-- github-copilot/gemini-2.0-flash-001 - 3.7s
-- github-copilot/gpt-5 - 4.0s
-- github-copilot/gpt-4.1 - 3.4s
-- github-copilot/o3-mini - 5.0s
-- github-copilot/claude-sonnet-4 - 6.5s
-- github-copilot/claude-sonnet-4.5 - 6.5s
-- github-copilot/gpt-5-mini - 7.6s
-- github-copilot/claude-3.7-sonnet - 8.3s
-- github-copilot/claude-3.5-sonnet - 8.8s (slowest)
+- gemini-2.0-flash-001: 3.2s (fastest overall)
+- gemini-2.5-pro: 5.6s
 
-**Delegation Performance:**
+**OpenAI GPT Models:**
 
-- github-copilot/gpt-4o - 9.1s (fastest)
-- github-copilot/gemini-2.0-flash-001 - 9.3s
-- github-copilot/claude-3.5-sonnet - 15.2s (slowest)
+- gpt-4o: 3.2s (tied for fastest)
+- o3-mini: 3.3s
+- gpt-4.1: 3.9s
+- gpt-5: 5.8s
+- gpt-5-mini: 7.5s
+
+**Anthropic Claude Models:**
+
+- claude-sonnet-4: 5.8s
+- claude-sonnet-4.5: 7.5s
+- claude-3.5-sonnet: 7.8s
+- claude-3.7-sonnet: 8.3s
+- claude-3.7-sonnet-thought: 13.0s (partial support)
 
 ## Key Findings
 
-1. **Model Availability**: Only 61% (12/18) of listed GitHub Copilot models are
-   currently supported by the API.
+1. **High Success Rate**: 92% (11/12) of tested models fully working with
+   verified tool execution.
 
-2. **Speed Leaders**: Gemini models and GPT-4 variants show consistently fast
-   response times.
+2. **Speed Leaders**: Gemini 2.0 Flash and GPT-4o tied for fastest at 3.2s, with
+   O3-mini close behind at 3.3s.
 
-3. **Tool Capability**: All working models demonstrated bash tool capability,
-   with Claude models showing slower but reliable performance.
+3. **Tool Capability**: ALL tested models demonstrated actual bash tool
+   execution capability (not just claims).
 
-4. **Delegation Support**: Multi-agent delegation works with tested models,
-   though with increased latency.
+4. **Provider Distribution**:
+   - Anthropic: 5 models (4 full + 1 partial)
+   - OpenAI: 5 models (all full)
+   - Google: 2 models (all full)
 
 5. **Notable Issues**:
-   - claude-3.7-sonnet-thought had tool execution errors
-   - o3-mini may have limited actual tool access despite responding
-   - gpt-5 shows significantly slower response times (11s vs 2-6s average)
+   - claude-3.7-sonnet-thought: Tool execution successful but API returns "Bad
+     Request" error afterward
+   - o3-mini: Verified actual tool access (NOT just claiming - actual execution
+     confirmed)
 
 ## Recommendations
 
 ### For Speed-Critical Applications:
 
-1. github-copilot/gemini-2.0-flash-001 (2.2s)
-2. github-copilot/gpt-4.1 (2.3s)
-3. github-copilot/gpt-4o (2.9s)
+1. github-copilot/gemini-2.0-flash-001 (3.2s)
+2. github-copilot/gpt-4o (3.2s)
+3. github-copilot/o3-mini (3.3s)
 
-### For Comprehensive Tool Usage:
+### For Balanced Performance:
 
-1. github-copilot/claude-3.5-sonnet (most tested, reliable)
-2. github-copilot/gpt-4o (fast + proven tools)
-3. github-copilot/gemini-2.0-flash-001 (fast + delegation tested)
+1. github-copilot/gpt-4.1 (3.9s - fast + proven)
+2. github-copilot/gemini-2.5-pro (5.6s - advanced capabilities)
+3. github-copilot/claude-sonnet-4 (5.8s - high-performance)
 
-### For Multi-Agent Workflows:
+### For Advanced Reasoning:
 
-1. github-copilot/gpt-4o (fast delegation)
-2. github-copilot/gemini-2.0-flash-001 (fast delegation)
-3. github-copilot/claude-3.5-sonnet (reliable but slower)
+1. github-copilot/o3-mini (3.3s - reasoning-focused + fast)
+2. github-copilot/gpt-5 (5.8s - latest generation)
+3. github-copilot/claude-sonnet-4.5 (7.5s - advanced capabilities)
 
 ## Test Methodology
 
-Each model was tested with:
+**Testing Date:** 2025-10-14
 
-1. **Basic Functionality**: Simple text response confirmation
-2. **Bash Tool**: Execute echo command and show output
-3. **Read Tool**: Display README.md contents
-4. **Glob Tool**: Find .md files in directory
-5. **Delegation**: Use delegator agent to instruct subagent
+**Test Command:**
+`opencode run --model [MODEL] 'use the bash tool to run "echo [MODEL] can use tools" and show the output'`
 
-Response times measured using Linux `time` command with `real` (wall-clock) time
-reported.
+**Verification Criteria:**
+
+1. Tool execution must actually occur (not just claims)
+2. Bash command output must be visible in response
+3. Response time measured using Linux `time` command (real/wall-clock time)
+4. Success requires both tool execution AND clean completion
+
+**Key Difference from Previous Testing:**
+
+- Previous tests (2025-10-02): Mixed claim-based and execution-based testing
+- Current tests (2025-10-14): 100% actual tool execution verification
+- All models now verified with real bash tool execution, not relying on model
+  claims
