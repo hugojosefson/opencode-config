@@ -39,7 +39,11 @@
       ],
       "initialization": {
         "enable": true,
-        "lint": true
+        "lint": true,
+        "codeLens": {
+          "implementations": true,
+          "references": true
+        }
       }
     }
   }
