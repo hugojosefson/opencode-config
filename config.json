@@ -34,6 +34,10 @@
         "gpt-oss:latest": {
           "name": "GPT OSS",
           "tools": true
+        },
+        "gpt-oss:latest-40k": {
+          "name": "GPT OSS 40k",
+          "tools": true
         }
       }
     }
