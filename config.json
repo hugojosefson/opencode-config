@@ -3,6 +3,41 @@
   "model": "github-copilot/claude-sonnet-4.5",
   "autoshare": false,
   "autoupdate": false,
+  "provider": {
+    "local-ollama": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Local Ollama Server",
+      "options": {
+        "baseURL": "http://ollama:11434/v1"
+      },
+      "models": {
+        "deepseek-r1:32b": {
+          "name": "DeepSeek R1 32B",
+	  "tools": true
+        },
+        "gemma3:27b": {
+          "name": "Gemma 3 27B",
+	  "tools": true
+        },
+        "qwen3:30b": {
+          "name": "Qwen 3 30B",
+	  "tools": true
+        },
+        "qwen3-vl:30b": {
+          "name": "Qwen 3 VL 30B",
+	  "tools": true
+        },
+        "qwen3-coder:latest": {
+          "name": "Qwen 3 Coder",
+	  "tools": true
+        },
+        "gpt-oss:latest": {
+          "name": "GPT OSS",
+	  "tools": true
+        }
+      }
+    }
+  },
   "lsp": {
     "typescript": {
       "disabled": true
