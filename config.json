@@ -13,27 +13,27 @@
       "models": {
         "deepseek-r1:32b": {
           "name": "DeepSeek R1 32B",
-	  "tools": true
+          "tools": true
         },
         "gemma3:27b": {
           "name": "Gemma 3 27B",
-	  "tools": true
+          "tools": true
         },
         "qwen3:30b": {
           "name": "Qwen 3 30B",
-	  "tools": true
+          "tools": true
         },
         "qwen3-vl:30b": {
           "name": "Qwen 3 VL 30B",
-	  "tools": true
+          "tools": true
         },
         "qwen3-coder:latest": {
           "name": "Qwen 3 Coder",
-	  "tools": true
+          "tools": true
         },
         "gpt-oss:latest": {
           "name": "GPT OSS",
-	  "tools": true
+          "tools": true
         }
       }
     }
