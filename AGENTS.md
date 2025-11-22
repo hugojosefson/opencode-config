@@ -211,6 +211,73 @@ git add . && git commit -m "feat: name of feature"
 **Remember**: OpenCode's automatic type checking is not Deno-aware. Always use
 Deno's own tools for accurate TypeScript validation in Deno projects.
 
+## Deno 2 modernization
+
+When the user requests "modernize this repo for deno 2" or similar, follow these
+steps to update legacy Deno projects to modern Deno 2 practices.
+
+### Migration steps
+
+1. **Convert deps.ts to modern imports**:
+   - Use `deno add` to add dependencies to import maps in `deno.json`
+   - Replace all imports from `deps.ts` with direct imports
+   - Delete `deps.ts` files after migration completes
+
+2. **Remove unnecessary re-exports**:
+   - Eliminate re-export files that only forward imports
+   - Remove renames of dependency imports/exports unless truly needed
+   - Use direct imports where the original import path works fine
+
+3. **Clean up import style**:
+   - Write imports as if creating the project today
+   - Use modern Deno 2 conventions throughout
+   - Remove outdated patterns from Deno 1.x era
+
+4. **Prioritize import sources**:
+   - Prefer JSR registry (`jsr:@scope/package`) for Deno-first packages
+   - Fall back to npm registry (`npm:package`) for Node.js packages
+   - Only use URL imports (`https://...`) when necessary
+   - Avoid URL imports from deno.land/x when JSR alternatives exist
+
+5. **Upgrade all dependencies**:
+   - Update to latest versions of all dependencies
+   - Check for breaking changes in major version updates
+   - Test after upgrading to ensure compatibility
+
+### Example transformation
+
+Before (legacy Deno 1.x):
+
+```typescript
+// deps.ts
+export { serve } from "https://deno.land/std@0.140.0/http/server.ts";
+export { assert as denoAssert } from "https://deno.land/std@0.140.0/testing/asserts.ts";
+
+// main.ts
+import { denoAssert, serve } from "./deps.ts";
+```
+
+After (modern Deno 2):
+
+```bash
+deno add @std/http @std/assert
+```
+
+```typescript
+// main.ts
+import { serve } from "@std/http/server";
+import { assert } from "@std/assert";
+```
+
+### Validation
+
+After modernization:
+
+- Run `deno task all` or equivalent quality checks
+- Ensure all tests pass with updated dependencies
+- Verify no broken imports or missing dependencies
+- Check that the project runs correctly with modern import style
+
 ## Repository management patterns
 
 Best practices for maintaining clean, production-ready repositories.
