@@ -1,6 +1,13 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "agent": "agent/delegator.md",
+  "agent": {
+    "build": {
+      "disable": true
+    },
+    "plan": {
+      "disable": true
+    }
+  },
   "model": "github-copilot/claude-sonnet-4.5",
   "autoshare": false,
   "autoupdate": false,
