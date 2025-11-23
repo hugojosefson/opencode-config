@@ -6,9 +6,9 @@ OpenCode-compatible models.
 
 ## Strategy overview
 
-**Provider diversification approach**: Each agent uses a different AI provider
-to ensure rate limit resilience and continuous operation through outages. All
-models are confirmed to work in OpenCode with full tool capability.
+**Two-agent coordination approach**: A specialized delegator agent handles task
+coordination while a general-purpose agent executes all operations. Both agents
+use GitHub Copilot's Claude Sonnet 4.5 for optimal performance.
 
 ## Agent configuration
 
@@ -31,16 +31,6 @@ models are confirmed to work in OpenCode with full tool capability.
 - **Tools**: Complete OpenCode capabilities
 - **Purpose**: Advanced reasoning for complex coding tasks
 - **OpenCode Status**: ✅ Confirmed working with excellent tool integration
-
-### Fallback agent (Backup)
-
-- **Model**: `github-copilot/gpt-4o`
-- **Provider**: OpenAI (via GitHub Copilot)
-- **Capability**: Proven reliability and excellent coding
-- **Role**: Backup executor for provider outages
-- **Tools**: Complete OpenCode capabilities
-- **Purpose**: Operational continuity during outages
-- **OpenCode Status**: ✅ Confirmed working with full tool support
 
 ## OpenCode-compatible model options
 
@@ -70,28 +60,25 @@ models are confirmed to work in OpenCode with full tool capability.
 - `github-copilot/o3-mini` - Compact reasoning
 - `github-copilot/gemini-2.0-flash-001` - Fast responses
 
-## Provider reliability benefits
+## Architecture benefits
 
-1. **Rate limit resilience**: Different providers = independent rate limits
-2. **Outage protection**: Provider downtime doesn't stop operations
-3. **Performance optimization**: Each agent uses optimal model for its role
-4. **OpenCode compatibility**: All models confirmed working in OpenCode
-   environment
-5. **Tool integration**: 100% tool capability across all working models
+1. **Simplified coordination**: Clear separation between delegation and
+   execution
+2. **Consistent performance**: Single high-quality model for both roles
+3. **Performance optimization**: Each agent specialized for its specific role
+4. **OpenCode compatibility**: Confirmed working model with full tool support
+5. **Tool integration**: 100% tool capability in execution agent
 
 ## Operation flow
 
-1. **User request** → Delegator agent (Claude 3.5 Sonnet)
+1. **User request** → Delegator agent (Claude Sonnet 4.5)
 2. **Task analysis** → Immediate delegation decision
 3. **Execution** → General agent (Claude Sonnet 4.5)
-4. **Fallback** → Fallback agent (GPT-4o if primary unavailable)
 
 ## Model selection rationale
 
-- **Claude 3.5 Sonnet**: Excellent balance of speed and capability for
-  delegation
-- **Claude Sonnet 4.5**: Latest technology with advanced reasoning capabilities
-- **GPT-4o**: Proven reliability and broad compatibility for fallback
+- **Claude Sonnet 4.5**: Latest technology with advanced reasoning capabilities,
+  used for both delegation and execution for consistent high performance
 
 ## Available OpenCode models
 
@@ -134,19 +121,18 @@ These models are listed in OpenCode but return "not supported" errors:
 
 ## Configuration files
 
-- `/agent/delegator.md` - Coordination-only agent (Claude 3.5 Sonnet)
+- `/agent/delegator.md` - Coordination-only agent (Claude Sonnet 4.5)
 - `/agent/general.md` - Primary executor (Claude Sonnet 4.5)
-- `/agent/fallback.md` - Backup executor (GPT-4o)
 - `/config.json` - Primary model set to delegator agent
 
 ## Operational advantages
 
-1. **Reliability**: All models confirmed working in OpenCode environment
-2. **Tool support**: 100% tool capability across all working models
-3. **Provider diversity**: Anthropic + OpenAI + Google coverage
-4. **Performance**: Fast response times (<2 seconds) across all models
-5. **Capability range**: From efficiency (mini models) to advanced reasoning
-6. **Error clarity**: Clear "not supported" messages for non-working models
+1. **Reliability**: Confirmed working model in OpenCode environment
+2. **Tool support**: 100% tool capability in execution agent
+3. **Consistent quality**: Same high-capability model for all tasks
+4. **Performance**: Fast response times with advanced reasoning
+5. **Clear architecture**: Simple two-agent coordination pattern
+6. **Specialization**: Each agent optimized for its specific role
 
-This strategy ensures maximum reliability, performance, and continuous operation
-for OpenCode agents using only confirmed-working models.
+This strategy ensures consistent high performance and clear operational
+architecture for OpenCode agents.

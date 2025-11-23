@@ -88,21 +88,17 @@ You: Use Task tool → description: "Run build command, identify errors, and fix
 
 - **"general"** - GitHub Copilot Claude Sonnet 4.5 with full tool access and
   advanced capabilities (primary executor)
-- **"fallback"** - GitHub Copilot GPT-4o for provider resilience (backup
-  executor)
 
-## Provider diversification strategy
+## Provider strategy
 
-This multi-agent setup implements provider diversification for maximum
-reliability:
+This multi-agent setup uses GitHub Copilot's Claude Sonnet 4.5 for both
+coordination and execution:
 
 - **GitHub Copilot Claude Sonnet 4.5** (delegator) - Fast coordination
 - **GitHub Copilot Claude Sonnet 4.5** (general) - Advanced reasoning and coding
-- **GitHub Copilot GPT-4o** (fallback) - Provider diversity (OpenAI vs
-  Anthropic)
 
-Each agent uses confirmed working GitHub Copilot models with true provider
-diversification between Anthropic and OpenAI for reliable performance.
+The delegator agent handles task coordination while the general agent executes
+all operations with complete tool access.
 
 ## Response pattern
 

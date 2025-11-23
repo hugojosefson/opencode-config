@@ -32,44 +32,36 @@ copying.
 
 #### Delegator Agent (`/agent/delegator.md`)
 
-- **Model**: `meta/llama-4-scout-17b-16e-instruct`
-- **Speed**: Ultra-fast (556ms)
+- **Model**: `github-copilot/claude-sonnet-4.5`
+- **Capability**: Fast coordination
 - **Role**: Task coordination only
-- **Provider**: Meta (100% reliability)
+- **Provider**: GitHub Copilot (Anthropic Claude)
 
 #### General Agent (`/agent/general.md`)
 
-- **Model**: `deepseek/deepseek-r1`
-- **Capability**: Elite coding + advanced reasoning
+- **Model**: `github-copilot/claude-sonnet-4.5`
+- **Capability**: Advanced reasoning + coding
 - **Role**: Primary task execution
-- **Provider**: DeepSeek (100% reliability)
-
-#### Fallback Agent (`/agent/fallback.md`)
-
-- **Model**: `mistral-ai/mistral-large-2411`
-- **Capability**: Excellent coding + flagship reliability
-- **Role**: Backup for outages
-- **Provider**: Mistral (100% reliability)
+- **Provider**: GitHub Copilot (Anthropic Claude)
 
 ### Configuration updates:
 
 - Updated `/config.json` to use delegator model as primary
 - Created `/MULTI-AGENT-STRATEGY.md` documentation
+- Updated agent configuration files
 
-### Provider diversification achieved:
+### Two-agent coordination achieved:
 
-- **Meta** (delegator) - Ultra-fast coordination
-- **DeepSeek** (general) - Advanced reasoning + coding
-- **Mistral** (fallback) - Flagship reliability
+- **Claude Sonnet 4.5** (delegator) - Fast coordination
+- **Claude Sonnet 4.5** (general) - Advanced reasoning + coding
 
 ## Benefits implemented:
 
-1. **Rate limit resilience** - Each agent uses different provider
-2. **Outage protection** - Triple provider redundancy
-3. **Performance optimization** - Models matched to roles
-4. **Continuous operation** - No single point of failure
-5. **Advanced capabilities** - DeepSeek R1 reasoning + Meta speed + Mistral
-   reliability
+1. **Clear architecture** - Simple two-agent coordination pattern
+2. **Consistent quality** - Same high-capability model for all tasks
+3. **Performance optimization** - Each agent specialized for its role
+4. **Tool integration** - 100% tool capability in execution agent
+5. **Advanced capabilities** - Claude Sonnet 4.5 reasoning and coding
 
-The multi-agent strategy is now fully operational with provider diversification
-ensuring maximum reliability and performance.
+The multi-agent strategy is now fully operational with clear coordination
+architecture ensuring consistent high performance.

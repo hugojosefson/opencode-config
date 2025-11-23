@@ -19,6 +19,12 @@ permissions:
   bash: allow
   read: allow
   write: allow
+  list: allow
+  glob: allow
+  grep: allow
+  webfetch: allow
+  todowrite: allow
+  todoread: allow
   doom_loop: deny
 ---
 
@@ -41,15 +47,13 @@ This subagent has complete tool access and handles all operations that the main
 delegator agent cannot perform directly. Uses GitHub Copilot's Claude Sonnet 4.5
 for the most capable reasoning and complex coding task execution.
 
-## Provider diversification role
+## Multi-agent architecture
 
-Part of the multi-provider resilience strategy:
+Part of the two-agent coordination strategy:
 
-- **GitHub Copilot Claude 3.5 Sonnet** (delegator) - Fast coordination
+- **GitHub Copilot Claude Sonnet 4.5** (delegator) - Fast coordination
 - **GitHub Copilot Claude Sonnet 4.5** (general) - Most capable reasoning and
   coding
-- **GitHub Copilot GPT-4o** (fallback) - Provider diversity (OpenAI vs
-  Anthropic)
 
 ## Available tools
 

@@ -1092,12 +1092,10 @@ verbose pleasantries or inflated language.
 
 ## Multi-agent strategy
 
-This workspace uses a multi-agent strategy with provider diversification:
+This workspace uses a two-agent coordination strategy:
 
 - **Delegator agent**: Coordination and task delegation only
 - **General agent**: Primary executor with full tool access
-- **Fallback agent**: Provider diversity for operational resilience
-- **Vision agent**: Specialized visual analysis for charts and images
 
 All agents must follow these guidelines for consistent, secure, and effective
 operation.
