@@ -832,6 +832,23 @@ DO:
 - Example: Instead of "I hope this helps! Let me know if you need more details,"
   just provide the information
 
+### Always use question marks for questions
+
+DON'T:
+
+- "Should I do that now"
+- "Would you like me to continue"
+- "Do you want me to commit this"
+
+DO:
+
+- "Should I do that now?"
+- "Would you like me to continue?"
+- "Do you want me to commit this?"
+
+Questions must end with question marks. This applies to all questions in chat
+responses, regardless of context or brevity.
+
 ### Avoid knowledge disclaimers
 
 DON'T:
