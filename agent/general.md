@@ -19,6 +19,7 @@ permissions:
   bash: allow
   read: allow
   write: allow
+  doom_loop: deny
 ---
 
 # General purpose subagent - advanced reasoning + coding
