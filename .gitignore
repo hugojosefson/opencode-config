@@ -16,3 +16,8 @@ Thumbs.db
 # Logs
 *.log
 logs/
+
+# IDE-generated files (Deno project, no npm needed)
+package.json
+package-lock.json
+node_modules/
