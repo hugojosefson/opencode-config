@@ -14,7 +14,7 @@ tools:
   todowrite: true
   todoread: true
   task: false
-permissions:
+permission:
   edit: allow
   bash: allow
   read: allow
@@ -25,6 +25,7 @@ permissions:
   webfetch: allow
   todowrite: allow
   todoread: allow
+  external_directory: allow
   doom_loop: deny
 ---
 
