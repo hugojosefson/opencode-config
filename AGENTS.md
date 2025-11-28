@@ -96,6 +96,38 @@ Required security practices:
 - **Never pass tokens as process arguments**
 - **Use environment variables only for runtime, never persistent storage**
 
+## Secret management
+
+**NEVER VIEW, DECRYPT, OR ACCESS SECRETS IN PASSWORD STORES:**
+
+- ⚠️ **NEVER run git log/diff/show on `~/.password-store` or similar secret storage**
+- ⚠️ **NEVER decrypt GPG files in password stores**
+- ⚠️ **NEVER test decryption tools on actual password files**
+- ⚠️ **NEVER view any content from secret storage locations**
+- ⚠️ **NEVER include examples that show decrypted secret content**
+
+**ALWAYS use dummy/test files for testing:**
+
+```bash
+# CORRECT: Use test files for encryption/decryption testing
+echo "test content" > test-file.txt
+gpg --encrypt test-file.txt
+gpg --decrypt test-file.txt.gpg
+
+# WRONG: Never use actual password store files
+gpg --decrypt ~/.password-store/github/token.gpg  # NEVER DO THIS
+pass show github/token                             # NEVER DO THIS
+git log ~/.password-store/                         # NEVER DO THIS
+```
+
+Required security practices:
+
+- **Use dummy/test files only for testing secret-related tools**
+- **Never use actual password store files for any testing or verification**
+- **Verify configuration without viewing actual decrypted content**
+- **Never access `~/.password-store`, `~/.gnupg/private-keys-v1.d/`, or similar locations**
+- **Treat all secret storage locations as off-limits**
+
 ## Surgical path bypass
 
 The bash tool in opencode restricts commands (`cp`, `mv`, `rm`, `mkdir`,
@@ -672,13 +704,44 @@ DON'T:
 - "highlights its significance"
 - "watershed moment"
 - "deeply rooted heritage"
+- "comprehensive" (and similar superlatives like "complete", "thorough", "exhaustive")
 
 DO:
 
 - Use specific, factual descriptions
 - State what something actually does, not its symbolic importance
+- Use concrete, measured language instead of superlatives
 - Example: Instead of "serves as a cornerstone of modern development," write
   "provides authentication and user management"
+- Example: Instead of "comprehensive guide," write "guide covering setup, configuration, and troubleshooting"
+
+### Avoid completion and readiness claims
+
+DON'T:
+
+- "This is complete"
+- "The implementation is finished"
+- "This is ready for production"
+- "This is production-ready"
+- "The feature is fully implemented"
+- "All requirements have been met"
+- "The system is now complete"
+
+DO:
+
+- State what exists objectively
+- Describe what was done or changed
+- Let the user determine readiness and completeness
+- Example: Instead of "The authentication system is complete," write "The authentication system includes login, logout, and session management"
+- Example: Instead of "This is production-ready," write "This includes error handling, input validation, and logging"
+- Example: Instead of "All features are finished," write "Implemented user registration, password reset, and email verification"
+
+Why this matters:
+
+- Users determine when something is ready for their needs
+- "Complete" is subjective and depends on requirements
+- Factual descriptions are more useful than quality judgments
+- Avoids overpromising or misrepresenting the state of work
 
 ### Eliminate promotional tone
 
