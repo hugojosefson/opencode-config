@@ -83,9 +83,10 @@ See model-test-state.json for current OpenCode compatibility data.
 
 ## Configuration files
 
-- `/agent/delegator.md` - Coordination-only agent (Claude Sonnet 4.5)
-- `/agent/general.md` - Primary executor (Claude Sonnet 4.5)
-- `/config.json` - Primary model set to delegator agent
+- [agent/delegator.md](agent/delegator.md) - Coordination-only agent (Claude
+  Sonnet 4.5)
+- [agent/general.md](agent/general.md) - Primary executor (Claude Sonnet 4.5)
+- [config.json](config.json) - Primary model set to delegator agent
 
 ## Operational advantages
 

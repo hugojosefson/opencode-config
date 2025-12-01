@@ -16,7 +16,7 @@ storing actual secrets.
 | ---------------------------- | ------------------------------------------------- | -------------- |
 | [config.json](config.json)   | OpenCode configuration with variable placeholders | Safe to commit |
 | [.env.example](.env.example) | Environment variable template                     | Safe to commit |
-| `.env`                       | Actual environment variables                      | NEVER COMMIT   |
+| [.env](.env)                 | Actual environment variables                      | NEVER COMMIT   |
 
 ## Setup instructions
 
@@ -110,7 +110,7 @@ If you encounter errors about missing variables:
 
 1. Validate JSON syntax in [config.json](config.json)
 2. Check file permissions for configuration files
-3. Verify variable expansion using `envsubst < config.json`
+3. Verify variable expansion using `envsubst < [config.json](config.json)`
 
 ## Security incident response
 

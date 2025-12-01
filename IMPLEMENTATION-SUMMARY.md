@@ -4,13 +4,13 @@ Multi-agent coordination using GitHub Copilot Claude Sonnet 4.5.
 
 ## Agent configuration
 
-**Delegator agent** (`agent/delegator.md`)
+**Delegator agent** ([agent/delegator.md](agent/delegator.md))
 
 - Model: github-copilot/claude-sonnet-4.5
 - Role: Task coordination only
 - Tools: TODO management, task delegation
 
-**General agent** (`agent/general.md`)
+**General agent** ([agent/general.md](agent/general.md))
 
 - Model: github-copilot/claude-sonnet-4.5
 - Role: Primary execution
@@ -18,10 +18,10 @@ Multi-agent coordination using GitHub Copilot Claude Sonnet 4.5.
 
 ## Configuration files
 
-- `config.json` - Primary model set to delegator
-- `MULTI-AGENT-STRATEGY.md` - Strategy documentation
-- `agent/delegator.md` - Coordination agent config
-- `agent/general.md` - Execution agent config
+- [config.json](config.json) - Primary model set to delegator
+- [MULTI-AGENT-STRATEGY.md](MULTI-AGENT-STRATEGY.md) - Strategy documentation
+- [agent/delegator.md](agent/delegator.md) - Coordination agent config
+- [agent/general.md](agent/general.md) - Execution agent config
 
 ## Architecture benefits
 
