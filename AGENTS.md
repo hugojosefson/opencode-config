@@ -1170,6 +1170,26 @@ Legal text has specific wording requirements and changing even punctuation,
 capitalization, or formatting can have legal consequences. When in doubt about
 whether content is legal text, do not modify it.
 
+### Use links for paths and filenames in markdown
+
+Create actual markdown links for files and paths instead of backtick-quoting
+them.
+
+DON'T:
+
+- "Delegator agent defined in `agent/delegator.md`"
+- "See configuration in `config.json`"
+- "Edit the `src/cli.ts` file"
+
+DO:
+
+- "Delegator agent defined in [agent/delegator.md](agent/delegator.md)"
+- "See configuration in [config.json](config.json)"
+- "Edit the [src/cli.ts](src/cli.ts) file"
+
+Exception: Use backticks for example paths or when demonstrating command-line
+arguments where a link would be inappropriate.
+
 ### Core principle
 
 Write like a knowledgeable human who gets straight to the point. Provide
