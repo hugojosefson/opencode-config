@@ -100,7 +100,8 @@ Required security practices:
 
 **NEVER VIEW, DECRYPT, OR ACCESS SECRETS IN PASSWORD STORES:**
 
-- ⚠️ **NEVER run git log/diff/show on `~/.password-store` or similar secret storage**
+- ⚠️ **NEVER run git log/diff/show on `~/.password-store` or similar secret
+  storage**
 - ⚠️ **NEVER decrypt GPG files in password stores**
 - ⚠️ **NEVER test decryption tools on actual password files**
 - ⚠️ **NEVER view any content from secret storage locations**
@@ -125,7 +126,8 @@ Required security practices:
 - **Use dummy/test files only for testing secret-related tools**
 - **Never use actual password store files for any testing or verification**
 - **Verify configuration without viewing actual decrypted content**
-- **Never access `~/.password-store`, `~/.gnupg/private-keys-v1.d/`, or similar locations**
+- **Never access `~/.password-store`, `~/.gnupg/private-keys-v1.d/`, or similar
+  locations**
 - **Treat all secret storage locations as off-limits**
 
 ## Surgical path bypass
@@ -704,7 +706,8 @@ DON'T:
 - "highlights its significance"
 - "watershed moment"
 - "deeply rooted heritage"
-- "comprehensive" (and similar superlatives like "complete", "thorough", "exhaustive")
+- "comprehensive" (and similar superlatives like "complete", "thorough",
+  "exhaustive")
 
 DO:
 
@@ -713,7 +716,8 @@ DO:
 - Use concrete, measured language instead of superlatives
 - Example: Instead of "serves as a cornerstone of modern development," write
   "provides authentication and user management"
-- Example: Instead of "comprehensive guide," write "guide covering setup, configuration, and troubleshooting"
+- Example: Instead of "comprehensive guide," write "guide covering setup,
+  configuration, and troubleshooting"
 
 ### Avoid completion and readiness claims
 
@@ -732,9 +736,12 @@ DO:
 - State what exists objectively
 - Describe what was done or changed
 - Let the user determine readiness and completeness
-- Example: Instead of "The authentication system is complete," write "The authentication system includes login, logout, and session management"
-- Example: Instead of "This is production-ready," write "This includes error handling, input validation, and logging"
-- Example: Instead of "All features are finished," write "Implemented user registration, password reset, and email verification"
+- Example: Instead of "The authentication system is complete," write "The
+  authentication system includes login, logout, and session management"
+- Example: Instead of "This is production-ready," write "This includes error
+  handling, input validation, and logging"
+- Example: Instead of "All features are finished," write "Implemented user
+  registration, password reset, and email verification"
 
 Why this matters:
 
