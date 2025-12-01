@@ -39,16 +39,11 @@ export OLLAMA_LOCAL_BASE_URL="http://localhost:11434/v1"
 
 ### Variable configuration
 
-Environment variables supported by [config.json](config.json):
+No environment variables required for current configuration. Config uses GitHub
+Copilot models via OpenCode's built-in authentication.
 
-| Variable                | Required | Default                     | Purpose                      |
-| ----------------------- | -------- | --------------------------- | ---------------------------- |
-| `OLLAMA_VAST_BASE_URL`  | Yes      | -                           | External Ollama instance URL |
-| `OLLAMA_VAST_API_KEY`   | Yes      | -                           | API key for authentication   |
-| `OLLAMA_LOCAL_BASE_URL` | No       | `http://localhost:11434/v1` | Local Ollama instance URL    |
-
-Additional providers may require different variables - check the configuration
-file for `${VARIABLE_NAME}` patterns.
+If using custom providers, check [config.json](config.json) for
+`${VARIABLE_NAME}` patterns.
 
 ## Security practices
 
@@ -85,21 +80,19 @@ file for `${VARIABLE_NAME}` patterns.
 
 ## Environment examples
 
-### Development
+### GitHub Copilot (current setup)
 
 ```bash
-# Local development with external testing
-export OLLAMA_LOCAL_BASE_URL="http://localhost:11434/v1"
-export OLLAMA_VAST_BASE_URL="https://dev-instance.trycloudflare.com/v1"
-export OLLAMA_VAST_API_KEY="dev-api-key"
+# No environment variables needed
+# Uses gh CLI authentication: gh auth login
 ```
 
-### Production
+### Custom providers (example)
 
 ```bash
-# Production deployment
-export OLLAMA_VAST_BASE_URL="https://prod-instance.your-domain.com/v1"
-export OLLAMA_VAST_API_KEY="prod-api-key"
+# If adding custom Ollama or other providers
+export CUSTOM_BASE_URL="https://your-instance.com/v1"
+export CUSTOM_API_KEY="your-api-key"
 ```
 
 ## Troubleshooting

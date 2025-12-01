@@ -2,10 +2,10 @@
 // 2>/dev/null;DENO_VERSION_RANGE="^2.5.2";DENO_RUN_ARGS="--allow-net --allow-run=gh --allow-read=.";set -e;V="$DENO_VERSION_RANGE";A="$DENO_RUN_ARGS";h(){ [ -x "$(command -v "$1" 2>&1)" ];};n(){ [ "$(id -u)" != 0 ];};g(){ if n && ! h;then return;fi;u="$(n&&echo sudo||:)";if h brew;then echo "brew install $1";elif h apt;then echo "($u apt update && $u DEBIAN_FRONTEND=noninteractive apt install -y $1)";elif h yum;then echo "$u yum install -y $1";elif h pacman;then echo "$u pacman -yS --noconfirm $1";elif h opkg-install;then echo "$u opkg-install $1";fi;};p(){ q="$(g "$1")";if [ -z "$q" ];then echo "Please install '$1' manually, then try again.">&2;exit 1;fi;eval "o=\"\$(set +o)\";set -x;$q;set +x;eval \"\$o\"">&2;};f(){ h "$1"||p "$1";};w(){ [ -n "$1" ] && "$1" -V >/dev/null 2>&1;};U="$(l=$(printf "%s" "$V"|wc -c);for i in $(seq 1 $l);do c=$(printf "%s" "$V"|cut -c $i);printf '%%%02X' "'$c";done)";D="$(w "$(command -v deno||:)"||:)";t(){ i="$(if h findmnt;then findmnt -Ononoexec,noro -ttmpfs -nboAVAIL,TARGET|sort -rn|while IFS=$'\n\t ' read -r a m;do [ "$a" -ge 150000000 ]&&[ -d "$m" ]&&printf %s "$m"&&break||:;done;fi)";printf %s "${i:-"${TMPDIR:-/tmp}"}";};s(){ deno eval "import{satisfies as e}from'https://deno.land/x/semver@v1.4.1/mod.ts';Deno.exit(e(Deno.version.deno,'$V')?0:1);">/dev/null 2>&1;};e(){ R="$(t)/deno-range-$V/bin";mkdir -p "$R";export PATH="$R:$PATH";s&&return;f curl;v="$(curl -sSfL "https://semver-version.deno.dev/api/github/denoland/deno/$U")";i="$(t)/deno-$v";ln -sf "$i/bin/deno" "$R/deno";s && return;f unzip;([ "${A#*-q}" != "$A" ]&&exec 2>/dev/null;curl -fsSL https://deno.land/install.sh|DENO_INSTALL="$i" sh -s $DENO_INSTALL_ARGS "$v"|grep -iv discord>&2);};e;exec deno run $A "$0" "$@"
 
 /**
- * GitHub Models API CLI tool
+ * GitHub Models API CLI
  *
- * Fetches GitHub Copilot/Models API model IDs for use in config.json files.
- * Authenticates using gh CLI token and provides multiple output formats.
+ * Fetches model IDs from GitHub Models API for OpenCode config.json.
+ * Uses gh CLI authentication.
  */
 
 interface GitHubModel {
@@ -44,7 +44,7 @@ interface CliOptions {
   showOpenCodeStatus: boolean;
 }
 
-/** Parse command line arguments */
+/** Parse CLI arguments */
 function parseArgs(args: string[]): CliOptions {
   const options: CliOptions = {
     idsOnly: false,
@@ -94,7 +94,7 @@ function parseArgs(args: string[]): CliOptions {
   return options;
 }
 
-/** Show usage help */
+/** Show help */
 function showHelp(): void {
   console.log(`GitHub Models API CLI Tool
 
@@ -138,7 +138,7 @@ OPENCODE COMPATIBILITY:
 `);
 }
 
-/** Get GitHub auth token from gh CLI */
+/** Get auth token via gh CLI */
 async function getGhToken(): Promise<string> {
   try {
     const cmd = new Deno.Command("gh", {
@@ -181,7 +181,7 @@ async function getGhToken(): Promise<string> {
   }
 }
 
-/** Fetch models from GitHub Models catalog API */
+/** Fetch from catalog API */
 async function fetchCatalogModels(token: string): Promise<GitHubModel[]> {
   try {
     const response = await fetch("https://models.github.ai/catalog/models", {
@@ -229,7 +229,7 @@ async function fetchCatalogModels(token: string): Promise<GitHubModel[]> {
   }
 }
 
-/** Fetch models from GitHub Copilot API */
+/** Fetch from Copilot API */
 async function fetchCopilotModels(token: string): Promise<GitHubModel[]> {
   const copilotEndpoints = [
     "https://api.githubcopilot.com/models",
@@ -286,7 +286,7 @@ async function fetchCopilotModels(token: string): Promise<GitHubModel[]> {
   return [];
 }
 
-/** Fetch all models from both catalog and Copilot APIs */
+/** Fetch from catalog and Copilot APIs */
 async function fetchAllModels(token: string): Promise<GitHubModel[]> {
   console.error("Fetching models from GitHub Models catalog...");
   const catalogModels = await fetchCatalogModels(token);
@@ -316,7 +316,7 @@ async function fetchAllModels(token: string): Promise<GitHubModel[]> {
   return allModels;
 }
 
-/** Filter models to only OpenCode-compatible ones */
+/** Filter OpenCode-compatible models */
 function filterOpenCodeOnly(models: GitHubModel[]): GitHubModel[] {
   return models.filter((model) => model.openCodeCompatible === true);
 }
@@ -332,7 +332,7 @@ function filterByPublisher(
   );
 }
 
-/** Load OpenCode compatibility data from model-test-state.json */
+/** Load compatibility data */
 async function loadOpenCodeCompatibility(): Promise<
   OpenCodeModelTestState | null
 > {
@@ -356,7 +356,7 @@ async function loadOpenCodeCompatibility(): Promise<
   }
 }
 
-/** Enhance models with OpenCode compatibility information */
+/** Add compatibility data to models */
 function enhanceWithOpenCodeData(
   models: GitHubModel[],
   openCodeData: OpenCodeModelTestState | null,
@@ -404,7 +404,7 @@ function debugRequest(
   console.error("--- END REQUEST ---\n");
 }
 
-/** Debug response details */
+/** Debug response */
 async function debugResponse(response: Response): Promise<void> {
   const headers: Record<string, string> = {};
   response.headers.forEach((value, key) => {
@@ -470,7 +470,7 @@ function validateResponseContent(responseData: unknown): boolean {
   }
 }
 
-/** Test if a model is accessible via inference API with rigorous validation */
+/** Test model accessibility */
 async function testModelAccess(
   model: GitHubModel,
   token: string,
@@ -663,7 +663,7 @@ async function testModelAccess(
   }
 }
 
-/** Filter models to only those accessible by the user */
+/** Filter accessible models */
 async function filterAccessibleModels(
   models: GitHubModel[],
   token: string,
@@ -721,7 +721,7 @@ async function filterAccessibleModels(
   return accessibleModels;
 }
 
-/** Format and output models based on options */
+/** Output models */
 function outputModels(models: GitHubModel[], options: CliOptions): void {
   if (options.idsOnly) {
     // Output model IDs in OpenCode config format
@@ -766,7 +766,7 @@ function outputModels(models: GitHubModel[], options: CliOptions): void {
   }
 }
 
-/** Main function */
+/** Main */
 async function main(): Promise<void> {
   const args = Deno.args;
   const options = parseArgs(args);

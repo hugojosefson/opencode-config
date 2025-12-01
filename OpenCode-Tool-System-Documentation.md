@@ -1,12 +1,10 @@
-# OpenCode tool system architecture
+# OpenCode tool system
 
-Technical reference for OpenCode's tool system: built-in tools, custom
-development, plugins, and execution lifecycles.
+Technical reference for OpenCode's tool system.
 
 ## Overview
 
-OpenCode combines built-in tools, file-based custom tools, and plugins into a
-unified system.
+OpenCode combines built-in tools, file-based custom tools, and plugins.
 
 ## Tool loading
 

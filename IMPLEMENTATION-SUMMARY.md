@@ -1,67 +1,32 @@
-# Implementation Summary
+# Implementation summary
 
-Both requested tasks have been successfully completed:
+Multi-agent coordination using GitHub Copilot Claude Sonnet 4.5.
 
-## 1. SVG Chart Update Prompts ✅
+## Agent configuration
 
-### Hidden comprehensive prompt (SVG comment)
+**Delegator agent** (`agent/delegator.md`)
 
-Added detailed instructions for future chart updates including:
+- Model: github-copilot/claude-sonnet-4.5
+- Role: Task coordination only
+- Tools: TODO management, task delegation
 
-- Data sources (OpenCode-Agent-Techniques.md, testing results)
-- Update process (data collection, positioning calculations)
-- Data mapping (circle sizes, position calculations, provider classification)
-- Chart elements to update (data points, legend, speed zones, insights)
-- Validation requirements (confirmed tool use, actual speed data, CSS
-  consistency)
+**General agent** (`agent/general.md`)
 
-### Visible copy-paste prompt
+- Model: github-copilot/claude-sonnet-4.5
+- Role: Primary execution
+- Tools: Full OpenCode capabilities
 
-Added user-friendly prompt box in the chart containing:
+## Configuration files
 
-```
-"Update the GitHub Models speed vs coding capability chart with latest model performance data from testing results"
-```
+- `config.json` - Primary model set to delegator
+- `MULTI-AGENT-STRATEGY.md` - Strategy documentation
+- `agent/delegator.md` - Coordination agent config
+- `agent/general.md` - Execution agent config
 
-Located in a styled box at coordinates (1020, 500) for easy visibility and
-copying.
+## Architecture benefits
 
-## 2. Multi-Agent Strategy Implementation ✅
-
-### Agent configurations created/updated:
-
-#### Delegator Agent (`/agent/delegator.md`)
-
-- **Model**: `github-copilot/claude-sonnet-4.5`
-- **Capability**: Fast coordination
-- **Role**: Task coordination only
-- **Provider**: GitHub Copilot (Anthropic Claude)
-
-#### General Agent (`/agent/general.md`)
-
-- **Model**: `github-copilot/claude-sonnet-4.5`
-- **Capability**: Advanced reasoning + coding
-- **Role**: Primary task execution
-- **Provider**: GitHub Copilot (Anthropic Claude)
-
-### Configuration updates:
-
-- Updated `/config.json` to use delegator model as primary
-- Created `/MULTI-AGENT-STRATEGY.md` documentation
-- Updated agent configuration files
-
-### Two-agent coordination achieved:
-
-- **Claude Sonnet 4.5** (delegator) - Fast coordination
-- **Claude Sonnet 4.5** (general) - Advanced reasoning + coding
-
-## Benefits implemented:
-
-1. **Clear architecture** - Simple two-agent coordination pattern
-2. **Consistent quality** - Same high-capability model for all tasks
-3. **Performance optimization** - Each agent specialized for its role
-4. **Tool integration** - 100% tool capability in execution agent
-5. **Advanced capabilities** - Claude Sonnet 4.5 reasoning and coding
-
-The multi-agent strategy is now fully operational with clear coordination
-architecture ensuring consistent high performance.
+1. Clear separation - coordination vs execution
+2. Consistent quality - same model for both roles
+3. Token efficiency - delegator uses fewer tokens
+4. Full tool access - general agent has all capabilities
+5. Specialization - each agent optimized for its role

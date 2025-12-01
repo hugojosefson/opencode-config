@@ -1,14 +1,9 @@
 /**
- * Git Rebase Autosquash Tool for OpenCode
+ * Git rebase autosquash tool
  *
- * 🚨 CRITICAL WARNING FOR AI AGENTS 🚨
- *
- * NEVER run this file directly with Bun/Deno/Node.js - only use through OpenCode tool-calls!
- * NEVER attempt interactive commands - agents cannot interact with text editors!
- * This tool runs NON-INTERACTIVE operations only using GIT_SEQUENCE_EDITOR=true.
- *
- * RUNTIME ENVIRONMENT: This tool runs under Bun when invoked by OpenCode.
- * Uses Bun-compatible APIs for subprocess execution and file operations.
+ * WARNING: Only use through OpenCode tool calls. Never run directly.
+ * Non-interactive only - uses GIT_SEQUENCE_EDITOR=true.
+ * Runs under Bun when invoked by OpenCode.
  */
 
 // Type declarations for Bun runtime APIs that may not be fully recognized by TypeScript
@@ -239,10 +234,7 @@ Error: ${errorMessage}
   },
 };
 
-/**
- * Clean up any failing rebase in progress before attempting autosquash
- * This prevents autosquash from failing due to existing rebase state
- */
+/** Clean up failing rebase before autosquash */
 async function cleanupFailingRebase() {
   try {
     // Check if there's a rebase in progress

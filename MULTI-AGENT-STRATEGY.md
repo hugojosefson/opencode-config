@@ -1,14 +1,11 @@
-# Multi-agent strategy implementation
+# Multi-agent strategy
 
-This document outlines the implemented multi-agent strategy for OpenCode with
-provider diversification and specialized role assignments based on confirmed
-OpenCode-compatible models.
+Two-agent coordination for OpenCode using GitHub Copilot's Claude Sonnet 4.5.
 
-## Strategy overview
+## Strategy
 
-**Two-agent coordination approach**: A specialized delegator agent handles task
-coordination while a general-purpose agent executes all operations. Both agents
-use GitHub Copilot's Claude Sonnet 4.5 for optimal performance.
+Delegator agent handles task coordination. General agent executes operations.
+Both use Claude Sonnet 4.5.
 
 ## Agent configuration
 
@@ -32,33 +29,33 @@ use GitHub Copilot's Claude Sonnet 4.5 for optimal performance.
 - **Purpose**: Advanced reasoning for complex coding tasks
 - **OpenCode Status**: ✅ Confirmed working with excellent tool integration
 
-## OpenCode-compatible model options
+## OpenCode-compatible models
 
-### Recommended for different roles
+Tested models confirmed working with OpenCode (from model-test-state.json):
 
-**For Delegation/Coordination:**
+**Claude models:**
 
-- `github-copilot/claude-sonnet-4.5` - Proven reliability
-- `github-copilot/gemini-2.0-flash-001` - Speed focused
-- `github-copilot/gpt-4o` - Good compatibility
+- claude-3.5-sonnet
+- claude-3.7-sonnet
+- claude-3.7-sonnet-thought
+- claude-sonnet-4
+- claude-sonnet-4.5
 
-**For Advanced Development:**
+**GPT models:**
 
-- `github-copilot/claude-sonnet-4.5` - Shows detailed tool usage
-- `github-copilot/claude-sonnet-4.5` - High performance
-- `github-copilot/gpt-5` - Latest capabilities
+- gpt-4o
+- gpt-4.1
+- gpt-5
+- gpt-5-mini
 
-**For Reasoning Tasks:**
+**Gemini models:**
 
-- `github-copilot/claude-3.7-sonnet-thought` - Reasoning focused
-- `github-copilot/o3-mini` - Specialized reasoning
-- `github-copilot/gpt-5` - Advanced reasoning
+- gemini-2.0-flash-001
+- gemini-2.5-pro
 
-**For Resource Efficiency:**
+**Reasoning models:**
 
-- `github-copilot/gpt-5-mini` - Efficient option
-- `github-copilot/o3-mini` - Compact reasoning
-- `github-copilot/gemini-2.0-flash-001` - Fast responses
+- o3-mini
 
 ## Architecture benefits
 
@@ -80,44 +77,9 @@ use GitHub Copilot's Claude Sonnet 4.5 for optimal performance.
 - **Claude Sonnet 4.5**: Latest technology with advanced reasoning capabilities,
   used for both delegation and execution for consistent high performance
 
-## Available OpenCode models
+## Model compatibility
 
-### Working models (12 confirmed)
-
-**Claude Models (5):**
-
-- `github-copilot/claude-3.5-sonnet`
-- `github-copilot/claude-3.7-sonnet`
-- `github-copilot/claude-3.7-sonnet-thought`
-- `github-copilot/claude-sonnet-4`
-- `github-copilot/claude-sonnet-4.5`
-
-**GPT Models (4):**
-
-- `github-copilot/gpt-4o`
-- `github-copilot/gpt-4.1`
-- `github-copilot/gpt-5`
-- `github-copilot/gpt-5-mini`
-
-**Gemini Models (2):**
-
-- `github-copilot/gemini-2.0-flash-001`
-- `github-copilot/gemini-2.5-pro`
-
-**Reasoning Models (1):**
-
-- `github-copilot/o3-mini`
-
-### Non-working models (6 confirmed unsupported)
-
-These models are listed in OpenCode but return "not supported" errors:
-
-- `github-copilot/claude-opus-4`
-- `github-copilot/claude-opus-41`
-- `github-copilot/gpt-5-codex`
-- `github-copilot/grok-code-fast-1`
-- `github-copilot/o3`
-- `github-copilot/o4-mini`
+See model-test-state.json for current OpenCode compatibility data.
 
 ## Configuration files
 
