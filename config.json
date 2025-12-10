@@ -8,7 +8,7 @@
       "disable": true
     }
   },
-  "model": "github-copilot/claude-sonnet-4.5",
+  "model": "github-copilot/claude-opus-4.5",
   "autoshare": false,
   "autoupdate": false,
   "provider": {
