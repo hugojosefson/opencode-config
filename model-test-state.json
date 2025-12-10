@@ -155,6 +155,32 @@
       "openCodeNotes": "Fast, reliable. High-performance variant.",
       "provider": "Anthropic"
     },
+    "github-copilot/claude-opus-4.5": {
+      "modelId": "github-copilot/claude-opus-4.5",
+      "backoffLevel": 0,
+      "priority": 1,
+      "lastTestTime": 1733875200000,
+      "responseTime": 9500,
+      "testResult": "success",
+      "openCodeCompatible": true,
+      "openCodeModel": "github-copilot/claude-opus-4.5",
+      "openCodeToolCapability": true,
+      "openCodeNotes": "Most capable Claude model. Tested Dec 10, 2025.",
+      "provider": "Anthropic"
+    },
+    "github-copilot/claude-haiku-4.5": {
+      "modelId": "github-copilot/claude-haiku-4.5",
+      "backoffLevel": 0,
+      "priority": 1,
+      "lastTestTime": 1733875200000,
+      "responseTime": 3500,
+      "testResult": "success",
+      "openCodeCompatible": true,
+      "openCodeModel": "github-copilot/claude-haiku-4.5",
+      "openCodeToolCapability": true,
+      "openCodeNotes": "Fast, efficient Claude model. Tested Dec 10, 2025.",
+      "provider": "Anthropic"
+    },
     "github-copilot/gemini-2.0-flash-001": {
       "modelId": "github-copilot/gemini-2.0-flash-001",
       "backoffLevel": 0,
@@ -626,9 +652,9 @@
   "lastApiCall": 1759366224805,
   "globalBackoffUntil": 1759446539805,
   "openCodeTestingComplete": true,
-  "openCodeTestDate": "2025-10-14",
-  "openCodeWorkingModels": 11,
-  "openCodeTotalTested": 12,
-  "openCodeSuccessRate": 0.92,
-  "openCodeNotes": "OpenCode testing completed on 2025-10-14. 11 models confirmed working with full tool capability support. 1 model (claude-3.7-sonnet-thought) has partial support with API errors."
+  "openCodeTestDate": "2025-12-10",
+  "openCodeWorkingModels": 13,
+  "openCodeTotalTested": 14,
+  "openCodeSuccessRate": 0.93,
+  "openCodeNotes": "OpenCode testing updated on 2025-12-10. 13 models confirmed working with full tool capability support. Added claude-opus-4.5 and claude-haiku-4.5."
 }
