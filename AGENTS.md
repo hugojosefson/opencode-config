@@ -1206,3 +1206,18 @@ This workspace uses a two-agent coordination strategy:
 
 All agents must follow these guidelines for consistent, secure, and effective
 operation.
+
+### Task concurrency limits
+
+When launching multiple subagent tasks simultaneously:
+
+- **Effective concurrency limit**: ~3-4 simultaneous tasks
+- **Parallelism speedup**: ~2.7x vs sequential execution
+- **Behavior**: Tasks beyond the limit queue and start as slots free up
+
+Practical guidance:
+
+- Batch independent operations (searches, file reads, simple commands) to
+  leverage parallelism
+- 8 tasks with 3s sleep each completed in ~9s wall time (vs 24s sequential)
+- Good balance between speed and resource management
