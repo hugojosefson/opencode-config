@@ -53,15 +53,15 @@
       }
     }
   },
+  "experimental": {
+    "disable_subagent_input": true
+  },
   "lsp": {
     "typescript": {
       "disabled": true
     },
     "deno": {
-      "command": [
-        "deno",
-        "lsp"
-      ],
+      "command": ["deno", "lsp"],
       "extensions": [
         ".ts",
         ".tsx",
