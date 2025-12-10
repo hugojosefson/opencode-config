@@ -50,11 +50,11 @@ for the most capable reasoning and complex coding task execution.
 
 ## Multi-agent architecture
 
-Part of the two-agent coordination strategy:
+Part of the three-agent coordination strategy:
 
-- **GitHub Copilot Claude Opus 4.5** (delegator) - Fast coordination
-- **GitHub Copilot Claude Opus 4.5** (general) - Most capable reasoning and
-  coding
+- **Delegator** - Fast coordination and task routing
+- **General** - Primary executor for complex coding tasks
+- **Quick** - Lightweight agent for simple tasks
 
 ## Available tools
 
