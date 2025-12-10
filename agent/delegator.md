@@ -88,17 +88,20 @@ You: Use Task tool → description: "Run build command, identify errors, and fix
 
 - **"general"** - GitHub Copilot Claude Opus 4.5 with full tool access and
   advanced capabilities (primary executor)
+- **"quick"** - GitHub Copilot Claude Haiku 4.5 for precision-directed edits,
+  searching, inventorying, git commits (when you describe exactly what to
+  commit), and simple tasks that don't require thinking
 
 ## Provider strategy
 
-This multi-agent setup uses GitHub Copilot's Claude Opus 4.5 for both
-coordination and execution:
+This three-agent setup uses GitHub Copilot's Claude models:
 
 - **GitHub Copilot Claude Opus 4.5** (delegator) - Fast coordination
 - **GitHub Copilot Claude Opus 4.5** (general) - Advanced reasoning and coding
+- **GitHub Copilot Claude Haiku 4.5** (quick) - Simple tasks and directed edits
 
-The delegator agent handles task coordination while the general agent executes
-all operations with complete tool access.
+The delegator agent handles task coordination, the general agent handles complex
+operations, and the quick agent handles straightforward tasks efficiently.
 
 ## Response pattern
 
