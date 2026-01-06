@@ -135,7 +135,8 @@ async function testToolSupport(
           messages: [
             {
               role: "user",
-              content: "List the files in the current directory using the bash tool.",
+              content:
+                "List the files in the current directory using the bash tool.",
             },
           ],
           tools: [
@@ -319,9 +320,8 @@ async function updateTestState(results: TestResult[]): Promise<void> {
   }>;
   const workingCount = allModels.filter((m) => m.openCodeCompatible === true)
     .length;
-  const totalTested = allModels.filter((m) =>
-    m.openCodeCompatible !== undefined
-  ).length;
+  const totalTested =
+    allModels.filter((m) => m.openCodeCompatible !== undefined).length;
 
   testState.openCodeWorkingModels = workingCount;
   testState.openCodeTotalTested = totalTested;
@@ -370,8 +370,7 @@ function generateReport(results: TestResult[]): string {
     // Basic response
     report += `**Basic response:**\n`;
     if (result.basicResponse.success) {
-      report +=
-        `- ✅ Success (${result.basicResponse.responseTime}ms)\n`;
+      report += `- ✅ Success (${result.basicResponse.responseTime}ms)\n`;
       report += `- Response: "${result.basicResponse.content}"\n`;
     } else {
       report += `- ❌ Failed: ${result.basicResponse.error}\n`;
@@ -381,8 +380,7 @@ function generateReport(results: TestResult[]): string {
     // Tool support
     report += `**Tool support:**\n`;
     if (result.toolSupport.success && result.toolSupport.toolCalled) {
-      report +=
-        `- ✅ Success (${result.toolSupport.responseTime}ms)\n`;
+      report += `- ✅ Success (${result.toolSupport.responseTime}ms)\n`;
       report += `- Tool called: ${result.toolSupport.toolName}\n`;
     } else if (result.toolSupport.success && !result.toolSupport.toolCalled) {
       report += `- ⚠️  Partial: ${result.toolSupport.error}\n`;
