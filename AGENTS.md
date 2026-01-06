@@ -490,6 +490,25 @@ Benefits:
 - Works without pre-installed Deno
 - Self-contained executable TypeScript scripts
 
+## Bash variable quoting
+
+Use full `"${variable}"` syntax for all variable references in bash scripts:
+
+```bash
+# Correct
+echo "${name}"
+"${STOW_DIR}/${pkg}"
+if [[ "${#packages[@]}" -eq 0 ]]; then
+
+# Avoid
+echo "$name"
+"$STOW_DIR/$pkg"
+if [[ $# -eq 0 ]]; then
+```
+
+This provides consistency and avoids edge cases with special characters or empty
+values.
+
 ## Workspace cleanup guidelines
 
 Safe and comprehensive instructions for cleaning up temporary files and
