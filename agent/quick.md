@@ -22,6 +22,10 @@ permission:
   list: allow
   glob: allow
   grep: allow
+  webfetch: allow
+  todowrite: allow
+  todoread: allow
+  external_directory: allow
   doom_loop: deny
 ---
 
@@ -76,6 +80,7 @@ Part of the coordination strategy:
 - Edit - File editing
 - Write - File creation
 - List - Directory listing
+- Webfetch - Web requests
 
 ## Operation patterns
 
