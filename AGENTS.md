@@ -1009,28 +1009,64 @@ DO:
 - "Project structure and research management"
 - "Security-first documentation approach"
 
-### Use tables only for genuine key-value data
+### Convert structured lists to tables
 
-Tables should be used ONLY for actual key-value pairs or multi-column structured
-data. Do not use tables for content that belongs in lists or other formats.
+When a bullet list has ANY consistent structure that implies columns, convert it
+to a table. Tables are easier to scan and align information visually.
 
-Use tables ONLY when you have:
+#### When to use tables
 
-- Genuine key-value pairs (like configuration settings, specifications,
-  properties)
-- File/path → description mappings (project structure, "What's here" sections)
-- Multi-column data that requires alignment across rows
-- Structured data where relationships between columns matter
+Convert to a table when list items have:
 
-DON'T use tables for:
+| Pattern                       | Example                                  |
+| :---------------------------- | :--------------------------------------- |
+| Colon separating term/value   | `Port: 8080`                             |
+| Dash separating name/desc     | `conceal - hides markdown syntax`        |
+| Parenthetical additional info | `src/ (main application code)`           |
+| Key-value structure           | `Timeout = 30 seconds`                   |
+| File/path with description    | `config.json - Application settings`     |
+| Any two-part pattern          | If you can identify two columns, use one |
 
-- Simple numbered lists (use 1., 2., 3.)
-- Simple bullet lists (use -, *, +)
-- Steps in a process (use numbered lists)
-- Lists of features or benefits (use bullet lists)
-- Content that could theoretically be tabulated but isn't truly key-value data
+**If unsure, use a table.**
 
-DO use tables for key-value pairs:
+#### When to use lists
+
+Use simple bullet or numbered lists ONLY when items are truly atomic with no
+internal structure:
+
+- Sequential steps in a process (numbered list)
+- Single-word or short-phrase items with no descriptions
+- Items that genuinely don't pair with anything
+
+#### Examples
+
+Convert this structured list:
+
+```markdown
+- `conceal` - hides markdown syntax visually
+- `streaming` - handles incremental content
+- `filetype` - specifies parser to use
+```
+
+To this table:
+
+```markdown
+| Option      | Description                    |
+| :---------- | :----------------------------- |
+| `conceal`   | hides markdown syntax visually |
+| `streaming` | handles incremental content    |
+| `filetype`  | specifies parser to use        |
+```
+
+Convert this structured list:
+
+```markdown
+- Port: 8080
+- Timeout: 30 seconds
+- Max connections: 100
+```
+
+To this table:
 
 ```markdown
 | Setting         | Value      |
@@ -1038,42 +1074,23 @@ DO use tables for key-value pairs:
 | Port            | 8080       |
 | Timeout         | 30 seconds |
 | Max connections | 100        |
-| SSL enabled     | true       |
 ```
 
-DO use tables for file/path mappings:
+Keep this as a list (no structure):
 
 ```markdown
-| File/Directory | Description                  |
-| :------------- | :--------------------------- |
-| src/           | Main application source code |
-| test/          | Unit and integration tests   |
-| docs/          | Documentation and guides     |
-| config.json    | Application configuration    |
-| README.md      | Project overview and setup   |
+1. Install dependencies
+2. Run the build script
+3. Deploy to production
 ```
 
-DON'T use tables for simple feature lists:
+Keep this as a list (atomic items):
 
 ```markdown
-<!-- Wrong: This should be a bullet list -->
-
-| Feature          | Description              |
-| :--------------- | :----------------------- |
-| Fast performance | Optimized algorithms     |
-| Easy setup       | One-command installation |
-| Cross-platform   | Works on any OS          |
-
-<!-- Correct: Use a bullet list -->
-
-- Fast performance with optimized algorithms
-- Easy setup with one-command installation
-- Cross-platform compatibility
+- React
+- TypeScript
+- Tailwind CSS
 ```
-
-Tables are for structured data formatting, not general content organization.
-File/directory listings with descriptions are legitimate key-value data that
-should use tables.
 
 ### Use proper headings instead of bold pseudo-headings
 
