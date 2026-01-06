@@ -4,64 +4,42 @@
     "build": {
       "disable": true
     },
-    "plan": {
-      "disable": true
-    },
     "explore": {
       "disable": true
+    },
+    "plan": {
+      "disable": true
     }
   },
-  "model": "github-copilot/claude-opus-4.5",
   "autoshare": false,
   "autoupdate": false,
-  "provider": {
-    "local-ollama": {
-      "npm": "@ai-sdk/openai-compatible",
-      "name": "Local Ollama Server",
-      "options": {
-        "baseURL": "http://ollama:11434/v1"
-      },
-      "models": {
-        "deepseek-r1:32b": {
-          "name": "DeepSeek R1 32B",
-          "tools": true
-        },
-        "gemma3:27b": {
-          "name": "Gemma 3 27B",
-          "tools": true
-        },
-        "qwen3:30b": {
-          "name": "Qwen 3 30B",
-          "tools": true
-        },
-        "qwen3-vl:30b": {
-          "name": "Qwen 3 VL 30B",
-          "tools": true
-        },
-        "qwen3-coder:latest": {
-          "name": "Qwen 3 Coder",
-          "tools": true
-        },
-        "gpt-oss:latest": {
-          "name": "GPT OSS",
-          "tools": true
-        },
-        "gpt-oss:latest-40k": {
-          "name": "GPT OSS 40k",
-          "tools": true
+  "experimental": {
+    "disable_subagent_input": true,
+    "hook": {
+      "pre_compact": [
+        {
+          "command": [
+            "bd",
+            "prime"
+          ]
         }
-      }
+      ],
+      "session_start": [
+        {
+          "command": [
+            "bd",
+            "prime"
+          ]
+        }
+      ]
     }
   },
-  "experimental": {
-    "disable_subagent_input": true
-  },
   "lsp": {
-    "typescript": {
-      "disabled": true
-    },
     "deno": {
-      "command": ["deno", "lsp"],
+      "command": [
+        "deno",
+        "lsp"
+      ],
       "extensions": [
         ".ts",
         ".tsx",
@@ -90,12 +68,55 @@
         ".njk"
       ],
       "initialization": {
-        "enable": true,
-        "lint": true,
         "codeLens": {
           "implementations": true,
           "references": true
+        },
+        "enable": true,
+        "lint": true
+      }
+    },
+    "typescript": {
+      "disabled": true
+    }
+  },
+  "model": "github-copilot/claude-opus-4.5",
+  "provider": {
+    "local-ollama": {
+      "models": {
+        "deepseek-r1:32b": {
+          "name": "DeepSeek R1 32B",
+          "tools": true
+        },
+        "gemma3:27b": {
+          "name": "Gemma 3 27B",
+          "tools": true
+        },
+        "gpt-oss:latest": {
+          "name": "GPT OSS",
+          "tools": true
+        },
+        "gpt-oss:latest-40k": {
+          "name": "GPT OSS 40k",
+          "tools": true
+        },
+        "qwen3-coder:latest": {
+          "name": "Qwen 3 Coder",
+          "tools": true
+        },
+        "qwen3-vl:30b": {
+          "name": "Qwen 3 VL 30B",
+          "tools": true
+        },
+        "qwen3:30b": {
+          "name": "Qwen 3 30B",
+          "tools": true
         }
+      },
+      "name": "Local Ollama Server",
+      "npm": "@ai-sdk/openai-compatible",
+      "options": {
+        "baseURL": "http://ollama:11434/v1"
       }
     }
   }
