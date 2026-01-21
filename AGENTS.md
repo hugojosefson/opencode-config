@@ -14,6 +14,55 @@ Essential information about the OpenCode environment and resources:
 - **Website**: https://opencode.ai
 - **GitHub Repository**: https://github.com/sst/opencode
 
+## Tool calling in OpenCode environment
+
+This section describes how to properly use tools available in the OpenCode
+environment.
+
+### Available tools
+
+The OpenCode environment provides the following tools for agent operations:
+
+1. **Task tool** - For delegating operations to subagents (general or quick)
+2. **Todo tools** - For task tracking and progress management
+3. **Read/Write tools** - For file operations and content management
+4. **Glob tool** - For searching and finding files by pattern
+
+### Proper tool call format
+
+When making tool calls, follow these patterns:
+
+- Use the **Task tool** with `description`, `prompt`, and `subagent_type`
+  parameters
+- Specify `subagent_type="general"` for complex operations and
+  `subagent_type="quick"` for simple tasks
+- Use **TodoWrite** to track working tasks and progress
+- Use **Read tool** when examining specific files
+
+### Key patterns from documentation
+
+Follow these patterns when using tools:
+
+- Always specify `subagent_type` when using the Task tool
+- Follow the "Mandatory pre-commit workflows" for validation
+- Use `deno task all` or equivalent for quality checks
+- For file operations, prefer command substitution for external paths (e.g.,
+  `cp "$(echo ~/.gitconfig)" ./local-copy`)
+- Follow the multi-agent strategy with delegator and general agents
+
+### Example usage patterns
+
+The following examples demonstrate appropriate tool usage for different
+scenarios:
+
+- **Simple file reading**: Use Read tool directly
+- **Complex multi-step task**: Use Task tool with general agent
+- **Simple operation**: Use Task tool with quick agent
+- **Tracking progress**: Use TodoWrite to track working tasks
+
+This ensures that all operations follow the established conventions and maintain
+consistency with the OpenCode environment's requirements.
+
 ### Preferred tools
 
 - **Search**: Use `rg` (ripgrep) instead of `grep` for faster, better search

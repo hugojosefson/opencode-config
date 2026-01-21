@@ -14,25 +14,7 @@
   "autoshare": false,
   "autoupdate": false,
   "experimental": {
-    "disable_subagent_input": true,
-    "hook": {
-      "pre_compact": [
-        {
-          "command": [
-            "bd",
-            "prime"
-          ]
-        }
-      ],
-      "session_start": [
-        {
-          "command": [
-            "bd",
-            "prime"
-          ]
-        }
-      ]
-    }
+    "disable_subagent_input": true
   },
   "lsp": {
     "deno": {
@@ -80,7 +62,7 @@
       "disabled": true
     }
   },
-  "model": "github-copilot/claude-opus-4.5",
+  "model": "local-ollama/qwen3-coder",
   "provider": {
     "local-ollama": {
       "models": {
@@ -100,7 +82,7 @@
           "name": "GPT OSS 40k",
           "tools": true
         },
-        "qwen3-coder:latest": {
+        "qwen3-coder": {
           "name": "Qwen 3 Coder",
           "tools": true
         },
@@ -116,7 +98,7 @@
       "name": "Local Ollama Server",
       "npm": "@ai-sdk/openai-compatible",
       "options": {
-        "baseURL": "http://ollama:11434/v1"
+        "baseURL": "http://ollama.hugojosefson.net:11434/v1"
       }
     }
   }

@@ -1,7 +1,7 @@
 ---
 description: Fast subagent for simple, well-defined tasks - no problem-solving, reports issues back to delegator
 mode: subagent
-model: github-copilot/claude-haiku-4.5
+model: local-ollama/qwen3-coder
 tools:
   bash: true
   edit: true
@@ -31,13 +31,11 @@ permission:
 
 # Quick subagent - fast execution
 
-Fast subagent using Claude Haiku 4.5 for simple, well-defined tasks that don't
-require thinking or problem-solving.
+Fast subagent for simple, well-defined tasks that don't require thinking or
+problem-solving.
 
 ## Model assignment
 
-- **Model**: `github-copilot/claude-haiku-4.5`
-- **Provider**: GitHub Copilot (Anthropic Claude)
 - **Speed**: Fastest available
 - **Purpose**: Simple tasks with clear instructions
 - **Tools**: Basic file and search operations
