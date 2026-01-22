@@ -14,25 +14,7 @@
   "autoshare": false,
   "autoupdate": false,
   "experimental": {
-    "disable_subagent_input": true,
-    "hook": {
-      "pre_compact": [
-        {
-          "command": [
-            "bd",
-            "prime"
-          ]
-        }
-      ],
-      "session_start": [
-        {
-          "command": [
-            "bd",
-            "prime"
-          ]
-        }
-      ]
-    }
+    "disable_subagent_input": true
   },
   "lsp": {
     "deno": {
