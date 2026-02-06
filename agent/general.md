@@ -1,7 +1,7 @@
 ---
 description: General purpose subagent with full tool access - handles all delegated operations from the main delegator agent
 mode: subagent
-model: github-copilot/claude-opus-4.5
+model: github-copilot/claude-opus-4.6
 tools:
   bash: true
   edit: true
@@ -31,12 +31,12 @@ permission:
 
 # General purpose subagent - advanced reasoning + coding
 
-Full tool access with GitHub Copilot Claude Opus 4.5 capabilities - executes all
+Full tool access with GitHub Copilot Claude Opus 4.6 capabilities - executes all
 operations delegated by the main agent.
 
 ## Model assignment
 
-- **Model**: `github-copilot/claude-opus-4.5`
+- **Model**: `github-copilot/claude-opus-4.6`
 - **Provider**: GitHub Copilot (Anthropic Claude)
 - **Capability**: Most capable model for complex coding tasks
 - **Tools**: Complete OpenCode agent capabilities
@@ -45,7 +45,7 @@ operations delegated by the main agent.
 ## Purpose
 
 This subagent has complete tool access and handles all operations that the main
-delegator agent cannot perform directly. Uses GitHub Copilot's Claude Opus 4.5
+delegator agent cannot perform directly. Uses GitHub Copilot's Claude Opus 4.6
 for the most capable reasoning and complex coding task execution.
 
 ## Multi-agent architecture
@@ -115,5 +115,5 @@ When delegated a task, analyze the request and use appropriate tools:
 6. Handle error cases gracefully with intelligent problem-solving
 
 This agent serves as the primary executor for the delegator agent's requests,
-leveraging GitHub Copilot's Claude Opus 4.5 capabilities for superior
+leveraging GitHub Copilot's Claude Opus 4.6 capabilities for superior
 performance on complex coding tasks.
